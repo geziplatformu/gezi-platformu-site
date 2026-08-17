@@ -90,8 +90,13 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
 
 const compactNumber=new Intl.NumberFormat('tr-TR',{notation:'compact',maximumFractionDigits:1});
 
+function instagramImageUrl(url){
+  return url?`/api/instagram-image?url=${encodeURIComponent(url)}`:'';
+}
+
 function instagramPost(media){
-  const image=media.thumbnail_url||media.media_url;
+  const sourceImage=media.thumbnail_url||media.media_url;
+  const image=instagramImageUrl(sourceImage);
   if(!image||!media.permalink)return '';
   const type=media.media_type==='VIDEO'?'▶':media.media_type==='CAROUSEL_ALBUM'?'▣':'';
   return `<a class="instagram-post" href="${media.permalink}" target="_blank" rel="noopener" aria-label="Instagram gönderisini görüntüle">
@@ -105,7 +110,7 @@ async function loadInstagram(){
     const response=await fetch('/api/instagram',{cache:'no-store'});
     const data=await response.json();
     if(!response.ok)throw new Error(data.error||'Instagram verileri alınamadı');
-    instagramAvatar.src=data.profile_picture_url||'assets/gezi-platformu-logo.webp';
+    instagramAvatar.src=instagramImageUrl(data.profile_picture_url)||'assets/gezi-platformu-logo.webp';
     instagramUsername.textContent=data.username||'geziplatformuu';
     instagramName.textContent=data.name||'GEZİ PLATFORMU';
     instagramBio.textContent=data.biography||'Mersin • Adana • Niğde kalkışlı turlar';
@@ -114,7 +119,7 @@ async function loadInstagram(){
     instagramFollowingCount.textContent=data.follows_count==null?'—':compactNumber.format(data.follows_count);
     const posts=(data.media||[]).slice(0,9).map(instagramPost).filter(Boolean);
     if(posts.length)instagramFeed.innerHTML=posts.join('');
-    instagramStatus.textContent=`Canlı profil • Son güncelleme ${new Date().toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'})}`;
+    instagramStatus.textContent=`Canlı Instagram • Otomatik güncelleniyor • ${new Date().toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'})}`;
     instagramStatus.className='instagram-status ready';
   }catch(error){
     showInstagramFallback();
