@@ -52,7 +52,7 @@ function tourCard(t){
 
 function renderTours(filter='all'){
   const tours=filter==='all'?window.TOURS:window.TOURS.filter(t=>t.type===filter);
-  grid.innerHTML=tours.length?tours.map(tourCard).join(''):`<p class="empty-state">Bu kategoride yayınlanmış güncel tur bulunmuyor. Yeni turlar eklendiğinde burada görünecek.</p>`;
+  grid.innerHTML=tours.map(tourCard).join('');
   document.querySelectorAll('[data-tour]').forEach(button=>button.addEventListener('click',()=>openTour(button.dataset.tour)));
 }
 
