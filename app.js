@@ -19,6 +19,7 @@ const instagramFollowerCount=document.getElementById('instagramFollowerCount');
 const instagramFollowingCount=document.getElementById('instagramFollowingCount');
 const instagramFeed=document.getElementById('instagramFeed');
 const instagramStatus=document.getElementById('instagramStatus');
+const phoneTime=document.getElementById('phoneTime');
 
 document.getElementById('year').textContent=new Date().getFullYear();
 
@@ -88,15 +89,15 @@ function closeModal(){
 document.querySelectorAll('[data-close-modal]').forEach(el=>el.addEventListener('click',closeModal));
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
 
-const compactNumber=new Intl.NumberFormat('tr-TR',{notation:'compact',maximumFractionDigits:1});
+const exactNumber=new Intl.NumberFormat('tr-TR');
+const followerNumber=new Intl.NumberFormat('tr-TR',{notation:'compact',maximumFractionDigits:0});
 
-function instagramImageUrl(url){
-  return url?`/api/instagram-image?url=${encodeURIComponent(url)}`:'';
+function updatePhoneTime(){
+  phoneTime.textContent=new Date().toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'});
 }
 
 function instagramPost(media){
-  const sourceImage=media.thumbnail_url||media.media_url;
-  const image=instagramImageUrl(sourceImage);
+  const image=media.thumbnail_url||media.media_url;
   if(!image||!media.permalink)return '';
   const type=media.media_type==='VIDEO'?'▶':media.media_type==='CAROUSEL_ALBUM'?'▣':'';
   return `<a class="instagram-post" href="${media.permalink}" target="_blank" rel="noopener" aria-label="Instagram gönderisini görüntüle">
@@ -110,16 +111,17 @@ async function loadInstagram(){
     const response=await fetch('/api/instagram',{cache:'no-store'});
     const data=await response.json();
     if(!response.ok)throw new Error(data.error||'Instagram verileri alınamadı');
-    instagramAvatar.src=instagramImageUrl(data.profile_picture_url)||'assets/gezi-platformu-logo.webp';
+    instagramAvatar.src=data.profile_picture_url||'assets/gezi-platformu-logo.webp';
     instagramUsername.textContent=data.username||'geziplatformuu';
     instagramName.textContent=data.name||'GEZİ PLATFORMU';
     instagramBio.textContent=data.biography||'Mersin • Adana • Niğde kalkışlı turlar';
-    instagramPostCount.textContent=compactNumber.format(data.media_count||0);
-    instagramFollowerCount.textContent=compactNumber.format(data.followers_count||0);
-    instagramFollowingCount.textContent=data.follows_count==null?'—':compactNumber.format(data.follows_count);
+    instagramPostCount.textContent=exactNumber.format(data.media_count||0);
+    instagramFollowerCount.textContent=followerNumber.format(data.followers_count||0);
+    instagramFollowerCount.title=exactNumber.format(data.followers_count||0);
+    instagramFollowingCount.textContent=data.follows_count==null?'—':exactNumber.format(data.follows_count);
     const posts=(data.media||[]).slice(0,9).map(instagramPost).filter(Boolean);
     if(posts.length)instagramFeed.innerHTML=posts.join('');
-    instagramStatus.textContent=`Canlı Instagram • Otomatik güncelleniyor • ${new Date().toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'})}`;
+    instagramStatus.textContent=`Canlı profil • Son güncelleme ${new Date().toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'})}`;
     instagramStatus.className='instagram-status ready';
   }catch(error){
     showInstagramFallback();
@@ -131,7 +133,7 @@ function showInstagramFallback(){
   instagramUsername.textContent='geziplatformuu';
   instagramName.textContent='GEZİ PLATFORMU';
   instagramBio.textContent='🌎 Mersin-Adana-Niğde Kalkışlı\n☀ Kültür, Tatil, Doğa ve Kış Turları\n〽 TÜRSAB A-8660';
-  instagramPostCount.textContent='4,7 B';
+  instagramPostCount.textContent='4.715';
   instagramFollowerCount.textContent='124 B';
   instagramFollowingCount.textContent='17';
   instagramFeed.innerHTML=window.TOURS.slice(0,9).map(tour=>`<a class="instagram-post" href="https://www.instagram.com/geziplatformuu/" target="_blank" rel="noopener"><img src="${tour.image}" alt="${tour.title} tur görseli" loading="lazy"></a>`).join('');
@@ -140,5 +142,7 @@ function showInstagramFallback(){
 }
 
 renderTours();
+updatePhoneTime();
 loadInstagram();
+setInterval(updatePhoneTime,60000);
 setInterval(loadInstagram,300000);
