@@ -10,6 +10,15 @@ const modalRoute=document.getElementById('modalRoute');
 const modalIncluded=document.getElementById('modalIncluded');
 const modalWhatsapp=document.getElementById('modalWhatsapp');
 const filterButtons=[...document.querySelectorAll('[data-filter]')];
+const instagramAvatar=document.getElementById('instagramAvatar');
+const instagramUsername=document.getElementById('instagramUsername');
+const instagramName=document.getElementById('instagramName');
+const instagramBio=document.getElementById('instagramBio');
+const instagramPostCount=document.getElementById('instagramPostCount');
+const instagramFollowerCount=document.getElementById('instagramFollowerCount');
+const instagramFollowingCount=document.getElementById('instagramFollowingCount');
+const instagramFeed=document.getElementById('instagramFeed');
+const instagramStatus=document.getElementById('instagramStatus');
 
 document.getElementById('year').textContent=new Date().getFullYear();
 
@@ -79,4 +88,52 @@ function closeModal(){
 document.querySelectorAll('[data-close-modal]').forEach(el=>el.addEventListener('click',closeModal));
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
 
+const compactNumber=new Intl.NumberFormat('tr-TR',{notation:'compact',maximumFractionDigits:1});
+
+function instagramPost(media){
+  const image=media.thumbnail_url||media.media_url;
+  if(!image||!media.permalink)return '';
+  const type=media.media_type==='VIDEO'?'▶':media.media_type==='CAROUSEL_ALBUM'?'▣':'';
+  return `<a class="instagram-post" href="${media.permalink}" target="_blank" rel="noopener" aria-label="Instagram gönderisini görüntüle">
+    <img src="${image}" alt="${media.caption?'Gezi Platformu Instagram paylaşımı':'Instagram paylaşımı'}" loading="lazy" onerror="this.closest('.instagram-post').classList.add('image-error')">
+    ${type?`<span class="instagram-post-type">${type}</span>`:''}
+  </a>`;
+}
+
+async function loadInstagram(){
+  try{
+    const response=await fetch('/api/instagram',{cache:'no-store'});
+    const data=await response.json();
+    if(!response.ok)throw new Error(data.error||'Instagram verileri alınamadı');
+    instagramAvatar.src=data.profile_picture_url||'assets/gezi-platformu-logo.webp';
+    instagramUsername.textContent=data.username||'geziplatformuu';
+    instagramName.textContent=data.name||'GEZİ PLATFORMU';
+    instagramBio.textContent=data.biography||'Mersin • Adana • Niğde kalkışlı turlar';
+    instagramPostCount.textContent=compactNumber.format(data.media_count||0);
+    instagramFollowerCount.textContent=compactNumber.format(data.followers_count||0);
+    instagramFollowingCount.textContent=data.follows_count==null?'—':compactNumber.format(data.follows_count);
+    const posts=(data.media||[]).slice(0,9).map(instagramPost).filter(Boolean);
+    if(posts.length)instagramFeed.innerHTML=posts.join('');
+    instagramStatus.textContent=`Canlı profil • Son güncelleme ${new Date().toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'})}`;
+    instagramStatus.className='instagram-status ready';
+  }catch(error){
+    showInstagramFallback();
+  }
+}
+
+function showInstagramFallback(){
+  instagramAvatar.src='assets/gezi-platformu-logo.webp';
+  instagramUsername.textContent='geziplatformuu';
+  instagramName.textContent='GEZİ PLATFORMU';
+  instagramBio.textContent='🌎 Mersin-Adana-Niğde Kalkışlı\n☀ Kültür, Tatil, Doğa ve Kış Turları\n〽 TÜRSAB A-8660';
+  instagramPostCount.textContent='4,7 B';
+  instagramFollowerCount.textContent='124 B';
+  instagramFollowingCount.textContent='17';
+  instagramFeed.innerHTML=window.TOURS.slice(0,9).map(tour=>`<a class="instagram-post" href="https://www.instagram.com/geziplatformuu/" target="_blank" rel="noopener"><img src="${tour.image}" alt="${tour.title} tur görseli" loading="lazy"></a>`).join('');
+  instagramStatus.textContent='Instagram yenilenirken güncel tur görselleri gösteriliyor';
+  instagramStatus.className='instagram-status fallback';
+}
+
 renderTours();
+loadInstagram();
+setInterval(loadInstagram,300000);
