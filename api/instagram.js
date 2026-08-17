@@ -1,5 +1,8 @@
 const GRAPH_API_VERSION=process.env.META_GRAPH_API_VERSION||'v23.0';
 const INSTAGRAM_USERNAME='geziplatformuu';
+const {execFile}=require('node:child_process');
+const {promisify}=require('node:util');
+const execFileAsync=promisify(execFile);
 const PUBLIC_PROFILE_URLS=[
   `https://i.instagram.com/api/v1/users/web_profile_info/?username=${INSTAGRAM_USERNAME}`,
   `https://www.instagram.com/api/v1/users/web_profile_info/?username=${INSTAGRAM_USERNAME}`
@@ -69,6 +72,19 @@ async function fetchOfficialProfile(){
 async function fetchPublicProfile(){
   let lastError=null;
   for(const endpoint of PUBLIC_PROFILE_URLS){
+    try{
+      const {stdout}=await execFileAsync('curl',[
+        '--silent','--show-error','--location','--max-time','8',
+        '--header','X-IG-App-ID: 936619743392459',
+        '--header','User-Agent: Instagram 219.0.0.12.117 Android',
+        endpoint
+      ],{maxBuffer:2*1024*1024});
+      const data=JSON.parse(stdout);
+      if(!data?.data?.user)throw new Error('Public profile data missing');
+      return normalizePublic(data.data.user);
+    }catch(error){
+      lastError=error;
+    }
     try{
       const result=await fetch(endpoint,{
         headers:{
