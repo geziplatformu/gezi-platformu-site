@@ -10,16 +10,7 @@ const modalRoute=document.getElementById('modalRoute');
 const modalIncluded=document.getElementById('modalIncluded');
 const modalWhatsapp=document.getElementById('modalWhatsapp');
 const filterButtons=[...document.querySelectorAll('[data-filter]')];
-const instagramAvatar=document.getElementById('instagramAvatar');
-const instagramUsername=document.getElementById('instagramUsername');
-const instagramName=document.getElementById('instagramName');
-const instagramBio=document.getElementById('instagramBio');
-const instagramPostCount=document.getElementById('instagramPostCount');
-const instagramFollowerCount=document.getElementById('instagramFollowerCount');
-const instagramFollowingCount=document.getElementById('instagramFollowingCount');
-const instagramFeed=document.getElementById('instagramFeed');
-const instagramStatus=document.getElementById('instagramStatus');
-const phoneTime=document.getElementById('phoneTime');
+const instagramPhone=document.getElementById('instagramPhone');
 
 document.getElementById('year').textContent=new Date().getFullYear();
 
@@ -52,6 +43,10 @@ function tourCard(t){
 
 function renderTours(filter='all'){
   const tours=filter==='all'?window.TOURS:window.TOURS.filter(t=>t.type===filter);
+  if(!tours.length){
+    grid.innerHTML='';
+    return;
+  }
   grid.innerHTML=tours.map(tourCard).join('');
   document.querySelectorAll('[data-tour]').forEach(button=>button.addEventListener('click',()=>openTour(button.dataset.tour)));
 }
@@ -89,60 +84,31 @@ function closeModal(){
 document.querySelectorAll('[data-close-modal]').forEach(el=>el.addEventListener('click',closeModal));
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
 
-const exactNumber=new Intl.NumberFormat('tr-TR');
-const followerNumber=new Intl.NumberFormat('tr-TR',{notation:'compact',maximumFractionDigits:0});
+function renderInstagramProfile(){
+  if(!instagramPhone)return;
+  instagramPhone.classList.add('official-instagram-embed');
+  instagramPhone.innerHTML=`
+    <div class="instagram-embed-shell">
+      <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/geziplatformuu/?utm_source=ig_embed&utm_campaign=loading" data-instgrm-version="14" style="background:#fff;border:0;margin:0 auto;max-width:540px;min-width:100%;padding:0;width:100%;"></blockquote>
+    </div>`;
 
-function updatePhoneTime(){
-  phoneTime.textContent=new Date().toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'});
-}
+  const processEmbed=()=>{
+    if(window.instgrm?.Embeds?.process)window.instgrm.Embeds.process();
+  };
 
-function instagramPost(media){
-  const image=media.thumbnail_url||media.media_url;
-  if(!image||!media.permalink)return '';
-  const type=media.media_type==='VIDEO'?'▶':media.media_type==='CAROUSEL_ALBUM'?'▣':'';
-  return `<a class="instagram-post" href="${media.permalink}" target="_blank" rel="noopener" aria-label="Instagram gönderisini görüntüle">
-    <img src="${image}" alt="${media.caption?'Gezi Platformu Instagram paylaşımı':'Instagram paylaşımı'}" loading="lazy" onerror="this.closest('.instagram-post').classList.add('image-error')">
-    ${type?`<span class="instagram-post-type">${type}</span>`:''}
-  </a>`;
-}
-
-async function loadInstagram(){
-  try{
-    const response=await fetch('/api/instagram',{cache:'no-store'});
-    const data=await response.json();
-    if(!response.ok)throw new Error(data.error||'Instagram verileri alınamadı');
-    instagramAvatar.src=data.profile_picture_url||'assets/gezi-platformu-logo.webp';
-    instagramUsername.textContent=data.username||'geziplatformuu';
-    instagramName.textContent=data.name||'GEZİ PLATFORMU';
-    instagramBio.textContent=data.biography||'Mersin • Adana • Niğde kalkışlı turlar';
-    instagramPostCount.textContent=exactNumber.format(data.media_count||0);
-    instagramFollowerCount.textContent=followerNumber.format(data.followers_count||0);
-    instagramFollowerCount.title=exactNumber.format(data.followers_count||0);
-    instagramFollowingCount.textContent=data.follows_count==null?'—':exactNumber.format(data.follows_count);
-    const posts=(data.media||[]).slice(0,9).map(instagramPost).filter(Boolean);
-    if(posts.length)instagramFeed.innerHTML=posts.join('');
-    instagramStatus.textContent=`Canlı profil • Son güncelleme ${new Date().toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'})}`;
-    instagramStatus.className='instagram-status ready';
-  }catch(error){
-    showInstagramFallback();
+  const existing=document.querySelector('script[data-instagram-embed]');
+  if(existing){
+    processEmbed();
+    return;
   }
-}
 
-function showInstagramFallback(){
-  instagramAvatar.src='assets/gezi-platformu-logo.webp';
-  instagramUsername.textContent='geziplatformuu';
-  instagramName.textContent='GEZİ PLATFORMU';
-  instagramBio.textContent='🌎 Mersin-Adana-Niğde Kalkışlı\n☀ Kültür, Tatil, Doğa ve Kış Turları\n〽 TÜRSAB A-8660';
-  instagramPostCount.textContent='4.715';
-  instagramFollowerCount.textContent='124 B';
-  instagramFollowingCount.textContent='17';
-  instagramFeed.innerHTML=window.TOURS.slice(0,9).map(tour=>`<a class="instagram-post" href="https://www.instagram.com/geziplatformuu/" target="_blank" rel="noopener"><img src="${tour.image}" alt="${tour.title} tur görseli" loading="lazy"></a>`).join('');
-  instagramStatus.textContent='Instagram yenilenirken güncel tur görselleri gösteriliyor';
-  instagramStatus.className='instagram-status fallback';
+  const script=document.createElement('script');
+  script.async=true;
+  script.src='https://www.instagram.com/embed.js';
+  script.dataset.instagramEmbed='true';
+  script.onload=processEmbed;
+  document.body.appendChild(script);
 }
 
 renderTours();
-updatePhoneTime();
-loadInstagram();
-setInterval(updatePhoneTime,60000);
-setInterval(loadInstagram,300000);
+renderInstagramProfile();
