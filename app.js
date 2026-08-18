@@ -20,6 +20,13 @@ const instagramFollowingCount=document.getElementById('instagramFollowingCount')
 const instagramFeed=document.getElementById('instagramFeed');
 const instagramStatus=document.getElementById('instagramStatus');
 const phoneTime=document.getElementById('phoneTime');
+const googleReviewsTrack=document.getElementById('googleReviewsTrack');
+const googleRating=document.getElementById('googleRating');
+const googleRatingStars=document.getElementById('googleRatingStars');
+const googleReviewCount=document.getElementById('googleReviewCount');
+const googleReviewsStatus=document.getElementById('googleReviewsStatus');
+const googleReviewsButton=document.getElementById('googleReviewsButton');
+const googleScoreLink=document.getElementById('googleScoreLink');
 
 document.getElementById('year').textContent=new Date().getFullYear();
 
@@ -59,6 +66,50 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
 const exactNumber=new Intl.NumberFormat('tr-TR');
 const compactNumber=new Intl.NumberFormat('tr-TR',{notation:'compact',maximumFractionDigits:1});
 const imageProxy=url=>url?`/api/instagram-image?url=${encodeURIComponent(url)}`:'';
+const escapeHtml=(value='')=>String(value).replace(/[&<>'"]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));
+
+function reviewStars(rating){
+  const count=Math.max(0,Math.min(5,Math.round(Number(rating)||0)));
+  return `${'★'.repeat(count)}${'☆'.repeat(5-count)}`;
+}
+
+function googleReviewCard(review){
+  const author=review.author||{};
+  const name=escapeHtml(author.name||'Google kullanıcısı');
+  const text=escapeHtml(review.text||'');
+  const relativeTime=escapeHtml(review.relativeTime||'');
+  const reviewUrl=review.googleMapsUri||author.uri||'#';
+  const photo=author.photoUri?`<img src="${escapeHtml(author.photoUri)}" alt="${name}" loading="lazy" referrerpolicy="no-referrer">`:`<span class="google-review-avatar-fallback">${name.charAt(0).toUpperCase()}</span>`;
+  return `<article class="google-review-card"><div class="google-review-author"><div class="google-review-avatar">${photo}</div><div><strong>${name}</strong><span>${relativeTime}</span></div><span class="google-mini-g">G</span></div><div class="google-review-stars" aria-label="${Number(review.rating)||0} yıldız">${reviewStars(review.rating)}</div>${text?`<p>${text}</p>`:'<p class="google-review-no-text">Google’da yıldız değerlendirmesi bıraktı.</p>'}<a href="${escapeHtml(reviewUrl)}" target="_blank" rel="noopener">Google’da görüntüle ↗</a></article>`;
+}
+
+async function loadGoogleReviews(){
+  if(!googleReviewsTrack)return;
+  try{
+    const response=await fetch(`/api/google-reviews?t=${Date.now()}`,{cache:'no-store'});
+    const data=await response.json();
+    if(!response.ok)throw new Error(data.error||'Google yorumları alınamadı');
+    const reviews=Array.isArray(data.reviews)?data.reviews:[];
+    googleRating.textContent=data.rating?data.rating.toFixed(1):'—';
+    googleRatingStars.textContent=reviewStars(data.rating);
+    googleReviewCount.textContent=data.userRatingCount?`${exactNumber.format(data.userRatingCount)} Google yorumu`:'Google yorumları';
+    const mapsUrl=data.googleMapsUri||'#';
+    googleReviewsButton.href=mapsUrl;
+    googleScoreLink.href=mapsUrl;
+    if(reviews.length){
+      googleReviewsTrack.innerHTML=reviews.map(googleReviewCard).join('');
+      googleReviewsStatus.textContent=`Canlı Google verileri • ${new Date().toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'})}`;
+      googleReviewsStatus.className='ready';
+    }else{
+      googleReviewsTrack.innerHTML='<div class="empty-state">Google şu anda 4 veya 5 yıldızlı yorum göstermedi. Tüm değerlendirmeleri Google üzerinden inceleyebilirsiniz.</div>';
+      googleReviewsStatus.textContent='Google yorumları güncel olarak kontrol edildi';
+    }
+  }catch(error){
+    googleReviewsTrack.innerHTML='<div class="empty-state">Google yorumları şu anda yüklenemiyor. Kısa süre sonra yeniden deneyin.</div>';
+    googleReviewsStatus.textContent='Canlı Google bağlantısı geçici olarak kullanılamıyor';
+    googleReviewsStatus.className='error';
+  }
+}
 
 function updatePhoneTime(){if(phoneTime)phoneTime.textContent=new Date().toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'});}
 function instagramPost(media){
@@ -91,6 +142,8 @@ async function loadInstagram(){
 
 renderTours();
 updatePhoneTime();
+loadGoogleReviews();
 loadInstagram();
 setInterval(updatePhoneTime,60000);
+setInterval(loadGoogleReviews,1800000);
 setInterval(loadInstagram,300000);
