@@ -66,3 +66,20 @@ window.TOURS.push({
   image: 'https://imgs.stargazete.com/imgsdisk/2026/04/25/41207024.jpg',
   detailUrl: 'osmaniye-doga-turu.html'
 });
+
+window.TOURS.push({
+  id: 'buyuk-bati-karadeniz',
+  badge: 'Konaklamalı Tur',
+  type: '3 Gece 4 Gün',
+  title: 'Büyük Batı Karadeniz',
+  subtitle: 'Yedigöller • Abant • Safranbolu • Amasra • Horma Kanyonu • Ilıca Şelalesi • Erfelek • Sinop',
+  price: '12.000₺',
+  duration: '3 Gece 4 Gün',
+  departure: 'Mersin • Tarsus • Adana • Niğde',
+  dates: '18-23 Ağustos • 25-30 Ağustos • 01-06 Eylül • 08-13 Eylül • 15-20 Eylül',
+  summary: 'Sakarya’dan Sinop’a Batı Karadeniz’in gölleri, şelaleleri, ormanları, kanyonları ve tarihi kentleriyle dolu 4 tam günlük rota.',
+  route: 'Ormanya, Sapanca, Maşukiye, Abant, Yedigöller, Gölcük, Safranbolu, Amasra, Horma Kanyonu, Ilıca Şelalesi, Erfelek, Hamsilos, Sinop ve İnceburun.',
+  included: 'Gidiş-dönüş ulaşım, 3 gece otel, 3 kahvaltı, 3 akşam yemeği, profesyonel rehber, seyahat sigortası ve araç içi ikram.',
+  image: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=85',
+  detailUrl: 'buyuk-bati-karadeniz.html'
+});
