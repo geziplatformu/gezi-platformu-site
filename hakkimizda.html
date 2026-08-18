@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#ffffff" />
+  <title>Hakkımızda | Gezi Platformu</title>
+  <meta name="description" content="Gezi Platformu hakkında bilgi edinin. Mersin, Tarsus, Adana ve Niğde çıkışlı kültür, doğa, tatil ve kış turları." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="Gezi Platformu ana sayfa">
+      <img class="brand-logo" src="assets/gezi-platformu-logo.webp" alt="Gezi Platformu - Dört Mevsim Gezi logosu" width="320" height="320" />
+    </a>
+    <nav class="main-nav" aria-label="Ana menü">
+      <a href="index.html">Ana Sayfa</a>
+      <a href="hakkimizda.html">Hakkımızda</a>
+      <a href="iletisim.html">İletişim</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="about-section" style="padding-top:54px; padding-bottom:70px;">
+      <div class="container about-card" style="max-width:900px;">
+        <p class="eyebrow">Hakkımızda</p>
+        <h1 style="margin:6px 0 16px;font-size:clamp(32px,8vw,54px);line-height:1.06;letter-spacing:-.04em;">Dört Mevsim Gezi</h1>
+        <p>Gezi Platformu olarak Mersin, Tarsus, Adana ve Niğde çıkışlı kültür, doğa, tatil ve kış turları düzenliyoruz. Özbek Turizm güvencesi ve TÜRSAB A-8660 belge numarasıyla yolculuğunuzun her aşamasında yanınızdayız.</p>
+        <p style="margin-top:18px;color:var(--muted);font-size:15px;line-height:1.75;">Amacımız, misafirlerimize yalnızca bir ulaşım hizmeti sunmak değil; planlamadan dönüşe kadar düzenli, güvenli ve keyifli bir seyahat deneyimi yaşatmaktır. Farklı dönemlere ve ilgi alanlarına uygun tur programlarımızla Türkiye'nin ve yakın coğrafyanın öne çıkan rotalarını keşfetmenizi sağlıyoruz.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:26px;">
+          <a class="button button-whatsapp" href="https://wa.me/905374978441" target="_blank" rel="noopener">WhatsApp’tan Bize Ulaşın</a>
+          <a class="button" href="index.html">Turları İncele</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">© <span id="year"></span> Gezi Platformu • Dört Mevsim Gezi</footer>
+  <a class="floating-whatsapp" href="https://wa.me/905374978441" target="_blank" rel="noopener" aria-label="WhatsApp’tan iletişime geç">WhatsApp</a>
+  <script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+</body>
+</html>
