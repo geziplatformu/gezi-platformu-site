@@ -20,7 +20,7 @@ window.TOURS.push({
   id: 'baskonus-menzelet-ali-kayasi',
   badge: 'Doğa Turu',
   type: 'Günübirlik',
-  title: 'Başkonuş Yaylası & Menzelet Gölü Doğa Turu',
+  title: 'Kahramanmaraş Doğa Turu',
   subtitle: 'Ali Kayası Cam Teras • Başkonuş Yaylası • Menzelet Gölü Tekne • Maraş Dondurma',
   price: '2.000₺',
   duration: 'Günübirlik',
