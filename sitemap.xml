@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://gezi-platformu-site.vercel.app/</loc>
-    <changefreq>daily</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://gezi-platformu-site.vercel.app/dogu-ekspresi.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
+  <url><loc>https://www.geziplatformuu.com/</loc></url>
+  <url><loc>https://www.geziplatformuu.com/hakkimizda.html</loc></url>
+  <url><loc>https://www.geziplatformuu.com/iletisim.html</loc></url>
+  <url><loc>https://www.geziplatformuu.com/dogu-ekspresi.html</loc></url>
+  <url><loc>https://www.geziplatformuu.com/buyuk-bati-karadeniz.html</loc></url>
+  <url><loc>https://www.geziplatformuu.com/sonbahar-ozel-bati-karadeniz.html</loc></url>
+  <url><loc>https://www.geziplatformuu.com/kadim-topraklar-turu.html</loc></url>
+  <url><loc>https://www.geziplatformuu.com/camliyayla-doga-turu.html</loc></url>
+  <url><loc>https://www.geziplatformuu.com/aladaglar-doga-turu.html</loc></url>
+  <url><loc>https://www.geziplatformuu.com/osmaniye-doga-turu.html</loc></url>
+  <url><loc>https://www.geziplatformuu.com/baskonus-menzelet-ali-kayasi.html</loc></url>
+  <url><loc>https://www.geziplatformuu.com/kayseri-doga-turu.html</loc></url>
 </urlset>
