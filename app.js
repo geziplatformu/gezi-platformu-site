@@ -37,9 +37,12 @@ function whatsappLink(t){
 
 function tourCard(t){
   const media=t.detailUrl
-    ? `<a class="tour-media" href="${t.detailUrl}" target="_blank" rel="noopener" aria-label="${t.title} tur detaylarını yeni sekmede aç"><img class="tour-image" src="${t.image}" alt="${t.title} - ${t.subtitle}" loading="lazy"><div class="tour-badges"><span class="tour-tag">${t.badge}</span><span class="tour-type">${t.type}</span></div></a>`
+    ? `<a class="tour-media" href="${t.detailUrl}" aria-label="${t.title} tur detaylarını aç"><img class="tour-image" src="${t.image}" alt="${t.title} - ${t.subtitle}" loading="lazy"><div class="tour-badges"><span class="tour-tag">${t.badge}</span><span class="tour-type">${t.type}</span></div></a>`
     : `<div class="tour-media"><img class="tour-image" src="${t.image}" alt="${t.title} - ${t.subtitle}" loading="lazy"><div class="tour-badges"><span class="tour-tag">${t.badge}</span><span class="tour-type">${t.type}</span></div></div>`;
-  return `<article class="tour-card" data-badge="${t.badge}">${media}<div class="tour-body"><div class="tour-heading"><h3>${t.title}</h3><div class="tour-price"><strong>${t.price}</strong><small>Başlayan Fiyat</small></div></div><p class="tour-subtitle">${t.subtitle}</p><div class="tour-meta"><span>◷ ${t.duration}</span><span>⌖ ${t.departure}</span></div><div class="tour-actions"><button data-tour="${t.id}">Tur Detayları</button></div></div></article>`;
+  const detailAction=t.detailUrl
+    ? `<a class="button" href="${t.detailUrl}">Tur Detayları</a>`
+    : `<button class="button" data-tour="${t.id}">Tur Detayları</button>`;
+  return `<article class="tour-card" data-badge="${t.badge}">${media}<div class="tour-body"><div class="tour-heading"><h3>${t.title}</h3><div class="tour-price"><strong>${t.price}</strong><small>Başlayan Fiyat</small></div></div><p class="tour-subtitle">${t.subtitle}</p><div class="tour-meta"><span>◷ ${t.duration}</span><span>⌖ ${t.departure}</span></div><div class="tour-actions">${detailAction}</div></div></article>`;
 }
 
 function renderTours(filter='all'){
@@ -56,6 +59,7 @@ filterButtons.forEach(button=>button.addEventListener('click',()=>{
 
 function openTour(id){
   const t=window.TOURS.find(x=>x.id===id); if(!t)return;
+  if(t.detailUrl){window.location.href=t.detailUrl;return;}
   modalImage.src=t.image; modalImage.alt=`${t.title} - ${t.subtitle}`; modalBadge.textContent=t.badge;
   modalTitle.textContent=`${t.title} — ${t.subtitle}`; modalPrice.textContent=t.price; modalSummary.textContent=t.summary;
   modalRoute.textContent=t.route; modalIncluded.textContent=t.included;
