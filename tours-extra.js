@@ -39,7 +39,7 @@ window.TOURS.push({
   type: 'Günübirlik',
   title: 'Aladağlar Doğa Turu',
   subtitle: 'Aladağ Küp Şelaleleri • Başkanın Çardağı • Yedigöze Şelalesi • Varda Köprüsü • Köprübaşı Seyhan Nehri',
-  price: '1.600₺',
+  price: '1.750₺',
   duration: 'Günübirlik',
   departure: 'Mersin • Adana',
   dates: 'Temmuz, Ağustos ve Eylül boyunca her Çarşamba, Cumartesi ve Pazar',
