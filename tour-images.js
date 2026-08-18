@@ -3,5 +3,5 @@ if (window.TOURS) {
   if (camliyayla) camliyayla.image = 'https://sozsakarya.com/sites/1026/uploads/2026/03/07/dhbocyaxuae0dn8-1772840663.jpg';
 
   const doguEkspresi = window.TOURS.find(t => t.id === 'dogu-ekspresi-erzurum-kars-agri-van');
-  if (doguEkspresi) doguEkspresi.image = 'https://upload.wikimedia.org/wikipedia/commons/d/d5/Do%C4%9Fu_ekspresi.jpg';
+  if (doguEkspresi) doguEkspresi.image = '/assets/tours/dogu-ekspresi-cover.avif';
 }
