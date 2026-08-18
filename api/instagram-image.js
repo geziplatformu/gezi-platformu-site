@@ -11,7 +11,15 @@ module.exports=async function handler(request,response){
     return response.status(405).end();
   }
 
-  const raw=Array.isArray(request.query?.url)?request.query.url[0]:request.query?.url;
+  // request.query bazı Node/Vercel sürümlerinde eski url.parse() yoluna düşebiliyor.
+  // WHATWG URL ile doğrudan request.url üzerinden ayrıştırıyoruz.
+  let raw='';
+  try{
+    const incoming=new URL(request.url||'/', 'https://geziplatformuu.com');
+    raw=incoming.searchParams.get('url')||'';
+  }catch{
+    raw='';
+  }
   if(!raw)return response.status(400).json({error:'Görsel URL eksik.'});
 
   let target;
@@ -26,9 +34,9 @@ module.exports=async function handler(request,response){
   }
 
   try{
-    const upstream=await fetch(target,{
+    const upstream=await fetch(target.toString(),{
       headers:{
-        Accept:'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8',
+        Accept:'image/avif,image/webp,image/apng,image/*,*/*;q=0.8',
         Referer:'https://www.instagram.com/',
         'User-Agent':'Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 Chrome/126 Mobile Safari/537.36'
       },
@@ -36,17 +44,16 @@ module.exports=async function handler(request,response){
       signal:AbortSignal.timeout(10000)
     });
 
-    if(!upstream.ok)throw new Error(`Instagram image ${upstream.status}`);
+    if(!upstream.ok)return response.status(upstream.status===404?404:502).end();
     const contentType=upstream.headers.get('content-type')||'';
-    if(!contentType.startsWith('image/'))throw new Error('Upstream response is not an image');
+    if(!contentType.startsWith('image/'))return response.status(502).end();
 
     const body=Buffer.from(await upstream.arrayBuffer());
     response.setHeader('Content-Type',contentType);
-    response.setHeader('Cache-Control','public, s-maxage=300, stale-while-revalidate=86400');
+    response.setHeader('Cache-Control','public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800');
     response.setHeader('Content-Length',String(body.length));
     return response.status(200).send(body);
-  }catch(error){
-    console.error('Instagram image proxy failed:',error.message);
-    return response.status(502).json({error:'Instagram görseli alınamadı.'});
+  }catch{
+    return response.status(502).end();
   }
 };
