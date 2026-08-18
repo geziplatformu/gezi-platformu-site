@@ -8,7 +8,7 @@ const PUBLIC_PROFILE_URLS=[
 
 let lastGoodPayload=null;
 let lastPublicAttempt=0;
-const PUBLIC_RETRY_MS=15*60*1000;
+const PUBLIC_RETRY_MS=10*60*1000;
 
 function fallbackPayload(){
   return {
@@ -124,6 +124,6 @@ module.exports=async function handler(request,response){
   if(payload)lastGoodPayload=payload;
   const result=payload||lastGoodPayload||fallbackPayload();
 
-  response.setHeader('Cache-Control','public, max-age=300, s-maxage=900, stale-while-revalidate=86400');
+  response.setHeader('Cache-Control','public, max-age=60, s-maxage=600, stale-while-revalidate=86400');
   return response.status(200).json(result);
 };
