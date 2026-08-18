@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#ffffff" />
   <title>S.S.S | Gezi Platformu</title>
-  <meta name="description" content="Gezi Platformu sıkça sorulan sorular sayfası." />
+  <meta name="description" content="Gezi Platformu rezervasyon, ödeme, koltuk düzeni, duraklar, iptal ve güvenilirlik hakkında sıkça sorulan sorular." />
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
   <link rel="canonical" href="https://www.geziplatformuu.com/sss.html" />
   <link rel="icon" type="image/webp" href="/assets/gezi-platformu-logo.webp" />
@@ -13,8 +13,23 @@
   <style>
     .main-nav a:first-child{background:var(--soft);color:var(--ink)}
     .main-nav a:nth-child(4){background:var(--ink);color:#fff}
-    .faq-placeholder{padding-top:54px;padding-bottom:70px}
-    .faq-placeholder .about-card{max-width:900px;text-align:center}
+    .faq-section{padding:46px 0 72px;background:linear-gradient(180deg,#fff 0%,#fffdf4 100%)}
+    .faq-hero{max-width:860px;margin:0 auto 28px;text-align:center}
+    .faq-hero h1{margin:6px 0 12px;font-size:clamp(34px,8vw,58px);line-height:1.02;letter-spacing:-.045em}
+    .faq-hero p:not(.eyebrow){margin:0 auto;max-width:690px;color:var(--muted);font-size:15px;line-height:1.7}
+    .faq-list{width:min(920px,calc(100% - 28px));margin:0 auto;display:grid;gap:14px}
+    .faq-item{overflow:hidden;border:1px solid #e3e5e6;border-radius:20px;background:#fff;box-shadow:0 12px 34px rgba(26,42,49,.08)}
+    .faq-item summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:46px 1fr 28px;gap:12px;align-items:center;padding:18px 18px;background:#fff;color:var(--ink)}
+    .faq-item summary::-webkit-details-marker{display:none}
+    .faq-no{width:46px;height:46px;display:grid;place-items:center;border-radius:14px;background:#ffd400;color:#111;font-size:15px;font-weight:950;box-shadow:inset 0 0 0 1px rgba(0,0,0,.07)}
+    .faq-question{font-size:clamp(15px,4vw,19px);font-weight:900;line-height:1.32;letter-spacing:-.015em;text-align:left}
+    .faq-plus{width:28px;height:28px;display:grid;place-items:center;border-radius:50%;background:#151d21;color:#fff;font-size:20px;font-weight:700;transition:transform .2s ease}
+    .faq-item[open] .faq-plus{transform:rotate(45deg)}
+    .faq-answer{padding:0 18px 20px 76px;color:#4e5a61;font-size:14px;line-height:1.72;text-align:left}
+    .faq-answer p{margin:0 0 11px}.faq-answer p:last-child{margin-bottom:0}.faq-answer strong{color:#1e272c}
+    .faq-answer ul{margin:8px 0 0;padding-left:19px}.faq-answer li{margin:7px 0}
+    .faq-note{margin-top:28px;padding:18px;border:1px solid #f1d768;border-radius:18px;background:#fff8cf;text-align:center;color:#594b00;font-size:13px;line-height:1.6}
+    @media(max-width:520px){.faq-section{padding-top:34px}.faq-list{width:calc(100% - 20px)}.faq-item summary{grid-template-columns:40px 1fr 25px;gap:9px;padding:14px 12px}.faq-no{width:40px;height:40px;border-radius:12px;font-size:13px}.faq-plus{width:25px;height:25px;font-size:18px}.faq-question{font-size:14px}.faq-answer{padding:0 14px 17px 61px;font-size:13.5px}}
   </style>
 </head>
 <body>
@@ -31,11 +46,80 @@
   </header>
 
   <main>
-    <section class="faq-placeholder">
-      <div class="container about-card">
+    <section class="faq-section">
+      <div class="container faq-hero">
         <p class="eyebrow">Sıkça Sorulan Sorular</p>
-        <h1 style="margin:6px 0 14px;font-size:clamp(32px,8vw,54px);line-height:1.06;letter-spacing:-.04em;">S.S.S</h1>
-        <p style="color:var(--muted);">Bu sayfanın soru ve cevap içerikleri hazırlanıyor.</p>
+        <h1>Merak Ettikleriniz</h1>
+        <p>Rezervasyon, ödeme, koltuk düzeni, biniş noktaları, iptal ve acentemiz hakkında en çok sorulan soruların yanıtlarını burada bulabilirsiniz.</p>
+      </div>
+
+      <div class="faq-list">
+        <details class="faq-item" open>
+          <summary><span class="faq-no">01</span><span class="faq-question">Ücretimi araca binerken verebilir miyim?</span><span class="faq-plus">+</span></summary>
+          <div class="faq-answer">
+            <p>Ne yazık ki <strong>kapora alınmadan yapılan ön rezervasyon kesin kayıt altına alınmamaktadır.</strong> Kapora tutarı her tur için önceden ayrıca belirtilmektedir.</p>
+            <p>Misafirlerimizi güvence altına aldığımız gibi, rezervasyon sürecinde kendimizi de güvence altına almak durumundayız.</p>
+            <p>Ödemenizi dilerseniz <strong>ofisimizden</strong>, dilerseniz <strong>internet bankacılığı üzerinden Havale, EFT veya FAST</strong> ile gerçekleştirebilirsiniz.</p>
+            <p>Kalan bakiyenizi <strong>günübirlik turlarda araç içinde</strong>, konaklamalı turlarda ise <strong>turdan 3 gün öncesine kadar</strong> tamamlayabilirsiniz.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary><span class="faq-no">02</span><span class="faq-question">Araçta istediğim koltuğa oturabilir miyim? Koltuk düzeni neye göre belirleniyor?</span><span class="faq-plus">+</span></summary>
+          <div class="faq-answer">
+            <p>Araç içinde her yolcunun hangi koltukta oturacağı <strong>tur gününden önce belirlenmektedir.</strong></p>
+            <p>Adil bir düzen sağlamak amacıyla koltuk sıralaması <strong>ödeme sırasına göre, önden arkaya doğru</strong> yapılmaktadır. Araca önce binmek koltuk seçiminde etkili değildir.</p>
+            <p>Hamilelik, sağlık durumu gibi özel istisnalar dışında bu düzen uygulanmaktadır. <strong>Gidiş ve dönüş koltukları tur sonuna kadar aynı kalır.</strong></p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary><span class="faq-no">03</span><span class="faq-question">Kayıt ve ödeme işlemleri nasıl gerçekleşiyor?</span><span class="faq-plus">+</span></summary>
+          <div class="faq-answer">
+            <p>Telefon üzerinden yapılan rezervasyonlarda sizlerden <strong>ad, soyad, kişi sayısı ve biniş noktası</strong> gibi temel bilgileri alıyoruz. Bu aşama ön kayıttır.</p>
+            <p>Günübirlik turlarda rezervasyon yapılan gün mesai sonuna kadar, konaklamalı turlarda ise bir sonraki gün mesai sonuna kadar önceden belirtilen <strong>kaporanızı ofisten veya havale yoluyla</strong> yatırabilirsiniz.</p>
+            <p>Kapora sonrası kayıt kesinleşir. Bu aşamada koltuk ve seyahat sigortası işlemleri için; konaklamalı turlarda ise gerekli olması halinde her yolcunun <strong>ad, soyad, T.C. kimlik numarası ve doğum tarihi</strong> bilgileri WhatsApp üzerinden alınır.</p>
+            <p>Turdan yaklaşık <strong>1 gün önce oluşturulan WhatsApp grubu</strong> üzerinden son hatırlatmalar ve tavsiyeler paylaşılır.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary><span class="faq-no">04</span><span class="faq-question">Belirtilen duraklar dışında biniş sağlayabilir miyim? Geç kalırsam ne olur?</span><span class="faq-plus">+</span></summary>
+          <div class="faq-answer">
+            <p>Özel durumlar haricinde, karışıklık yaşanmaması adına <strong>önceden belirlenmiş duraklar dışında yolcu alımı yapılmamaktadır.</strong></p>
+            <p>Toplu taşıma, kişisel araç veya taksi ile belirlenen kalkış noktasına ulaşmanızı rica ederiz.</p>
+            <p>Geç kalacağınızı kalkış saatinden önce tur sorumlusuna bildirmeniz halinde belirli ölçüde bekleme yapılabilir. Ancak zamanında gelen misafirlerimizin hakkını korumak adına <strong>bekleme süresi minimum düzeyde tutulur.</strong></p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary><span class="faq-no">05</span><span class="faq-question">Tura katılamıyorum. Ücret iadesi mümkün mü?</span><span class="faq-plus">+</span></summary>
+          <div class="faq-answer">
+            <p><strong>Konaklamalı turlarda tur kalkışına 5 gün (120 saat), günübirlik turlarda ise 2 gün (48 saat) kalaya kadar</strong> herhangi bir sebep belirtmeden yatırılan ücretin tamamının iadesini talep edebilirsiniz.</p>
+            <p>Belirtilen sürelerin dışında yapılan iptallerde <strong>sağlık raporu veya 1. derece yakın vefat belgesi dışında ücret iadesi yapılmamaktadır.</strong></p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary><span class="faq-no">06</span><span class="faq-question">Ödememi kredi kartıyla ofisten veya uzaktan yapabilir miyim?</span><span class="faq-plus">+</span></summary>
+          <div class="faq-answer">
+            <p>Evet. Ofisimizde fiziksel olarak <strong>kredi kartı ile ödeme</strong> yapabilirsiniz.</p>
+            <p>Ofise gelememeniz durumunda <strong>online ödeme kanallarımız</strong> üzerinden de ödeme işleminizi gerçekleştirebilirsiniz.</p>
+            <p><strong>Vade farklı taksit seçenekleri</strong> kredi kartları için mevcuttur.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary><span class="faq-no">07</span><span class="faq-question">İlk kez tura katılıyorum veya acentenizi ilk kez deneyeceğim. Güvenebilir miyim?</span><span class="faq-plus">+</span></summary>
+          <div class="faq-answer">
+            <p><strong>Mersin Özbek Turizm – Gezi Platformu</strong> olarak uzun yıllara dayanan tecrübemizle hizmet veriyoruz.</p>
+            <p>Türkiye Seyahat Acentaları Birliği kayıt numaramız <strong>TÜRSAB A-8660</strong> olup resmi kanallardan sorgulanabilir.</p>
+            <p>Misafirlerimize kaliteli hizmet sunmak, memnuniyet odaklı ve ulaşılabilir fiyatlı geziler hazırlamak temel önceliklerimiz arasındadır.</p>
+            <p>Ayrıca havayolu şirketlerinin <strong>uçak bileti işlemleri</strong> de acentemiz bünyesinde gerçekleştirilebilmektedir.</p>
+          </div>
+        </details>
+
+        <div class="faq-note">Aradığınız sorunun yanıtını bulamadıysanız WhatsApp üzerinden bize ulaşabilirsiniz. Ekibimiz rezervasyon öncesi ve sonrası süreçlerde yardımcı olacaktır.</div>
       </div>
     </section>
   </main>
