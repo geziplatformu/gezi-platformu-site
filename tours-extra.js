@@ -49,3 +49,20 @@ window.TOURS.push({
   image: 'https://cdnuploads.aa.com.tr/uploads/Contents/2017/05/15/thumbs_b_c_0198a2d38df18b633120f0f4fb28ee90.jpg?v=115239',
   detailUrl: 'aladaglar-doga-turu.html'
 });
+
+window.TOURS.push({
+  id: 'osmaniye-doga-turu',
+  badge: 'Doğa Turu',
+  type: 'Günübirlik',
+  title: 'Osmaniye Doğa Turu',
+  subtitle: 'Karaçay Şelalesi • Zorkun Yaylası Cam Teras • Kalemli At Çiftliği • Aslantaş Milli Parkı',
+  price: '1.750₺',
+  duration: 'Günübirlik',
+  departure: 'Mersin • Adana',
+  dates: 'Temmuz, Ağustos ve Eylül boyunca her Cuma, Cumartesi ve Pazar',
+  summary: 'Tek turda 4 nokta: Karaçay Şelalesi, Kalemli At Çiftliği, Aslantaş Milli Parkı ve Zorkun Yaylası Cam Teras.',
+  route: 'Karaçay Şelalesi, Kalemli At Çiftliği, Aslantaş Milli Parkı ve Zorkun Yaylası Cam Teras.',
+  included: 'Gidiş-dönüş ulaşım, refakat hizmeti ve koltuk sigortası.',
+  image: 'https://imgs.stargazete.com/imgsdisk/2026/04/25/41207024.jpg',
+  detailUrl: 'osmaniye-doga-turu.html'
+});
