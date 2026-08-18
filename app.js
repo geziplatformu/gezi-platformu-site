@@ -33,8 +33,7 @@ const overnightIds=new Set(['dogu-ekspresi-erzurum-kars-agri-van','buyuk-bati-ka
 function isOvernight(t){return overnightIds.has(t.id)||t.type==='Konaklamalı'||/Gece/.test(t.duration||'')||/Gece/.test(t.type||'');}
 function coverLabels(t){
   if(t.id==='dogu-ekspresi-erzurum-kars-agri-van')return {badge:'Konaklamalı',type:'4 Gece 4 Gün'};
-  if(t.id==='buyuk-bati-karadeniz')return {badge:'Konaklamalı',type:'3 Gece 4 Gün'};
-  if(t.id==='kadim-topraklar-turu')return {badge:'Konaklamalı',type:'1 Gece 2 Gün'};
+  if(isOvernight(t))return {badge:'Konaklamalı',type:t.duration||t.type};
   return {badge:t.badge,type:t.type};
 }
 function tourCard(t){const labels=coverLabels(t);const typeTag=labels.type?`<span class="tour-type">${labels.type}</span>`:'';const badges=`<div class="tour-badges"><span class="tour-tag">${labels.badge}</span>${typeTag}</div>`;const media=t.detailUrl?`<a class="tour-media" href="${t.detailUrl}" aria-label="${t.title} tur detaylarını aç"><img class="tour-image" src="${t.image}" alt="${t.title} - ${t.subtitle}" loading="lazy">${badges}</a>`:`<div class="tour-media"><img class="tour-image" src="${t.image}" alt="${t.title} - ${t.subtitle}" loading="lazy">${badges}</div>`;const detailAction=t.detailUrl?`<a class="button" href="${t.detailUrl}">Tur Detayları</a>`:`<button class="button" data-tour="${t.id}">Tur Detayları</button>`;const startingPrice=t.id==='dogu-ekspresi-erzurum-kars-agri-van'?'<small>Başlayan Fiyat</small>':'';return `<article class="tour-card" data-badge="${t.badge}">${media}<div class="tour-body"><div class="tour-heading"><h3>${t.title}</h3><div class="tour-price"><strong>${t.price}</strong>${startingPrice}</div></div><p class="tour-subtitle">${t.subtitle}</p><div class="tour-meta"><span>◷ ${t.duration}</span><span>⌖ ${t.departure}</span></div><div class="tour-actions">${detailAction}</div></div></article>`;}
