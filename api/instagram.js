@@ -1,14 +1,29 @@
 const GRAPH_API_VERSION=process.env.META_GRAPH_API_VERSION||'v23.0';
 const INSTAGRAM_USERNAME='geziplatformuu';
-const {execFile}=require('node:child_process');
-const {promisify}=require('node:util');
-const execFileAsync=promisify(execFile);
+const PROFILE_URL=`https://www.instagram.com/${INSTAGRAM_USERNAME}/`;
 const PUBLIC_PROFILE_URLS=[
   `https://i.instagram.com/api/v1/users/web_profile_info/?username=${INSTAGRAM_USERNAME}`,
   `https://www.instagram.com/api/v1/users/web_profile_info/?username=${INSTAGRAM_USERNAME}`
 ];
 
 let lastGoodPayload=null;
+let lastPublicAttempt=0;
+const PUBLIC_RETRY_MS=15*60*1000;
+
+function fallbackPayload(){
+  return {
+    username:INSTAGRAM_USERNAME,
+    name:'GEZİ PLATFORMU',
+    biography:'',
+    profile_picture_url:'',
+    followers_count:null,
+    follows_count:null,
+    media_count:null,
+    media:[],
+    profile_url:PROFILE_URL,
+    source:'fallback'
+  };
+}
 
 function normalizeOfficial(data){
   return {
@@ -28,6 +43,7 @@ function normalizeOfficial(data){
       permalink:item.permalink,
       timestamp:item.timestamp
     })),
+    profile_url:PROFILE_URL,
     source:'official'
   };
 }
@@ -51,6 +67,7 @@ function normalizePublic(user){
       permalink:`https://www.instagram.com/p/${node.shortcode}/`,
       timestamp:node.taken_at_timestamp?new Date(node.taken_at_timestamp*1000).toISOString():null
     })),
+    profile_url:PROFILE_URL,
     source:'public'
   };
 }
@@ -70,41 +87,27 @@ async function fetchOfficialProfile(){
 }
 
 async function fetchPublicProfile(){
-  let lastError=null;
+  if(Date.now()-lastPublicAttempt<PUBLIC_RETRY_MS)return null;
+  lastPublicAttempt=Date.now();
   for(const endpoint of PUBLIC_PROFILE_URLS){
-    try{
-      const {stdout}=await execFileAsync('curl',[
-        '--silent','--show-error','--location','--max-time','8',
-        '--header','X-IG-App-ID: 936619743392459',
-        '--header','User-Agent: Instagram 219.0.0.12.117 Android',
-        endpoint
-      ],{maxBuffer:2*1024*1024});
-      const data=JSON.parse(stdout);
-      if(!data?.data?.user)throw new Error('Public profile data missing');
-      return normalizePublic(data.data.user);
-    }catch(error){
-      lastError=error;
-    }
     try{
       const result=await fetch(endpoint,{
         headers:{
           Accept:'*/*',
           'Accept-Language':'tr-TR,tr;q=0.9,en-US;q=0.8,en;q=0.7',
-          Referer:`https://www.instagram.com/${INSTAGRAM_USERNAME}/`,
+          Referer:PROFILE_URL,
           'User-Agent':'Instagram 219.0.0.12.117 Android',
           'X-IG-App-ID':'936619743392459'
         },
         signal:AbortSignal.timeout(8000)
       });
-      if(!result.ok)throw new Error(`Public profile ${result.status}`);
+      if(result.status===429)continue;
+      if(!result.ok)continue;
       const data=await result.json();
-      if(!data?.data?.user)throw new Error('Public profile data missing');
-      return normalizePublic(data.data.user);
-    }catch(error){
-      lastError=error;
-    }
+      if(data?.data?.user)return normalizePublic(data.data.user);
+    }catch{}
   }
-  throw lastError||new Error('Public profile unavailable');
+  return null;
 }
 
 module.exports=async function handler(request,response){
@@ -113,23 +116,14 @@ module.exports=async function handler(request,response){
     return response.status(405).json({error:'Yalnızca GET isteği destekleniyor.'});
   }
 
-  try{
-    let payload=null;
-    try{
-      payload=await fetchOfficialProfile();
-    }catch(error){
-      console.warn('Official Instagram API unavailable:',error.message);
-    }
-    if(!payload)payload=await fetchPublicProfile();
-    lastGoodPayload=payload;
-    response.setHeader('Cache-Control','public, s-maxage=300, stale-while-revalidate=86400');
-    return response.status(200).json(payload);
-  }catch(error){
-    console.error('Instagram feed request failed:',error.message);
-    if(lastGoodPayload){
-      response.setHeader('Cache-Control','public, s-maxage=60, stale-while-revalidate=86400');
-      return response.status(200).json({...lastGoodPayload,source:'cache'});
-    }
-    return response.status(503).json({error:'Instagram verileri geçici olarak alınamıyor.',fallback:true});
+  let payload=null;
+  try{payload=await fetchOfficialProfile();}catch{}
+  if(!payload){
+    try{payload=await fetchPublicProfile();}catch{}
   }
+  if(payload)lastGoodPayload=payload;
+  const result=payload||lastGoodPayload||fallbackPayload();
+
+  response.setHeader('Cache-Control','public, max-age=300, s-maxage=900, stale-while-revalidate=86400');
+  return response.status(200).json(result);
 };
