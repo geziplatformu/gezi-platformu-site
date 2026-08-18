@@ -36,7 +36,10 @@ function whatsappLink(t){
 }
 
 function tourCard(t){
-  return `<article class="tour-card" data-badge="${t.badge}"><div class="tour-media"><img class="tour-image" src="${t.image}" alt="${t.title} - ${t.subtitle}" loading="lazy"><div class="tour-badges"><span class="tour-tag">${t.badge}</span><span class="tour-type">${t.type}</span></div></div><div class="tour-body"><div class="tour-heading"><h3>${t.title}</h3><div class="tour-price"><strong>${t.price}</strong><small>Kişi Başı</small></div></div><p class="tour-subtitle">${t.subtitle}</p><div class="tour-meta"><span>◷ ${t.duration}</span><span>⌖ ${t.departure}</span></div><div class="tour-date"><strong>Tur Tarihleri</strong><span>${t.dates}</span></div><div class="tour-actions"><button data-tour="${t.id}">Tur Detayları</button><a class="button button-whatsapp" href="${whatsappLink(t)}" target="_blank" rel="noopener">Bilgi Al</a></div></div></article>`;
+  const media=t.detailUrl
+    ? `<a class="tour-media" href="${t.detailUrl}" target="_blank" rel="noopener" aria-label="${t.title} tur detaylarını yeni sekmede aç"><img class="tour-image" src="${t.image}" alt="${t.title} - ${t.subtitle}" loading="lazy"><div class="tour-badges"><span class="tour-tag">${t.badge}</span><span class="tour-type">${t.type}</span></div></a>`
+    : `<div class="tour-media"><img class="tour-image" src="${t.image}" alt="${t.title} - ${t.subtitle}" loading="lazy"><div class="tour-badges"><span class="tour-tag">${t.badge}</span><span class="tour-type">${t.type}</span></div></div>`;
+  return `<article class="tour-card" data-badge="${t.badge}">${media}<div class="tour-body"><div class="tour-heading"><h3>${t.title}</h3><div class="tour-price"><strong>${t.price}</strong><small>Başlayan Fiyat</small></div></div><p class="tour-subtitle">${t.subtitle}</p><div class="tour-meta"><span>◷ ${t.duration}</span><span>⌖ ${t.departure}</span></div><div class="tour-date"><strong>Tur Tarihleri</strong><span>${t.dates}</span></div><div class="tour-actions"><button data-tour="${t.id}">Tur Detayları</button><a class="button button-whatsapp" href="${whatsappLink(t)}" target="_blank" rel="noopener">Bilgi Al</a></div></div></article>`;
 }
 
 function renderTours(filter='all'){
