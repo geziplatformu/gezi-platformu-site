@@ -105,3 +105,19 @@
     window.setTimeout(()=>v4.remove(),560);
   },5000);
 })();
+
+(()=>{
+  const exactOfficeMap='https://maps.app.goo.gl/2EHiMoW47euT7ZZb9';
+  const applyExactMap=()=>{
+    const mapButton=document.querySelector('.floating-contact-map');
+    if(!mapButton)return false;
+    mapButton.href=exactOfficeMap;
+    mapButton.setAttribute('aria-label',"Gezi Platformu ofisinin tam konumunu Google Maps'te aç");
+    return true;
+  };
+  if(!applyExactMap()){
+    const observer=new MutationObserver(()=>{if(applyExactMap())observer.disconnect();});
+    observer.observe(document.documentElement,{childList:true,subtree:true});
+    window.setTimeout(()=>observer.disconnect(),10000);
+  }
+})();
