@@ -32,3 +32,20 @@ window.TOURS.push({
   image: 'https://www.baskonusyaylasi.com/resim/upload/sb2906a.jpg',
   detailUrl: 'baskonus-menzelet-ali-kayasi.html'
 });
+
+window.TOURS.push({
+  id: 'aladaglar-doga-turu',
+  badge: 'Doğa Turu',
+  type: 'Günübirlik',
+  title: 'Aladağlar Doğa Turu',
+  subtitle: 'Aladağ Küp Şelaleleri • Başkanın Çardağı • Yedigöze Şelalesi • Varda Köprüsü • Köprübaşı Seyhan Nehri',
+  price: '1.600₺',
+  duration: 'Günübirlik',
+  departure: 'Mersin • Adana',
+  dates: 'Temmuz, Ağustos ve Eylül boyunca her Çarşamba, Cumartesi ve Pazar',
+  summary: 'Tek turda 5 nokta: Küp Şelaleleri’nde serinleme ve yüzme, Toros manzaraları, Seyhan Nehri, Yedigöze Orman Parkı ve tarihi Varda Köprüsü.',
+  route: 'Aladağ Küp Şelaleleri, Başkanın Çardağı, Köprübaşı Seyhan Nehri, Yedigöze Şelalesi ve Varda Köprüsü.',
+  included: 'Gidiş-dönüş araç ile ulaşım, rehberlik ve refakat hizmeti, koltuk sigortası.',
+  image: 'https://cdnuploads.aa.com.tr/uploads/Contents/2017/05/15/thumbs_b_c_0198a2d38df18b633120f0f4fb28ee90.jpg?v=115239',
+  detailUrl: 'aladaglar-doga-turu.html'
+});
