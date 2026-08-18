@@ -29,6 +29,6 @@ window.TOURS.push({
   summary: 'Tek turda 4 nokta: 160 metrelik cam teras, çam ormanları içindeki Başkonuş Yaylası, Menzelet Gölü tekne turu ve Maraş dondurması.',
   route: 'Ali Kayası Cam Teras, Menzelet Gölü, Başkonuş Tabiat Parkı ve Maraş dondurma alışverişi.',
   included: 'Gidiş-dönüş araç ile ulaşım, rehberlik ve refakat hizmeti, koltuk sigortası ve park giriş ücretleri.',
-  image: 'assets/baskonus-yaylasi-kapak.jpg',
+  image: 'https://www.baskonusyaylasi.com/resim/upload/sb2906a.jpg',
   detailUrl: 'baskonus-menzelet-ali-kayasi.html'
 });
