@@ -140,7 +140,6 @@ async function loadInstagram(){
     const posts=[...(data.media||[])].sort((a,b)=>new Date(b.timestamp||0)-new Date(a.timestamp||0)).slice(0,9).map(instagramPost).filter(Boolean);
     if(instagramFeed) instagramFeed.innerHTML=posts.length?posts.join(''):'<div class="instagram-loading">Paylaşımlar yükleniyor…</div>';
     if(instagramStatus){instagramStatus.textContent=`Canlı Instagram profili • ${new Date().toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'})}`;instagramStatus.className='instagram-status ready';}
-    document.querySelector('.verified-badge')?.remove();
   }catch(error){
     if(instagramFeed) instagramFeed.innerHTML='<div style="grid-column:1/-1;padding:22px 12px;font-size:12px;color:#666">Instagram bağlantısı geçici olarak yenileniyor. Profili aşağıdaki butondan açabilirsiniz.</div>';
     if(instagramStatus){instagramStatus.textContent='Canlı Instagram bağlantısı geçici olarak kullanılamıyor';instagramStatus.className='instagram-status error';}
