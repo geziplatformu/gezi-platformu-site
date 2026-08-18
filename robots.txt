@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://gezi-platformu-site.vercel.app/sitemap.xml
+Sitemap: https://www.geziplatformuu.com/sitemap.xml
