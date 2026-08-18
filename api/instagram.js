@@ -14,7 +14,7 @@ function fallbackPayload(){
   return {
     username:INSTAGRAM_USERNAME,
     name:'GEZİ PLATFORMU',
-    biography:'',
+    biography:'Mersin • Adana • Niğde kalkışlı kültür, tatil, doğa ve kış turları',
     profile_picture_url:'',
     followers_count:null,
     follows_count:null,
@@ -72,6 +72,25 @@ function normalizePublic(user){
   };
 }
 
+function parseCompactCount(value){
+  if(!value)return null;
+  let s=String(value).trim().toLowerCase().replace(/\s/g,'');
+  let mult=1;
+  if(/[km]$/.test(s)){
+    mult=s.endsWith('m')?1000000:1000;
+    s=s.slice(0,-1).replace(',','.');
+    const n=Number(s);
+    return Number.isFinite(n)?Math.round(n*mult):null;
+  }
+  if(/^\d{1,3}([.,]\d{3})+$/.test(s))return Number(s.replace(/[.,]/g,''));
+  const n=Number(s.replace(',','.'));
+  return Number.isFinite(n)?Math.round(n):null;
+}
+
+function htmlDecode(value=''){
+  return String(value).replace(/&amp;/g,'&').replace(/&quot;/g,'"').replace(/&#39;/g,"'").replace(/&lt;/g,'<').replace(/&gt;/g,'>');
+}
+
 async function fetchOfficialProfile(){
   const accessToken=process.env.INSTAGRAM_ACCESS_TOKEN;
   const instagramUserId=process.env.INSTAGRAM_USER_ID;
@@ -110,6 +129,51 @@ async function fetchPublicProfile(){
   return null;
 }
 
+async function fetchPublicHtmlProfile(){
+  try{
+    const result=await fetch(PROFILE_URL,{
+      headers:{
+        Accept:'text/html,application/xhtml+xml',
+        'Accept-Language':'tr-TR,tr;q=0.9,en-US;q=0.8,en;q=0.7',
+        'User-Agent':'Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 Chrome/131 Mobile Safari/537.36'
+      },
+      signal:AbortSignal.timeout(8000)
+    });
+    if(!result.ok)return null;
+    const html=await result.text();
+    const meta=(name)=>{
+      const r1=new RegExp(`<meta[^>]+(?:property|name)=["']${name}["'][^>]+content=["']([^"']*)["']`,'i').exec(html);
+      const r2=new RegExp(`<meta[^>]+content=["']([^"']*)["'][^>]+(?:property|name)=["']${name}["']`,'i').exec(html);
+      return htmlDecode((r1||r2||[])[1]||'');
+    };
+    const description=meta('og:description')||meta('description');
+    const image=meta('og:image');
+    const followers=(description.match(/([\d.,]+\s*[kKmM]?)\s+(?:Followers|takipçi)/i)||[])[1];
+    const following=(description.match(/([\d.,]+\s*[kKmM]?)\s+(?:Following|takip)/i)||[])[1];
+    const posts=(description.match(/([\d.,]+\s*[kKmM]?)\s+(?:Posts|gönderi)/i)||[])[1];
+    const media=[];
+    const seen=new Set();
+    const re=/"shortcode":"([A-Za-z0-9_-]+)"[\s\S]{0,1600}?"display_url":"([^"]+)"/g;
+    let m;
+    while((m=re.exec(html))&&media.length<12){
+      const shortcode=m[1];
+      if(seen.has(shortcode))continue;
+      seen.add(shortcode);
+      const url=htmlDecode(m[2].replace(/\\u0026/g,'&').replace(/\\\//g,'/'));
+      media.push({id:shortcode,caption:'',media_type:'IMAGE',media_url:url,thumbnail_url:url,permalink:`https://www.instagram.com/p/${shortcode}/`,timestamp:null});
+    }
+    const payload=fallbackPayload();
+    payload.profile_picture_url=image;
+    payload.followers_count=parseCompactCount(followers);
+    payload.follows_count=parseCompactCount(following);
+    payload.media_count=parseCompactCount(posts);
+    payload.media=media;
+    payload.source='public-html';
+    if(payload.followers_count==null&&payload.media_count==null&&!payload.profile_picture_url&&!payload.media.length)return null;
+    return payload;
+  }catch{return null;}
+}
+
 module.exports=async function handler(request,response){
   if(request.method!=='GET'){
     response.setHeader('Allow','GET');
@@ -120,6 +184,9 @@ module.exports=async function handler(request,response){
   try{payload=await fetchOfficialProfile();}catch{}
   if(!payload){
     try{payload=await fetchPublicProfile();}catch{}
+  }
+  if(!payload){
+    try{payload=await fetchPublicHtmlProfile();}catch{}
   }
   if(payload)lastGoodPayload=payload;
   const result=payload||lastGoodPayload||fallbackPayload();
