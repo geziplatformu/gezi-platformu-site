@@ -39,7 +39,7 @@ function tourCard(t){
   const media=t.detailUrl
     ? `<a class="tour-media" href="${t.detailUrl}" target="_blank" rel="noopener" aria-label="${t.title} tur detaylarını yeni sekmede aç"><img class="tour-image" src="${t.image}" alt="${t.title} - ${t.subtitle}" loading="lazy"><div class="tour-badges"><span class="tour-tag">${t.badge}</span><span class="tour-type">${t.type}</span></div></a>`
     : `<div class="tour-media"><img class="tour-image" src="${t.image}" alt="${t.title} - ${t.subtitle}" loading="lazy"><div class="tour-badges"><span class="tour-tag">${t.badge}</span><span class="tour-type">${t.type}</span></div></div>`;
-  return `<article class="tour-card" data-badge="${t.badge}">${media}<div class="tour-body"><div class="tour-heading"><h3>${t.title}</h3><div class="tour-price"><strong>${t.price}</strong><small>Başlayan Fiyat</small></div></div><p class="tour-subtitle">${t.subtitle}</p><div class="tour-meta"><span>◷ ${t.duration}</span><span>⌖ ${t.departure}</span></div><div class="tour-date"><strong>Tur Tarihleri</strong><span>${t.dates}</span></div><div class="tour-actions"><button data-tour="${t.id}">Tur Detayları</button><a class="button button-whatsapp" href="${whatsappLink(t)}" target="_blank" rel="noopener">Bilgi Al</a></div></div></article>`;
+  return `<article class="tour-card" data-badge="${t.badge}">${media}<div class="tour-body"><div class="tour-heading"><h3>${t.title}</h3><div class="tour-price"><strong>${t.price}</strong><small>Başlayan Fiyat</small></div></div><p class="tour-subtitle">${t.subtitle}</p><div class="tour-meta"><span>◷ ${t.duration}</span><span>⌖ ${t.departure}</span></div><div class="tour-actions"><button data-tour="${t.id}">Tur Detayları</button></div></div></article>`;
 }
 
 function renderTours(filter='all'){
@@ -69,7 +69,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
 const exactNumber=new Intl.NumberFormat('tr-TR');
 const compactNumber=new Intl.NumberFormat('tr-TR',{notation:'compact',maximumFractionDigits:1});
 const imageProxy=url=>url?`/api/instagram-image?url=${encodeURIComponent(url)}`:'';
-const escapeHtml=(value='')=>String(value).replace(/[&<>'"]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));
+const escapeHtml=(value='')=>String(value).replace(/[&<>'\"]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));
 
 function reviewStars(rating){
   const count=Math.max(0,Math.min(5,Math.round(Number(rating)||0)));
