@@ -55,17 +55,20 @@ if (window.TOURS) {
     return null;
   }
 
-  function nearestLabel(tour) {
+  function nearestInfo(tour) {
     const today = todayStart();
     const choices = [recurringNearest(tour.dates, today), explicitNearest(tour.dates, today)].filter(Boolean).sort((a,b) => a.date - b.date);
-    return choices.length ? choices[0].label : 'Yeni tarih bekleniyor';
+    if (!choices.length) return {label:'Yeni tarih bekleniyor', days:null};
+    const nearest = choices[0];
+    const days = Math.max(1, Math.round((nearest.date - today) / 86400000));
+    return {label:nearest.label, days};
   }
 
   function addStyles() {
     if (document.getElementById('nearest-tour-date-style')) return;
     const style = document.createElement('style');
     style.id = 'nearest-tour-date-style';
-    style.textContent = `.tour-actions{align-items:stretch}.nearest-tour-date{min-height:46px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:7px 10px;border-radius:12px;background:var(--soft);color:var(--muted);line-height:1.12}.nearest-tour-date small{font-size:8px;font-weight:850;text-transform:uppercase;letter-spacing:.04em}.nearest-tour-date strong{margin-top:3px;color:var(--green);font-size:11px;font-weight:950}@media(max-width:480px){.tour-actions{grid-template-columns:1fr 1fr}.nearest-tour-date{padding:6px 8px}.nearest-tour-date small{font-size:7.4px}.nearest-tour-date strong{font-size:10px}}`;
+    style.textContent = `.tour-actions{align-items:stretch}.nearest-tour-date{min-height:46px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:7px 10px;border-radius:12px;background:var(--soft);color:var(--muted);line-height:1.12}.nearest-tour-date small{font-size:8px;font-weight:850;text-transform:uppercase;letter-spacing:.04em}.nearest-tour-date-line{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:3px}.nearest-tour-date strong{color:var(--green);font-size:11px;font-weight:950}.tour-countdown{display:inline-flex;align-items:center;padding:3px 6px;border:1px solid color-mix(in srgb,var(--green) 22%,transparent);border-radius:999px;background:color-mix(in srgb,var(--green) 9%,white);color:var(--green);font-size:8px;font-weight:900;white-space:nowrap;letter-spacing:.01em}@media(max-width:480px){.tour-actions{grid-template-columns:1fr 1fr}.nearest-tour-date{padding:6px 8px}.nearest-tour-date small{font-size:7.4px}.nearest-tour-date strong{font-size:10px}.nearest-tour-date-line{gap:4px}.tour-countdown{padding:2px 5px;font-size:7.2px}}`;
     document.head.appendChild(style);
   }
 
@@ -77,9 +80,11 @@ if (window.TOURS) {
       const title = card.querySelector('h3')?.textContent?.trim();
       const tour = window.TOURS.find(item => item.title === title);
       if (!tour) return;
+      const info = nearestInfo(tour);
+      const countdown = info.days == null ? '' : `<span class="tour-countdown">${info.days} gün kaldı</span>`;
       const nearest = document.createElement('span');
       nearest.className = 'nearest-tour-date';
-      nearest.innerHTML = `<small>En Yakın Tarih</small><strong>${nearestLabel(tour)}</strong>`;
+      nearest.innerHTML = `<small>En Yakın Tarih</small><span class="nearest-tour-date-line"><strong>${info.label}</strong>${countdown}</span>`;
       actions.appendChild(nearest);
     });
   }
