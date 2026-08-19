@@ -32,6 +32,8 @@
       html[data-site-theme="dark"] .faq-answer strong{color:#fff!important}
       html[data-site-theme="dark"] .faq-note{background:#2b2816!important;color:#f7e9a8!important;border-color:#6e6222!important}
       html[data-site-theme="dark"] .tour-body,html[data-site-theme="dark"] .section-heading,html[data-site-theme="dark"] .section-heading p,html[data-site-theme="dark"] .tour-subtitle,html[data-site-theme="dark"] .tour-meta,html[data-site-theme="dark"] .muted,html[data-site-theme="dark"] .tour-detail-lead,html[data-site-theme="dark"] .detail-box p,html[data-site-theme="dark"] .detail-box li,html[data-site-theme="dark"] p{color:#c7d1cd!important}
+      html[data-site-theme="dark"] .tour-date{color:#dce6e2!important;border-top-color:#34413c!important}
+      html[data-site-theme="dark"] .tour-date strong{color:#ffffff!important}
       html[data-site-theme="dark"] h1,html[data-site-theme="dark"] h2,html[data-site-theme="dark"] h3,html[data-site-theme="dark"] h4,html[data-site-theme="dark"] strong{color:#f4f8f6}
       html[data-site-theme="dark"] nav a,html[data-site-theme="dark"] .nav-link,html[data-site-theme="dark"] .back-link,html[data-site-theme="dark"] .detail-back{color:#e8efec!important}
       html[data-site-theme="dark"] .main-nav a{background:#18201d!important;color:#edf3f0!important;border-color:#2c3934!important}
