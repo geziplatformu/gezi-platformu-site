@@ -11,7 +11,7 @@
     const style=document.createElement('style');
     style.id='gp-site-controls-style';
     style.textContent=`
-      .gp-site-controls{position:fixed;top:max(10px,env(safe-area-inset-top));right:max(10px,env(safe-area-inset-right));z-index:2147483000;display:flex;align-items:center;gap:6px;padding:5px;border:1px solid rgba(18,28,31,.12);border-radius:14px;background:rgba(255,255,255,.88);box-shadow:0 8px 26px rgba(19,31,35,.14);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+      .gp-site-controls{position:fixed;top:max(10px,env(safe-area-inset-top));right:max(10px,env(safe-area-inset-right));z-index:2147483000;display:flex;align-items:center;gap:6px;padding:5px;border:1px solid rgba(18,28,31,.12);border-radius:14px;background:rgba(255,255,255,.9);box-shadow:0 8px 26px rgba(19,31,35,.14);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
       .gp-site-control{height:34px;min-width:42px;padding:0 10px;display:inline-flex;align-items:center;justify-content:center;gap:5px;border:0;border-radius:10px;background:#f0f4f3;color:#17211f;font:800 12px/1 system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:.02em;cursor:pointer;box-shadow:inset 0 0 0 1px rgba(25,43,38,.08);transition:transform .18s ease,background .18s ease,color .18s ease}
       .gp-site-control:hover{transform:translateY(-1px)}
       .gp-site-control:active{transform:translateY(0) scale(.97)}
@@ -19,22 +19,36 @@
       #google_translate_element_gp{position:fixed!important;left:-9999px!important;top:-9999px!important;width:1px!important;height:1px!important;overflow:hidden!important;opacity:0!important;pointer-events:none!important}
       .goog-te-banner-frame.skiptranslate,.goog-te-banner-frame,.goog-te-gadget-icon{display:none!important}
       body{top:0!important}
+
       html[data-site-theme="dark"]{color-scheme:dark;background:#0c1110!important}
       html[data-site-theme="dark"] body{background:#0c1110!important;color:#edf3f0!important}
-      html[data-site-theme="dark"] .gp-site-controls{background:rgba(18,25,23,.9);border-color:rgba(255,255,255,.11);box-shadow:0 8px 28px rgba(0,0,0,.34)}
+      html[data-site-theme="dark"] .gp-site-controls{background:rgba(18,25,23,.92);border-color:rgba(255,255,255,.11);box-shadow:0 8px 28px rgba(0,0,0,.34)}
       html[data-site-theme="dark"] .gp-site-control{background:#27302d;color:#f5f8f7;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
-      html[data-site-theme="dark"] .site-header,html[data-site-theme="dark"] header,html[data-site-theme="dark"] main,html[data-site-theme="dark"] section,html[data-site-theme="dark"] footer{color:#edf3f0}
-      html[data-site-theme="dark"] .tour-card,html[data-site-theme="dark"] .card,html[data-site-theme="dark"] .faq-item,html[data-site-theme="dark"] .info-card,html[data-site-theme="dark"] .detail-card,html[data-site-theme="dark"] .contact-card,html[data-site-theme="dark"] .about-card,html[data-site-theme="dark"] .modal-card{background:#141b19!important;color:#edf3f0!important;border-color:#28332f!important;box-shadow:0 14px 36px rgba(0,0,0,.22)!important}
-      html[data-site-theme="dark"] .tour-body,html[data-site-theme="dark"] .section-heading,html[data-site-theme="dark"] .section-heading p,html[data-site-theme="dark"] .tour-subtitle,html[data-site-theme="dark"] .tour-meta,html[data-site-theme="dark"] .muted,html[data-site-theme="dark"] p{color:#c7d1cd!important}
+      html[data-site-theme="dark"] .site-header,html[data-site-theme="dark"] header,html[data-site-theme="dark"] main,html[data-site-theme="dark"] footer{color:#edf3f0}
+      html[data-site-theme="dark"] .tours-section,html[data-site-theme="dark"] .google-reviews-section,html[data-site-theme="dark"] .instagram-section,html[data-site-theme="dark"] .faq-section,html[data-site-theme="dark"] .about-section,html[data-site-theme="dark"] .contact-section,html[data-site-theme="dark"] .tour-detail-hero,html[data-site-theme="dark"] .detail-page{background:#0c1110!important;color:#edf3f0!important}
+      html[data-site-theme="dark"] .tour-card,html[data-site-theme="dark"] .card,html[data-site-theme="dark"] .faq-item,html[data-site-theme="dark"] .info-card,html[data-site-theme="dark"] .detail-card,html[data-site-theme="dark"] .detail-box,html[data-site-theme="dark"] .tour-detail-card,html[data-site-theme="dark"] .contact-card,html[data-site-theme="dark"] .about-card,html[data-site-theme="dark"] .modal-card,html[data-site-theme="dark"] .google-review-card,html[data-site-theme="dark"] .google-score-card,html[data-site-theme="dark"] .price-block{background:#141b19!important;color:#edf3f0!important;border-color:#28332f!important;box-shadow:0 14px 36px rgba(0,0,0,.22)!important}
+      html[data-site-theme="dark"] .faq-item summary{background:#141b19!important;color:#f4f8f6!important}
+      html[data-site-theme="dark"] .faq-answer,html[data-site-theme="dark"] .faq-answer p,html[data-site-theme="dark"] .faq-answer li{color:#c7d1cd!important}
+      html[data-site-theme="dark"] .faq-answer strong{color:#fff!important}
+      html[data-site-theme="dark"] .faq-note{background:#2b2816!important;color:#f7e9a8!important;border-color:#6e6222!important}
+      html[data-site-theme="dark"] .tour-body,html[data-site-theme="dark"] .section-heading,html[data-site-theme="dark"] .section-heading p,html[data-site-theme="dark"] .tour-subtitle,html[data-site-theme="dark"] .tour-meta,html[data-site-theme="dark"] .muted,html[data-site-theme="dark"] .tour-detail-lead,html[data-site-theme="dark"] .detail-box p,html[data-site-theme="dark"] .detail-box li,html[data-site-theme="dark"] p{color:#c7d1cd!important}
       html[data-site-theme="dark"] h1,html[data-site-theme="dark"] h2,html[data-site-theme="dark"] h3,html[data-site-theme="dark"] h4,html[data-site-theme="dark"] strong{color:#f4f8f6}
-      html[data-site-theme="dark"] nav a,html[data-site-theme="dark"] .nav-link{color:#e8efec!important}
+      html[data-site-theme="dark"] nav a,html[data-site-theme="dark"] .nav-link,html[data-site-theme="dark"] .back-link,html[data-site-theme="dark"] .detail-back{color:#e8efec!important}
+      html[data-site-theme="dark"] .main-nav a{background:#18201d!important;color:#edf3f0!important;border-color:#2c3934!important}
+      html[data-site-theme="dark"] .main-nav a.active,html[data-site-theme="dark"] .main-nav a[aria-current="page"]{background:#edf3f0!important;color:#111916!important}
+      html[data-site-theme="dark"] .detail-badges span{background:#222b28!important;color:#edf3f0!important}
+      html[data-site-theme="dark"] .hotel-highlight{background:#302617!important;color:#ffd98b!important;border-color:#7a5a22!important}
+      html[data-site-theme="dark"] .filter-btn{background:#18201d!important;color:#e8efec!important;border-color:#2c3934!important}
+      html[data-site-theme="dark"] .filter-btn.active{background:#edf3f0!important;color:#111916!important}
+      html[data-site-theme="dark"] .company-stat{background:linear-gradient(180deg,#17201d,#111815)!important;border-color:#2a3631!important}
+      html[data-site-theme="dark"] .company-stat>span{color:#aebbb6!important}
       html[data-site-theme="dark"] input,html[data-site-theme="dark"] textarea,html[data-site-theme="dark"] select{background:#101614!important;color:#eef4f1!important;border-color:#33403b!important}
       @media(max-width:560px){.gp-site-controls{top:max(7px,env(safe-area-inset-top));right:max(7px,env(safe-area-inset-right));gap:4px;padding:4px;border-radius:12px}.gp-site-control{height:31px;min-width:38px;padding:0 8px;font-size:11px}.gp-site-control .gp-icon{font-size:14px}}
     `;
     document.head.appendChild(style);
   }
 
-  let theme=saved(STORAGE_THEME,matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+  let theme=saved(STORAGE_THEME,'light');
   let lang=saved(STORAGE_LANG,'tr');
 
   function applyTheme(next){
@@ -99,6 +113,7 @@
 
   function mount(){
     injectStyles();
+    if(document.querySelector('.gp-site-controls'))return;
     const wrap=document.createElement('div');
     wrap.className='gp-site-controls skiptranslate';
     wrap.setAttribute('translate','no');
