@@ -86,3 +86,12 @@
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',mount,{once:true}); else mount();
 })();
+
+(()=>{
+  if(document.querySelector('script[data-gp-site-controls]'))return;
+  const script=document.createElement('script');
+  script.src='/site-controls.js?v=1';
+  script.async=true;
+  script.dataset.gpSiteControls='1';
+  document.body.appendChild(script);
+})();
