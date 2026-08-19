@@ -32,7 +32,7 @@ if (window.TOURS) {
       if (month === undefined || !day) continue;
       const year = month < today.getMonth() ? today.getFullYear() + 1 : today.getFullYear();
       const date = new Date(year, month, day);
-      if (date >= today) candidates.push({date, label: original});
+      if (date > today) candidates.push({date, label: original});
     }
     candidates.sort((a,b) => a.date - b.date);
     return candidates[0] || null;
@@ -44,7 +44,7 @@ if (window.TOURS) {
     const months = [...new Set(Object.entries(monthMap).filter(([name]) => normalized.includes(name)).map(([,value]) => value))];
     const weekdays = [...new Set(Object.entries(weekdayMap).filter(([name]) => normalized.includes(name)).map(([,value]) => value))];
     if (!months.length || !weekdays.length) return null;
-    for (let offset = 0; offset < 370; offset++) {
+    for (let offset = 1; offset < 370; offset++) {
       const date = new Date(today);
       date.setDate(today.getDate() + offset);
       if (date.getFullYear() !== today.getFullYear()) break;
