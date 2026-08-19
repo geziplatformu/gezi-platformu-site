@@ -4,4 +4,4 @@ window.TOURS.push({id:'hatay-turu',badge:'Günübirlik',type:'Günübirlik',titl
 const overnightTourIds=new Set(['dogu-ekspresi-erzurum-kars-agri-van','buyuk-bati-karadeniz','kadim-topraklar-turu']);
 const overnightFirst=t=>overnightTourIds.has(t.id)||t.type==='Konaklamalı'||/Gece/.test(t.duration||'')||/Gece/.test(t.type||'');
 window.TOURS=window.TOURS.map((tour,index)=>({tour,index})).sort((a,b)=>Number(overnightFirst(b.tour))-Number(overnightFirst(a.tour))||a.index-b.index).map(({tour})=>tour);
-const core=document.createElement('script');core.src='app-core.js?v=5';core.async=false;document.head.appendChild(core);
+const core=document.createElement('script');core.src='app-core.js?v=5';core.async=false;core.onload=()=>{const sales=document.createElement('script');sales.src='payment-prep.js?v=1';document.body.appendChild(sales)};document.head.appendChild(core);
