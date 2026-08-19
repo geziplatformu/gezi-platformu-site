@@ -1,4 +1,4 @@
-// site-controls v2: dark theme date visibility fix
+// site-controls v3: dark theme date text on white card
 (()=>{
   const STORAGE_THEME='gp-theme';
   const STORAGE_LANG='gp-language';
@@ -32,8 +32,8 @@
       html[data-site-theme="dark"] .faq-answer strong{color:#fff!important}
       html[data-site-theme="dark"] .faq-note{background:#2b2816!important;color:#f7e9a8!important;border-color:#6e6222!important}
       html[data-site-theme="dark"] .tour-body,html[data-site-theme="dark"] .section-heading,html[data-site-theme="dark"] .section-heading p,html[data-site-theme="dark"] .tour-subtitle,html[data-site-theme="dark"] .tour-meta,html[data-site-theme="dark"] .muted,html[data-site-theme="dark"] .tour-detail-lead,html[data-site-theme="dark"] .detail-box p,html[data-site-theme="dark"] .detail-box li,html[data-site-theme="dark"] p{color:#c7d1cd!important}
-      html[data-site-theme="dark"] .tour-date{color:#dce6e2!important;border-top-color:#34413c!important}
-      html[data-site-theme="dark"] .tour-date strong{color:#ffffff!important}
+      html[data-site-theme="dark"] .tour-date{color:#26302d!important;border-top-color:#d8dfdc!important}
+      html[data-site-theme="dark"] .tour-date strong{color:#111916!important}
       html[data-site-theme="dark"] h1,html[data-site-theme="dark"] h2,html[data-site-theme="dark"] h3,html[data-site-theme="dark"] h4,html[data-site-theme="dark"] strong{color:#f4f8f6}
       html[data-site-theme="dark"] nav a,html[data-site-theme="dark"] .nav-link,html[data-site-theme="dark"] .back-link,html[data-site-theme="dark"] .detail-back{color:#e8efec!important}
       html[data-site-theme="dark"] .main-nav a{background:#18201d!important;color:#edf3f0!important;border-color:#2c3934!important}
@@ -79,54 +79,18 @@
 
   function useGoogleCombo(code,attempt=0){
     const combo=document.querySelector('.goog-te-combo');
-    if(combo){
-      combo.value=code;
-      combo.dispatchEvent(new Event('change',{bubbles:true}));
-      return true;
-    }
+    if(combo){combo.value=code;combo.dispatchEvent(new Event('change',{bubbles:true}));return true}
     if(attempt<18){setTimeout(()=>useGoogleCombo(code,attempt+1),180);return true}
     return false;
   }
 
   function applyLanguage(next,userInitiated=false){
-    lang=next;
-    store(STORAGE_LANG,lang);
-    root.lang=lang==='en'?'en':'tr';
-    updateLangButton();
-    setTranslateCookie(lang);
-    useGoogleCombo(lang==='en'?'en':'tr');
-    if(userInitiated&&lang==='tr')setTimeout(()=>location.reload(),220);
+    lang=next;store(STORAGE_LANG,lang);root.lang=lang==='en'?'en':'tr';updateLangButton();setTranslateCookie(lang);useGoogleCombo(lang==='en'?'en':'tr');if(userInitiated&&lang==='tr')setTimeout(()=>location.reload(),220);
   }
 
-  function googleTranslateElementInitGP(){
-    if(!window.google?.translate?.TranslateElement)return;
-    new google.translate.TranslateElement({pageLanguage:'tr',includedLanguages:'en,tr',autoDisplay:false},'google_translate_element_gp');
-    if(lang==='en')setTimeout(()=>useGoogleCombo('en'),300);
-  }
+  function googleTranslateElementInitGP(){if(!window.google?.translate?.TranslateElement)return;new google.translate.TranslateElement({pageLanguage:'tr',includedLanguages:'en,tr',autoDisplay:false},'google_translate_element_gp');if(lang==='en')setTimeout(()=>useGoogleCombo('en'),300)}
   window.googleTranslateElementInitGP=googleTranslateElementInitGP;
-
-  function loadTranslator(){
-    if(document.querySelector('script[data-gp-google-translate]'))return;
-    const holder=document.createElement('div');holder.id='google_translate_element_gp';document.body.appendChild(holder);
-    const script=document.createElement('script');
-    script.src='https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInitGP';
-    script.async=true;script.dataset.gpGoogleTranslate='1';document.body.appendChild(script);
-  }
-
-  function mount(){
-    injectStyles();
-    if(document.querySelector('.gp-site-controls'))return;
-    const wrap=document.createElement('div');
-    wrap.className='gp-site-controls skiptranslate';
-    wrap.setAttribute('translate','no');
-    wrap.innerHTML='<button id="gpLanguageToggle" class="gp-site-control" type="button" aria-label="View in English">EN</button><button id="gpThemeToggle" class="gp-site-control" type="button" aria-label="Koyu temaya geç"><span class="gp-icon">🌙</span></button>';
-    document.body.appendChild(wrap);
-    document.getElementById('gpThemeToggle').addEventListener('click',()=>applyTheme(theme==='dark'?'light':'dark'));
-    document.getElementById('gpLanguageToggle').addEventListener('click',()=>applyLanguage(lang==='en'?'tr':'en',true));
-    applyTheme(theme);
-    updateLangButton();
-    loadTranslator();
-  }
-
+  function loadTranslator(){if(document.querySelector('script[data-gp-google-translate]'))return;const holder=document.createElement('div');holder.id='google_translate_element_gp';document.body.appendChild(holder);const script=document.createElement('script');script.src='https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInitGP';script.async=true;script.dataset.gpGoogleTranslate='1';document.body.appendChild(script)}
+  function mount(){injectStyles();if(document.querySelector('.gp-site-controls'))return;const wrap=document.createElement('div');wrap.className='gp-site-controls skiptranslate';wrap.setAttribute('translate','no');wrap.innerHTML='<button id="gpLanguageToggle" class="gp-site-control" type="button" aria-label="View in English">EN</button><button id="gpThemeToggle" class="gp-site-control" type="button" aria-label="Koyu temaya geç"><span class="gp-icon">🌙</span></button>';document.body.appendChild(wrap);document.getElementById('gpThemeToggle').addEventListener('click',()=>applyTheme(theme==='dark'?'light':'dark'));document.getElementById('gpLanguageToggle').addEventListener('click',()=>applyLanguage(lang==='en'?'tr':'en',true));applyTheme(theme);updateLangButton();loadTranslator()}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount,{once:true});else mount();
 })();
