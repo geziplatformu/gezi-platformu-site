@@ -1,3 +1,4 @@
+// site-controls v2: dark theme date visibility fix
 (()=>{
   const STORAGE_THEME='gp-theme';
   const STORAGE_LANG='gp-language';
@@ -19,7 +20,6 @@
       #google_translate_element_gp{position:fixed!important;left:-9999px!important;top:-9999px!important;width:1px!important;height:1px!important;overflow:hidden!important;opacity:0!important;pointer-events:none!important}
       .goog-te-banner-frame.skiptranslate,.goog-te-banner-frame,.goog-te-gadget-icon{display:none!important}
       body{top:0!important}
-
       html[data-site-theme="dark"]{color-scheme:dark;background:#0c1110!important}
       html[data-site-theme="dark"] body{background:#0c1110!important;color:#edf3f0!important}
       html[data-site-theme="dark"] .gp-site-controls{background:rgba(18,25,23,.92);border-color:rgba(255,255,255,.11);box-shadow:0 8px 28px rgba(0,0,0,.34)}
