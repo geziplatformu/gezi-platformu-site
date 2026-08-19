@@ -1,0 +1,23 @@
+name: Restore full homepage with GA4
+on:
+  push:
+    paths:
+      - '.github/workflows/restore-full-homepage.yml'
+permissions:
+  contents: write
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Restore complete homepage from verified GA4 commit
+        run: git show 2c61a0f2c4e72ce4bd61e07ca1ea1afc1c815980:index.html > index.html
+      - name: Commit restored homepage
+        run: |
+          git config user.name "geziplatformu"
+          git config user.email "futbolsovu@gmail.com"
+          git add index.html
+          git commit -m "Restore complete homepage while keeping GA4" || exit 0
+          git push
