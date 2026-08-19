@@ -1,0 +1,49 @@
+name: Daily site safe fixes
+on:
+  push:
+    paths:
+      - '.github/workflows/daily-site-safe-fixes.yml'
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Harden Instagram fallback and sitemap
+        shell: python
+        run: |
+          from pathlib import Path
+          p=Path('app-core.js')
+          s=p.read_text(encoding='utf-8')
+          start=s.index('function instagramPost(media)')
+          end=s.index('renderTours();', start)
+          replacement=r'''function instagramPost(media){const image=media.thumbnail_url||media.media_url;if(!image||!media.permalink)return '';const type=media.media_type==='VIDEO'?'▶':media.media_type==='CAROUSEL_ALBUM'?'▣':'';return `<a class="instagram-post" href="${media.permalink}" target="_blank" rel="noopener" aria-label="Instagram gönderisini görüntüle"><img src="${imageProxy(image)}" alt="Gezi Platformu Instagram paylaşımı" loading="lazy">${type?`<span class="instagram-post-type">${type}</span>`:''}</a>`;}
+function instagramFallbackTiles(){const href='https://www.instagram.com/geziplatformuu/';return Array.from({length:9},(_,i)=>`<a class="instagram-post instagram-brand-fallback" href="${href}" target="_blank" rel="noopener" aria-label="Gezi Platformu Instagram profilini aç"><img src="assets/gezi-platformu-logo.webp" alt="Gezi Platformu" loading="lazy"><span class="instagram-fallback-label">${i===4?'@geziplatformuu':'Gezi Platformu'}</span></a>`).join('');}
+function saveInstagramSnapshot(data){try{if(data&&data.source==='official'&&Array.isArray(data.media)&&data.media.length)localStorage.setItem('gp-instagram-last-success',JSON.stringify({savedAt:Date.now(),data}));}catch(_){}}
+function loadInstagramSnapshot(){try{const raw=localStorage.getItem('gp-instagram-last-success');if(!raw)return null;const parsed=JSON.parse(raw);return parsed&&parsed.data?parsed.data:null;}catch(_){return null;}}
+function showInstagramFallback(snapshot=null){const data=snapshot||{};if(instagramUsername)instagramUsername.textContent=data.username||'geziplatformuu';if(instagramName)instagramName.textContent=data.name||'GEZİ PLATFORMU';if(instagramBio)instagramBio.textContent=data.biography||'Mersin • Adana • Niğde kalkışlı kültür, tatil, doğa ve kış turları';if(instagramAvatar)instagramAvatar.src=data.profile_picture_url?imageProxy(data.profile_picture_url):'assets/gezi-platformu-logo.webp';if(instagramPostCount)instagramPostCount.textContent=data.media_count==null?'↗':exactNumber.format(data.media_count);if(instagramFollowerCount){instagramFollowerCount.textContent=data.followers_count==null?'IG':compactNumber.format(data.followers_count);if(data.followers_count!=null)instagramFollowerCount.title=exactNumber.format(data.followers_count);}if(instagramFollowingCount)instagramFollowingCount.textContent=data.follows_count==null?'✓':exactNumber.format(data.follows_count);const posts=[...(data.media||[])].sort((a,b)=>new Date(b.timestamp||0)-new Date(a.timestamp||0)).slice(0,9).map(instagramPost).filter(Boolean);if(instagramFeed)instagramFeed.innerHTML=posts.length?posts.join(''):instagramFallbackTiles();if(instagramStatus){instagramStatus.textContent=posts.length?'Son başarılı Instagram verisi':'Instagram canlı verisi geçici olarak alınamıyor • Profil bağlantısı aktif';instagramStatus.className='instagram-status ready';}}
+async function loadInstagram(){try{const response=await fetch('/api/instagram',{cache:'no-store'});const data=await response.json();if(!response.ok||!data.username)throw new Error(data.error||'Instagram verileri alınamadı');if(data.source!=='official'||!Array.isArray(data.media)||!data.media.length){showInstagramFallback(loadInstagramSnapshot());return;}saveInstagramSnapshot(data);if(instagramAvatar&&data.profile_picture_url)instagramAvatar.src=imageProxy(data.profile_picture_url);if(instagramUsername)instagramUsername.textContent=data.username;if(instagramName)instagramName.textContent=data.name||'GEZİ PLATFORMU';if(instagramBio)instagramBio.textContent=data.biography||'';if(instagramPostCount)instagramPostCount.textContent=data.media_count==null?'↗':exactNumber.format(data.media_count);if(instagramFollowerCount){instagramFollowerCount.textContent=data.followers_count==null?'IG':compactNumber.format(data.followers_count);if(data.followers_count!=null)instagramFollowerCount.title=exactNumber.format(data.followers_count);}if(instagramFollowingCount)instagramFollowingCount.textContent=data.follows_count==null?'✓':exactNumber.format(data.follows_count);const posts=[...(data.media||[])].sort((a,b)=>new Date(b.timestamp||0)-new Date(a.timestamp||0)).slice(0,9).map(instagramPost).filter(Boolean);if(instagramFeed)instagramFeed.innerHTML=posts.length?posts.join(''):instagramFallbackTiles();if(instagramStatus){instagramStatus.textContent=`Canlı Instagram profili • ${new Date().toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'})}`;instagramStatus.className='instagram-status ready';}}catch(error){showInstagramFallback(loadInstagramSnapshot());}}
+'''
+          p.write_text(s[:start]+replacement+s[end:],encoding='utf-8')
+
+          css=Path('instagram-resilience.js')
+          x=css.read_text(encoding='utf-8')
+          marker='instagram-fallback-label'
+          if marker not in x:
+              x=x.replace('html[data-site-theme="dark"] .tour-card .tour-date{', '.instagram-live-phone .instagram-brand-fallback{display:grid!important;place-items:center!important;background:linear-gradient(145deg,#171b21,#252b33)!important;text-decoration:none!important}.instagram-live-phone .instagram-brand-fallback img{width:58%!important;height:58%!important;object-fit:contain!important;background:#fff!important;border-radius:50%!important;padding:3px!important}.instagram-live-phone .instagram-fallback-label{position:absolute!important;left:4px!important;right:4px!important;bottom:5px!important;padding:2px 3px!important;border-radius:6px!important;background:rgba(0,0,0,.58)!important;color:#fff!important;font-size:7px!important;font-weight:800!important;text-align:center!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}\n      html[data-site-theme="dark"] .tour-card .tour-date{')
+              css.write_text(x,encoding='utf-8')
+
+          sm=Path('sitemap.xml')
+          m=sm.read_text(encoding='utf-8')
+          url='  <url><loc>https://www.geziplatformuu.com/sss.html</loc></url>\n'
+          if '/sss.html' not in m:
+              m=m.replace('</urlset>',url+'</urlset>')
+              sm.write_text(m,encoding='utf-8')
+      - name: Commit fixes
+        run: |
+          git config user.name "geziplatformu"
+          git config user.email "futbolsovu@gmail.com"
+          git add app-core.js instagram-resilience.js sitemap.xml
+          git commit -m "Harden Instagram fallback and include SSS in sitemap" || exit 0
+          git push
