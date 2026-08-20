@@ -83,7 +83,7 @@ export default async function handler(req, res) {
       }),
       gaRequest(accessToken, propertyId, 'runReport', {
         dateRanges,
-        dimensions: [{ name: 'pagePathPlusQueryString' }, { name: 'pageTitle' }],
+        dimensions: [{ name: 'pagePath' }, { name: 'pageTitle' }],
         metrics: [{ name: 'screenPageViews' }, { name: 'activeUsers' }, { name: 'userEngagementDuration' }],
         orderBys: [{ metric: { metricName: 'screenPageViews' }, desc: true }],
         limit: 500
