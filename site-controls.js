@@ -1,4 +1,4 @@
-// site-controls v3: dark theme date text on white card
+// site-controls v4: homepage duplicate nearest-date cleanup
 (()=>{
   const STORAGE_THEME='gp-theme';
   const STORAGE_LANG='gp-language';
@@ -20,6 +20,7 @@
       #google_translate_element_gp{position:fixed!important;left:-9999px!important;top:-9999px!important;width:1px!important;height:1px!important;overflow:hidden!important;opacity:0!important;pointer-events:none!important}
       .goog-te-banner-frame.skiptranslate,.goog-te-banner-frame,.goog-te-gadget-icon{display:none!important}
       body{top:0!important}
+      body.gp-home .tour-card .tour-date{display:none!important}
       html[data-site-theme="dark"]{color-scheme:dark;background:#0c1110!important}
       html[data-site-theme="dark"] body{background:#0c1110!important;color:#edf3f0!important}
       html[data-site-theme="dark"] .gp-site-controls{background:rgba(18,25,23,.92);border-color:rgba(255,255,255,.11);box-shadow:0 8px 28px rgba(0,0,0,.34)}
@@ -91,6 +92,6 @@
   function googleTranslateElementInitGP(){if(!window.google?.translate?.TranslateElement)return;new google.translate.TranslateElement({pageLanguage:'tr',includedLanguages:'en,tr',autoDisplay:false},'google_translate_element_gp');if(lang==='en')setTimeout(()=>useGoogleCombo('en'),300)}
   window.googleTranslateElementInitGP=googleTranslateElementInitGP;
   function loadTranslator(){if(document.querySelector('script[data-gp-google-translate]'))return;const holder=document.createElement('div');holder.id='google_translate_element_gp';document.body.appendChild(holder);const script=document.createElement('script');script.src='https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInitGP';script.async=true;script.dataset.gpGoogleTranslate='1';document.body.appendChild(script)}
-  function mount(){injectStyles();if(document.querySelector('.gp-site-controls'))return;const wrap=document.createElement('div');wrap.className='gp-site-controls skiptranslate';wrap.setAttribute('translate','no');wrap.innerHTML='<button id="gpLanguageToggle" class="gp-site-control" type="button" aria-label="View in English">EN</button><button id="gpThemeToggle" class="gp-site-control" type="button" aria-label="Koyu temaya geç"><span class="gp-icon">🌙</span></button>';document.body.appendChild(wrap);document.getElementById('gpThemeToggle').addEventListener('click',()=>applyTheme(theme==='dark'?'light':'dark'));document.getElementById('gpLanguageToggle').addEventListener('click',()=>applyLanguage(lang==='en'?'tr':'en',true));applyTheme(theme);updateLangButton();loadTranslator()}
+  function mount(){if(location.pathname==='/'||location.pathname==='/index.html')document.body.classList.add('gp-home');injectStyles();if(document.querySelector('.gp-site-controls'))return;const wrap=document.createElement('div');wrap.className='gp-site-controls skiptranslate';wrap.setAttribute('translate','no');wrap.innerHTML='<button id="gpLanguageToggle" class="gp-site-control" type="button" aria-label="View in English">EN</button><button id="gpThemeToggle" class="gp-site-control" type="button" aria-label="Koyu temaya geç"><span class="gp-icon">🌙</span></button>';document.body.appendChild(wrap);document.getElementById('gpThemeToggle').addEventListener('click',()=>applyTheme(theme==='dark'?'light':'dark'));document.getElementById('gpLanguageToggle').addEventListener('click',()=>applyLanguage(lang==='en'?'tr':'en',true));applyTheme(theme);updateLangButton();loadTranslator()}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount,{once:true});else mount();
 })();
