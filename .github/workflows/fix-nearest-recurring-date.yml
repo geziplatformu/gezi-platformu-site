@@ -1,0 +1,30 @@
+name: Fix recurring nearest tour dates
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-nearest-recurring-date.yml'
+permissions:
+  contents: write
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fix recurring weekday matching
+        shell: python
+        run: |
+          from pathlib import Path
+          p=Path('app-core.js')
+          s=p.read_text(encoding='utf-8')
+          old="function nextRecurringDate(text,today){const n=norm(text);if(!/boyunca her/.test(n))return null;const activeMonths=Object.entries(monthMap).filter(([name])=>n.includes(name)).map(([,idx])=>idx);const weekdays=Object.entries(weekdayMap).filter(([name])=>n.includes(name)).map(([,idx])=>idx);if(!activeMonths.length||!weekdays.length)return null;for(let i=0;i<370;i++){const d=new Date(today);d.setDate(today.getDate()+i);if(activeMonths.includes(d.getMonth())&&weekdays.includes(d.getDay()))return {date:d,label:new Intl.DateTimeFormat('tr-TR',{day:'2-digit',month:'long',weekday:'long'}).format(d)};}return null;}"
+          new="function nextRecurringDate(text,today){const n=norm(text);if(!/boyunca her/.test(n))return null;const words=n.split(/[^a-zçğıöşü]+/i).filter(Boolean);const activeMonths=[...new Set(Object.entries(monthMap).filter(([name])=>words.includes(name)).map(([,idx])=>idx))];const weekdays=[...new Set(Object.entries(weekdayMap).filter(([name])=>words.includes(name)).map(([,idx])=>idx))];if(!activeMonths.length||!weekdays.length)return null;for(let i=1;i<370;i++){const d=new Date(today);d.setDate(today.getDate()+i);if(activeMonths.includes(d.getMonth())&&weekdays.includes(d.getDay()))return {date:d,label:new Intl.DateTimeFormat('tr-TR',{day:'2-digit',month:'long',weekday:'long'}).format(d)};}return null;}"
+          if old not in s:
+              raise SystemExit('Expected recurring date function not found; no change made')
+          p.write_text(s.replace(old,new,1),encoding='utf-8')
+      - name: Commit
+        run: |
+          git config user.name "geziplatformu"
+          git config user.email "futbolsovu@gmail.com"
+          git add app-core.js
+          git commit -m "Fix nearest dates for recurring tours"
+          git push
