@@ -1,14 +1,25 @@
 {
   "redirects": [
-    {
-      "source": "/shop-1",
-      "destination": "/",
-      "permanent": true
-    },
-    {
-      "source": "/shop-1/",
-      "destination": "/",
-      "permanent": true
-    }
+    { "source": "/shop-1", "destination": "/", "permanent": true },
+    { "source": "/shop-1/", "destination": "/", "permanent": true },
+    { "source": "/ben-kimim", "destination": "/hakkimizda.html", "permanent": true },
+    { "source": "/ben-kimim/", "destination": "/hakkimizda.html", "permanent": true },
+    { "source": "/contact-3", "destination": "/iletisim.html", "permanent": true },
+    { "source": "/contact-3/", "destination": "/iletisim.html", "permanent": true },
+    { "source": "/galeri", "destination": "/", "permanent": true },
+    { "source": "/galeri/", "destination": "/", "permanent": true },
+    { "source": "/blog-1", "destination": "/", "permanent": true },
+    { "source": "/blog-1/", "destination": "/", "permanent": true },
+    { "source": "/blog", "destination": "/", "permanent": true },
+    { "source": "/blog/", "destination": "/", "permanent": true },
+
+    { "source": "/product-page/doğu-karadeniz-turu", "destination": "/dogu-ekspresi.html", "permanent": true },
+    { "source": "/product-page/büyük-bati-karadeniz-turu", "destination": "/buyuk-bati-karadeniz.html", "permanent": true },
+    { "source": "/product-page/başkonuş-tabit-parki-yedikuyular-kayakmerkezi", "destination": "/baskonus-menzelet-ali-kayasi.html", "permanent": true },
+    { "source": "/product-page/kadincik-baraji-kisecik-sakli-cennet-gülek-kalesi", "destination": "/camliyayla-doga-turu.html", "permanent": true },
+    { "source": "/product-page/aladağ-başkanin-çardaği-kapikaya-kanyonu-varda-köprüsü-çakit-deresi-köprüba", "destination": "/aladaglar-doga-turu.html", "permanent": true },
+
+    { "source": "/product-page/:path*", "destination": "/", "permanent": true },
+    { "source": "/post/:path*", "destination": "/", "permanent": true }
   ]
 }
