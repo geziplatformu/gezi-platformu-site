@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#ffffff" />
+  <title>Sayfa Bulunamadı | Gezi Platformu</title>
+  <meta name="description" content="Aradığınız sayfa bulunamadı. Gezi Platformu güncel turlarına dönebilir veya bizimle iletişime geçebilirsiniz." />
+  <meta name="robots" content="noindex,follow" />
+  <link rel="icon" type="image/webp" href="/assets/gezi-platformu-logo.webp" />
+  <link rel="stylesheet" href="/styles.css" />
+  <style>
+    .not-found{min-height:calc(100vh - 210px);display:grid;place-items:center;padding:44px 14px 70px}
+    .not-found-card{width:min(720px,100%);text-align:center;padding:34px 22px;border:1px solid #e4e8e6;border-radius:24px;background:#fff;box-shadow:0 18px 55px rgba(26,42,49,.09)}
+    .not-found-code{margin:0;color:#08783f;font-size:clamp(64px,18vw,120px);font-weight:950;line-height:.9;letter-spacing:-.07em}
+    .not-found h1{margin:18px 0 10px;font-size:clamp(28px,7vw,44px);line-height:1.05;letter-spacing:-.04em;color:#17211d}
+    .not-found p{max-width:560px;margin:0 auto;color:#66716c;font-size:15px;line-height:1.7}
+    .not-found-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:24px}
+    .not-found-actions .button{min-width:170px}
+    .not-found-note{margin-top:18px;font-size:12.5px!important;color:#87908c!important}
+    html[data-site-theme="dark"] .not-found-card{background:#141b19;border-color:#28332f}
+    html[data-site-theme="dark"] .not-found h1{color:#edf3f0}
+    html[data-site-theme="dark"] .not-found p{color:#aeb8b3}
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="Gezi Platformu ana sayfa">
+      <img class="brand-logo" src="/assets/gezi-platformu-logo.webp" alt="Gezi Platformu - Dört Mevsim Gezi logosu" width="320" height="320" />
+    </a>
+    <nav class="main-nav" aria-label="Ana menü">
+      <a href="/">Ana Sayfa</a>
+      <a href="/hakkimizda.html">Hakkımızda</a>
+      <a href="/iletisim.html">İletişim</a>
+      <a href="/sss.html">S.S.S</a>
+    </nav>
+  </header>
+
+  <main class="not-found">
+    <section class="not-found-card" aria-labelledby="nf-title">
+      <p class="not-found-code" aria-hidden="true">404</p>
+      <h1 id="nf-title">Aradığınız Sayfayı Bulamadık 🧭</h1>
+      <p>Bu sayfa kaldırılmış, bağlantısı değişmiş veya adres yanlış yazılmış olabilir. Güncel turlarımıza dönebilir ya da aradığınız turu bize sorabilirsiniz.</p>
+      <div class="not-found-actions">
+        <a class="button" href="/">Güncel Turları Gör</a>
+        <a class="button button-whatsapp" href="https://wa.me/905374978441" target="_blank" rel="noopener">WhatsApp’tan Sor</a>
+      </div>
+      <p class="not-found-note">Gezi Platformu • Dört Mevsim Gezi</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">© <span id="year"></span> Gezi Platformu • Dört Mevsim Gezi</footer>
+  <a class="floating-whatsapp" href="https://wa.me/905374978441" target="_blank" rel="noopener" aria-label="WhatsApp’tan iletişime geç">WhatsApp</a>
+  <script src="/site-controls.js"></script>
+  <script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+</body>
+</html>
