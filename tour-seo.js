@@ -1,0 +1,32 @@
+(()=>{
+  const PAGES={
+    '/dogu-ekspresi.html':{title:'Mersin Adana Niğde Çıkışlı Doğu Ekspresi Turu 2026 | Gezi Platformu',desc:'Mersin, Tarsus, Adana ve Niğde çıkışlı Doğu Ekspresi Kars Erzurum Ağrı Van turu. Güncel tarihler, fiyatlar, oteller, rota ve rezervasyon bilgileri.',h1:'Doğu Ekspresi Kars Erzurum Ağrı Van Turu',type:'Kış ve kültür turu'},
+    '/buyuk-bati-karadeniz.html':{title:'Mersin Adana Niğde Çıkışlı Batı Karadeniz Turu 2026 | Gezi Platformu',desc:'Mersin, Tarsus, Adana ve Niğde çıkışlı Büyük Batı Karadeniz turu. Yedigöller, Abant, Safranbolu, Amasra, Horma, Ilıca ve Sinop rotası.',h1:'Büyük Batı Karadeniz Turu',type:'Doğa ve kültür turu'},
+    '/sonbahar-ozel-bati-karadeniz.html':{title:'Mersin Adana Niğde Çıkışlı Sonbahar Batı Karadeniz Turu | Gezi Platformu',desc:'Mersin, Tarsus, Adana ve Niğde çıkışlı Sonbahar Özel Batı Karadeniz turu. Yedigöller, Gölcük, Safranbolu, Amasra, Horma ve Ilıca.',h1:'Sonbahar Özel Batı Karadeniz Turu',type:'Sonbahar doğa ve kültür turu'},
+    '/kadim-topraklar-turu.html':{title:'Mersin Adana Niğde Çıkışlı Mardin Midyat Nemrut Turu | Gezi Platformu',desc:'Mersin, Tarsus, Adana ve Niğde çıkışlı Kadim Topraklar turu. Adıyaman, Nemrut, Diyarbakır, Midyat ve Mardin programı, tarih ve fiyatlar.',h1:'Kadim Topraklar Mardin Midyat Nemrut Turu',type:'Kültür turu'},
+    '/sivas-divrigi-turu.html':{title:'Mersin Adana Niğde Çıkışlı Sivas Divriği Turu | Gezi Platformu',desc:'Mersin, Adana ve Niğde çıkışlı Sivas Divriği günübirlik turu. Divriği Ulu Camii, Darüşşifa, Sivas Kongre Merkezi ve Şifaiye Medresesi.',h1:'Sivas ve Divriği Turu',type:'Kültür turu'},
+    '/hatay-turu.html':{title:'Mersin Adana Çıkışlı Hatay Turu | Günübirlik | Gezi Platformu',desc:'Mersin ve Adana çıkışlı Hatay günübirlik turu. Titus Tüneli, Beşikli Mağarası, Habib-i Neccar Camii, Harbiye Şelaleleri ve Uzun Çarşı.',h1:'Hatay Günübirlik Turu',type:'Kültür turu'},
+    '/mardin-midyat-turu.html':{title:'Mersin Adana Çıkışlı Mardin Midyat Turu | Günübirlik | Gezi Platformu',desc:'Mersin, Adana ve Osmaniye çıkışlı günübirlik Mardin Midyat turu. Kasımiye Medresesi, Mor Gabriel, Midyat ve Mardin tarihi sokakları.',h1:'Mardin ve Midyat Günübirlik Turu',type:'Kültür turu'},
+    '/camliyayla-doga-turu.html':{title:'Mersin Çıkışlı Çamlıyayla Doğa Turu | Günübirlik | Gezi Platformu',desc:'Mersin çıkışlı Çamlıyayla günübirlik doğa turu. Güncel rota, tur tarihi, fiyat, kalkış noktaları ve rezervasyon bilgileri Gezi Platformu’nda.',h1:'Çamlıyayla Günübirlik Doğa Turu',type:'Doğa turu'},
+    '/aladaglar-doga-turu.html':{title:'Mersin Adana Çıkışlı Aladağlar Doğa Turu | Günübirlik | Gezi Platformu',desc:'Mersin ve Adana çıkışlı Aladağlar günübirlik doğa turu. Güncel rota, tarih, fiyat, kalkış noktaları ve rezervasyon bilgileri.',h1:'Aladağlar Günübirlik Doğa Turu',type:'Doğa turu'},
+    '/osmaniye-doga-turu.html':{title:'Mersin Adana Çıkışlı Osmaniye Doğa Turu | Günübirlik | Gezi Platformu',desc:'Mersin ve Adana çıkışlı Osmaniye günübirlik doğa turu. Güncel rota, tarih, fiyat, kalkış noktaları ve rezervasyon bilgileri.',h1:'Osmaniye Günübirlik Doğa Turu',type:'Doğa turu'},
+    '/baskonus-menzelet-ali-kayasi.html':{title:'Mersin Adana Çıkışlı Başkonuş Menzelet Ali Kayası Turu | Gezi Platformu',desc:'Mersin ve Adana çıkışlı Başkonuş Yaylası, Menzelet Gölü, Ali Kayası Cam Teras ve Maraş rotalı günübirlik doğa turu.',h1:'Başkonuş Menzelet ve Ali Kayası Turu',type:'Doğa turu'},
+    '/kayseri-doga-turu.html':{title:'Mersin Adana Niğde Çıkışlı Kayseri Doğa Turu | Gezi Platformu',desc:'Mersin, Adana ve Niğde çıkışlı Kayseri doğa turu. Güncel rota, tarih, fiyat, kalkış noktaları ve rezervasyon bilgileri.',h1:'Kayseri Günübirlik Doğa Turu',type:'Doğa turu'}
+  };
+  const cfg=PAGES[location.pathname];if(!cfg)return;
+  const canon='https://www.geziplatformuu.com'+location.pathname;
+  document.title=cfg.title;
+  const meta=(name,value)=>{let el=document.querySelector(`meta[name="${name}"]`);if(!el){el=document.createElement('meta');el.name=name;document.head.appendChild(el)}el.content=value};
+  const prop=(name,value)=>{let el=document.querySelector(`meta[property="${name}"]`);if(!el){el=document.createElement('meta');el.setAttribute('property',name);document.head.appendChild(el)}el.content=value};
+  meta('description',cfg.desc);prop('og:title',cfg.title);prop('og:description',cfg.desc);prop('og:url',canon);
+  const h1=document.querySelector('h1');if(h1)h1.textContent=cfg.h1;
+  const bodyText=document.body.innerText||'';const known=['Mersin','Tarsus','Adana','Niğde','Osmaniye','Konya','Aksaray','Nevşehir'];const departures=known.filter(x=>bodyText.includes(x));
+  const image=document.querySelector('meta[property="og:image"]')?.content||document.querySelector('main img')?.src||'';
+  const schema={"@context":"https://schema.org","@type":"TouristTrip","@id":canon+'#tour',name:cfg.h1,description:cfg.desc,url:canon,image:image||undefined,touristType:cfg.type,provider:{"@type":"TravelAgency","@id":"https://www.geziplatformuu.com/#business",name:'Gezi Platformu',legalName:'Özbek Turizm',url:'https://www.geziplatformuu.com/',telephone:'+90 537 497 84 41',areaServed:departures.length?departures:['Mersin','Adana','Niğde']}};
+  const s=document.createElement('script');s.type='application/ld+json';s.id='gp-tour-seo-schema';s.textContent=JSON.stringify(schema);document.head.appendChild(s);
+  if(!document.querySelector('.gp-seo-links')){
+    const box=document.createElement('section');box.className='gp-seo-links';box.innerHTML='<strong>Çıkış şehrinize göre diğer turlar</strong><div><a href="/mersin-cikisli-turlar.html">Mersin çıkışlı turlar</a><a href="/adana-cikisli-turlar.html">Adana çıkışlı turlar</a><a href="/nigde-cikisli-turlar.html">Niğde çıkışlı turlar</a><a href="/">Tüm güncel turlar</a></div>';
+    const target=document.querySelector('.reserve-box,.contact-box')||document.querySelector('main');target?.insertAdjacentElement('beforebegin',box);
+    const style=document.createElement('style');style.textContent='.gp-seo-links{width:min(940px,calc(100% - 28px));margin:18px auto 28px;padding:18px;border:1px solid #e5e9e7;border-radius:16px;background:#fff}.gp-seo-links strong{display:block;margin-bottom:10px}.gp-seo-links div{display:flex;flex-wrap:wrap;gap:8px}.gp-seo-links a{padding:9px 11px;border-radius:999px;background:#f2f5f4;font-size:12px;font-weight:800;color:#17211d;text-decoration:none}';document.head.appendChild(style);
+  }
+})();
