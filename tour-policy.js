@@ -1,6 +1,6 @@
 window.TOUR_POLICY={
   default:{deposit:0,child:{mode:'adult'}},
-  'dogu-ekspresi-erzurum-kars-agri-van':{deposit:2500,child:{mode:'percent',discountPercent:20,label:'7–11 Yaş — %20 İndirimli'}},
+  'dogu-ekspresi-erzurum-kars-agri-van':{deposit:3000,child:{mode:'percent',discountPercent:20,label:'7–11 Yaş — %20 İndirimli'}},
   'buyuk-bati-karadeniz':{deposit:0,child:{mode:'fixedDiscount',discount:2500,label:'7–11 Yaş — 2.500 TL İndirimli'}},
   'sonbahar-ozel-bati-karadeniz':{deposit:2000,child:{mode:'fixedDiscount',discount:1000,label:'7–10 Yaş — 1.000 TL İndirimli'}},
   'kadim-topraklar-turu':{deposit:2000,child:{mode:'fixedDiscount',discount:1000,label:'7–10 Yaş — 1.000 TL İndirimli'}},
