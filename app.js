@@ -1,6 +1,12 @@
 const overnightTourIds=new Set(['dogu-ekspresi-erzurum-kars-agri-van','buyuk-bati-karadeniz','kadim-topraklar-turu']);
 const overnightFirst=t=>overnightTourIds.has(t.id)||t.type==='Konaklamalı'||/Gece/.test(t.duration||'')||/Gece/.test(t.type||'');
 window.TOURS=(window.TOURS||[]).map((tour,index)=>({tour,index})).sort((a,b)=>Number(overnightFirst(b.tour))-Number(overnightFirst(a.tour))||a.index-b.index).map(({tour})=>tour);
+const originalCoverById={
+  'mardin-midyat-turu':'https://images.pexels.com/photos/29130338/pexels-photo-29130338.jpeg?auto=compress&cs=tinysrgb&w=1600',
+  'nemrut-rumkale-gaziantep-turu':'https://upload.wikimedia.org/wikipedia/commons/7/73/Mount_Nemrut_National_Park_Statues_light.jpg',
+  'baskonus-menzelet-ali-kayasi':'https://www.baskonusyaylasi.com/resim/upload/sb2906a.jpg'
+};
+window.TOURS.forEach(t=>{if(originalCoverById[t.id])t.image=originalCoverById[t.id];});
 const core=document.createElement('script');core.src='app-core.js?v=7';core.async=false;core.onload=()=>{const instagramStatic=document.createElement('script');instagramStatic.src='instagram-static.js?v=2';document.body.appendChild(instagramStatic);const sales=document.createElement('script');sales.src='payment-prep.js?v=2';sales.onload=()=>{const layout=document.createElement('script');layout.src='tour-card-layout-restore.js?v=1';document.body.appendChild(layout)};document.body.appendChild(sales)};document.head.appendChild(core);
 (()=>{const el=document.querySelector('.welcome-script');const logo=document.getElementById('logoStage');if(!el)return;const setGreeting=()=>{const h=new Date().getHours();el.textContent=h>=6&&h<11?'Günaydın':h>=11&&h<18?'İyi günler':h>=18&&h<22?'İyi akşamlar':'İyi geceler';};const show=()=>{el.style.opacity='1';el.style.transform='none';el.style.transition='opacity .8s ease, transform .8s ease';};setGreeting();setInterval(setGreeting,60000);if(logo){if(logo.classList.contains('done'))setTimeout(show,350);else{const observer=new MutationObserver(()=>{if(logo.classList.contains('done')){setTimeout(show,350);observer.disconnect();}});observer.observe(logo,{attributes:true,attributeFilter:['class']});setTimeout(show,2200);}}else show();})();
 (()=>{const style=document.createElement('style');style.textContent='body{background:#fafaf8}.tours-section{background:#fafaf8}.tour-card{background:#fff}';document.head.appendChild(style);})();
