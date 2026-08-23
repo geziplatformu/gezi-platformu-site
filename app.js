@@ -11,4 +11,6 @@ const core=document.createElement('script');core.src='app-core.js?v=6';core.asyn
 
 (()=>{const departureCities=document.querySelector('.departure-cities');if(departureCities)departureCities.textContent='Mersin • Adana • Niğde';})();
 
+(()=>{const counters=[...document.querySelectorAll('.stat-counter')];if(!counters.length)return;const format=n=>new Intl.NumberFormat('tr-TR').format(n);const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;counters.forEach(original=>{const el=original.cloneNode(true);original.replaceWith(el);const target=Number(el.dataset.target)||0;if(reduce){el.textContent=format(target);return;}el.textContent='0';const start=performance.now();const duration=5000;const tick=now=>{const p=Math.min((now-start)/duration,1);const eased=1-Math.pow(1-p,3);el.textContent=format(Math.floor(target*eased));if(p<1)requestAnimationFrame(tick);else el.textContent=format(target);};requestAnimationFrame(tick);});})();
+
 (()=>{const style=document.createElement('style');style.textContent='body{background:#fafaf8}.tours-section{background:#fafaf8}.tour-card{background:#fff}';document.head.appendChild(style);})();
