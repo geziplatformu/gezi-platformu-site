@@ -20,121 +20,21 @@
     .faq-list{width:min(920px,calc(100% - 28px));margin:0 auto;display:grid;gap:14px}
     .faq-item{overflow:hidden;border:1px solid #e3e5e6;border-radius:20px;background:#fff;box-shadow:0 12px 34px rgba(26,42,49,.08)}
     .faq-item summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:46px 1fr 28px;gap:12px;align-items:center;padding:18px 18px;background:#fff;color:var(--ink)}
-    .faq-item summary::-webkit-details-marker{display:none}
-    .faq-no{width:46px;height:46px;display:grid;place-items:center;border-radius:14px;background:#ffd400;color:#111;font-size:15px;font-weight:950;box-shadow:inset 0 0 0 1px rgba(0,0,0,.07)}
-    .faq-question{font-size:clamp(15px,4vw,19px);font-weight:900;line-height:1.32;letter-spacing:-.015em;text-align:left}
-    .faq-plus{width:28px;height:28px;display:grid;place-items:center;border-radius:50%;background:#151d21;color:#fff;font-size:20px;font-weight:700;transition:transform .2s ease}
-    .faq-item[open] .faq-plus{transform:rotate(45deg)}
-    .faq-answer{padding:0 18px 20px 76px;color:#4e5a61;font-size:14px;line-height:1.72;text-align:left}
-    .faq-answer p{margin:0 0 11px}.faq-answer p:last-child{margin-bottom:0}.faq-answer strong{color:#1e272c}
-    .faq-answer ul{margin:8px 0 0;padding-left:19px}.faq-answer li{margin:7px 0}
-    .faq-note{margin-top:28px;padding:18px;border:1px solid #f1d768;border-radius:18px;background:#fff8cf;text-align:center;color:#594b00;font-size:13px;line-height:1.6}
-    @media(max-width:520px){.faq-section{padding-top:34px}.faq-list{width:calc(100% - 20px)}.faq-item summary{grid-template-columns:40px 1fr 25px;gap:9px;padding:14px 12px}.faq-no{width:40px;height:40px;border-radius:12px;font-size:13px}.faq-plus{width:25px;height:25px;font-size:18px}.faq-question{font-size:14px}.faq-answer{padding:0 14px 17px 61px;font-size:13.5px}}
+    .faq-item summary::-webkit-details-marker{display:none}.faq-no{width:46px;height:46px;display:grid;place-items:center;border-radius:14px;background:#ffd400;color:#111;font-size:15px;font-weight:950;box-shadow:inset 0 0 0 1px rgba(0,0,0,.07)}
+    .faq-question{font-size:clamp(15px,4vw,19px);font-weight:900;line-height:1.32;letter-spacing:-.015em;text-align:left}.faq-plus{width:28px;height:28px;display:grid;place-items:center;border-radius:50%;background:#151d21;color:#fff;font-size:20px;font-weight:700;transition:transform .2s ease}.faq-item[open] .faq-plus{transform:rotate(45deg)}
+    .faq-answer{padding:0 18px 20px 76px;color:#4e5a61;font-size:14px;line-height:1.72;text-align:left}.faq-answer p{margin:0 0 11px}.faq-answer p:last-child{margin-bottom:0}.faq-answer strong{color:#1e272c}.faq-answer ul{margin:8px 0 0;padding-left:19px}.faq-answer li{margin:7px 0}
+    .faq-note{margin-top:28px;padding:18px;border:1px solid #f1d768;border-radius:18px;background:#fff8cf;text-align:center;color:#594b00;font-size:13px;line-height:1.6}@media(max-width:520px){.faq-section{padding-top:34px}.faq-list{width:calc(100% - 20px)}.faq-item summary{grid-template-columns:40px 1fr 25px;gap:9px;padding:14px 12px}.faq-no{width:40px;height:40px;border-radius:12px;font-size:13px}.faq-plus{width:25px;height:25px;font-size:18px}.faq-question{font-size:14px}.faq-answer{padding:0 14px 17px 61px;font-size:13.5px}}
   </style>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-SL0GWRTHRR"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-SL0GWRTHRR');
-  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-SL0GWRTHRR"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-SL0GWRTHRR');</script>
 </head>
 <body>
-  <header class="site-header">
-    <a class="brand" href="/" aria-label="Gezi Platformu ana sayfa">
-      <img class="brand-logo" src="assets/gezi-platformu-logo.webp" alt="Gezi Platformu - Dört Mevsim Gezi logosu" width="320" height="320" />
-    </a>
-    <nav class="main-nav" aria-label="Ana menü">
-      <a href="/">Ana Sayfa</a>
-      <a href="hakkimizda.html">Hakkımızda</a>
-      <a href="iletisim.html">İletişim</a>
-      <a href="sss.html" aria-current="page">S.S.S</a>
-    </nav>
-  </header>
-
-  <main>
-    <section class="faq-section">
-      <div class="container faq-hero">
-        <p class="eyebrow">Sıkça Sorulan Sorular</p>
-        <h1>Merak Ettikleriniz</h1>
-        <p>Rezervasyon, ödeme, koltuk düzeni, biniş noktaları, iptal ve acentemiz hakkında en çok sorulan soruların yanıtlarını burada bulabilirsiniz.</p>
-      </div>
-
-      <div class="faq-list">
-        <details class="faq-item" open>
-          <summary><span class="faq-no">01</span><span class="faq-question">Ücretimi araca binerken verebilir miyim?</span><span class="faq-plus">+</span></summary>
-          <div class="faq-answer">
-            <p>Ne yazık ki <strong>kapora alınmadan yapılan ön rezervasyon kesin kayıt altına alınmamaktadır.</strong> Kapora tutarı her tur için önceden ayrıca belirtilmektedir.</p>
-            <p>Misafirlerimizi güvence altına aldığımız gibi, rezervasyon sürecinde kendimizi de güvence altına almak durumundayız.</p>
-            <p>Ödemenizi dilerseniz <strong>ofisimizden</strong>, dilerseniz <strong>internet bankacılığı üzerinden Havale, EFT veya FAST</strong> ile gerçekleştirebilirsiniz.</p>
-            <p>Kalan bakiyenizi <strong>günübirlik turlarda araç içinde</strong>, konaklamalı turlarda ise <strong>turdan 3 gün öncesine kadar</strong> tamamlayabilirsiniz.</p>
-          </div>
-        </details>
-
-        <details class="faq-item">
-          <summary><span class="faq-no">02</span><span class="faq-question">Araçta istediğim koltuğa oturabilir miyim? Koltuk düzeni neye göre belirleniyor?</span><span class="faq-plus">+</span></summary>
-          <div class="faq-answer">
-            <p>Araç içinde her yolcunun hangi koltukta oturacağı <strong>tur gününden önce belirlenmektedir.</strong></p>
-            <p>Adil bir düzen sağlamak amacıyla koltuk sıralaması <strong>ödeme sırasına göre, önden arkaya doğru</strong> yapılmaktadır. Araca önce binmek koltuk seçiminde etkili değildir.</p>
-            <p>Hamilelik, sağlık durumu gibi özel istisnalar dışında bu düzen uygulanmaktadır. <strong>Gidiş ve dönüş koltukları tur sonuna kadar aynı kalır.</strong></p>
-          </div>
-        </details>
-
-        <details class="faq-item">
-          <summary><span class="faq-no">03</span><span class="faq-question">Kayıt ve ödeme işlemleri nasıl gerçekleşiyor?</span><span class="faq-plus">+</span></summary>
-          <div class="faq-answer">
-            <p>Telefon üzerinden yapılan rezervasyonlarda sizlerden <strong>ad, soyad, kişi sayısı ve biniş noktası</strong> gibi temel bilgileri alıyoruz. Bu aşama ön kayıttır.</p>
-            <p>Günübirlik turlarda rezervasyon yapılan gün mesai sonuna kadar, konaklamalı turlarda ise bir sonraki gün mesai sonuna kadar önceden belirtilen <strong>kaporanızı ofisten veya havale yoluyla</strong> yatırabilirsiniz.</p>
-            <p>Kapora sonrası kayıt kesinleşir. Bu aşamada koltuk ve seyahat sigortası işlemleri için; konaklamalı turlarda ise gerekli olması halinde her yolcunun <strong>ad, soyad, T.C. kimlik numarası ve doğum tarihi</strong> bilgileri WhatsApp üzerinden alınır.</p>
-            <p>Turdan yaklaşık <strong>1 gün önce oluşturulan WhatsApp grubu</strong> üzerinden son hatırlatmalar ve tavsiyeler paylaşılır.</p>
-          </div>
-        </details>
-
-        <details class="faq-item">
-          <summary><span class="faq-no">04</span><span class="faq-question">Belirtilen duraklar dışında biniş sağlayabilir miyim? Geç kalırsam ne olur?</span><span class="faq-plus">+</span></summary>
-          <div class="faq-answer">
-            <p>Özel durumlar haricinde, karışıklık yaşanmaması adına <strong>önceden belirlenmiş duraklar dışında yolcu alımı yapılmamaktadır.</strong></p>
-            <p>Toplu taşıma, kişisel araç veya taksi ile belirlenen kalkış noktasına ulaşmanızı rica ederiz.</p>
-            <p>Geç kalacağınızı kalkış saatinden önce tur sorumlusuna bildirmeniz halinde belirli ölçüde bekleme yapılabilir. Ancak zamanında gelen misafirlerimizin hakkını korumak adına <strong>bekleme süresi minimum düzeyde tutulur.</strong></p>
-          </div>
-        </details>
-
-        <details class="faq-item">
-          <summary><span class="faq-no">05</span><span class="faq-question">Tura katılamıyorum. Ücret iadesi mümkün mü?</span><span class="faq-plus">+</span></summary>
-          <div class="faq-answer">
-            <p><strong>Konaklamalı turlarda tur kalkışına 5 gün (120 saat), günübirlik turlarda ise 2 gün (48 saat) kalaya kadar</strong> herhangi bir sebep belirtmeden yatırılan ücretin tamamının iadesini talep edebilirsiniz.</p>
-            <p>Belirtilen sürelerin dışında yapılan iptallerde <strong>sağlık raporu veya 1. derece yakın vefat belgesi dışında ücret iadesi yapılmamaktadır.</strong></p>
-          </div>
-        </details>
-
-        <details class="faq-item">
-          <summary><span class="faq-no">06</span><span class="faq-question">Ödememi kredi kartıyla ofisten veya uzaktan yapabilir miyim?</span><span class="faq-plus">+</span></summary>
-          <div class="faq-answer">
-            <p>Evet. Ofisimizde fiziksel olarak <strong>kredi kartı ile ödeme</strong> yapabilirsiniz.</p>
-            <p>Ofise gelememeniz durumunda <strong>online ödeme kanallarımız</strong> üzerinden de ödeme işleminizi gerçekleştirebilirsiniz.</p>
-            <p><strong>Vade farklı taksit seçenekleri</strong> kredi kartları için mevcuttur.</p>
-          </div>
-        </details>
-
-        <details class="faq-item">
-          <summary><span class="faq-no">07</span><span class="faq-question">İlk kez tura katılıyorum veya acentenizi ilk kez deneyeceğim. Güvenebilir miyim?</span><span class="faq-plus">+</span></summary>
-          <div class="faq-answer">
-            <p><strong>Mersin Özbek Turizm – Gezi Platformu</strong> olarak uzun yıllara dayanan tecrübemizle hizmet veriyoruz.</p>
-            <p>Türkiye Seyahat Acentaları Birliği kayıt numaramız <strong>TÜRSAB A-8660</strong> olup resmi kanallardan sorgulanabilir.</p>
-            <p>Misafirlerimize kaliteli hizmet sunmak, memnuniyet odaklı ve ulaşılabilir fiyatlı geziler hazırlamak temel önceliklerimiz arasındadır.</p>
-            <p>Ayrıca havayolu şirketlerinin <strong>uçak bileti işlemleri</strong> de acentemiz bünyesinde gerçekleştirilebilmektedir.</p>
-          </div>
-        </details>
-
-        <div class="faq-note">Aradığınız sorunun yanıtını bulamadıysanız WhatsApp üzerinden bize ulaşabilirsiniz. Ekibimiz rezervasyon öncesi ve sonrası süreçlerde yardımcı olacaktır.</div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">© <span id="year"></span> Gezi Platformu • Dört Mevsim Gezi</footer>
-  <a class="floating-whatsapp" href="https://wa.me/905374978441" target="_blank" rel="noopener" aria-label="WhatsApp’tan iletişime geç">WhatsApp</a>
-  <script src="/site-controls.js"></script>
-  <script>document.getElementById('year').textContent=new Date().getFullYear();</script>
-</body>
-</html>
+<header class="site-header"><a class="brand" href="/" aria-label="Gezi Platformu ana sayfa"><img class="brand-logo" src="assets/gezi-platformu-logo.webp" alt="Gezi Platformu - Dört Mevsim Gezi logosu" width="320" height="320" /></a><nav class="main-nav" aria-label="Ana menü"><a href="/">Ana Sayfa</a><a href="hakkimizda.html">Hakkımızda</a><a href="iletisim.html">İletişim</a><a href="sss.html" aria-current="page">S.S.S</a></nav></header>
+<main><section class="faq-section"><div class="container faq-hero"><p class="eyebrow">Sıkça Sorulan Sorular</p><h1>Merak Ettikleriniz</h1><p>Rezervasyon, ödeme, koltuk düzeni, biniş noktaları, iptal ve acentemiz hakkında en çok sorulan soruların yanıtlarını burada bulabilirsiniz.</p></div><div class="faq-list">
+<details class="faq-item" open><summary><span class="faq-no">01</span><span class="faq-question">Ücretimi araca binerken verebilir miyim?</span><span class="faq-plus">+</span></summary><div class="faq-answer"><p>Ne yazık ki <strong>kapora alınmadan yapılan ön rezervasyon kesin kayıt altına alınmamaktadır.</strong> Kapora tutarı her tur için önceden ayrıca belirtilmektedir.</p><p>Misafirlerimizi güvence altına aldığımız gibi, rezervasyon sürecinde kendimizi de güvence altına almak durumundayız.</p><p>Ödemenizi dilerseniz <strong>ofisimizden</strong>, dilerseniz <strong>internet bankacılığı üzerinden Havale, EFT veya FAST</strong> ile gerçekleştirebilirsiniz.</p><p>Kalan bakiyenizi <strong>günübirlik turlarda araç içinde</strong>, konaklamalı turlarda ise <strong>turdan 3 gün öncesine kadar</strong> tamamlayabilirsiniz.</p></div></details>
+<details class="faq-item"><summary><span class="faq-no">02</span><span class="faq-question">Araçta istediğim koltuğa oturabilir miyim? Koltuk düzeni neye göre belirleniyor?</span><span class="faq-plus">+</span></summary><div class="faq-answer"><p>Araç içinde her yolcunun hangi koltukta oturacağı <strong>tur gününden önce belirlenmektedir.</strong></p><p>Adil bir düzen sağlamak amacıyla koltuk sıralaması <strong>ödeme sırasına göre, önden arkaya doğru</strong> yapılmaktadır. Araca önce binmek koltuk seçiminde etkili değildir.</p><p>Hamilelik, sağlık durumu gibi özel istisnalar dışında bu düzen uygulanmaktadır. <strong>Gidiş ve dönüş koltukları tur sonuna kadar aynı kalır.</strong></p></div></details>
+<details class="faq-item"><summary><span class="faq-no">03</span><span class="faq-question">Kayıt ve ödeme işlemleri nasıl gerçekleşiyor?</span><span class="faq-plus">+</span></summary><div class="faq-answer"><p>Telefon üzerinden yapılan rezervasyonlarda sizlerden <strong>ad, soyad, kişi sayısı ve biniş noktası</strong> gibi temel bilgileri alıyoruz. Bu aşama ön kayıttır.</p><p>Günübirlik turlarda rezervasyon yapılan gün mesai sonuna kadar, konaklamalı turlarda ise bir sonraki gün mesai sonuna kadar önceden belirtilen <strong>kaporanızı ofisten veya havale yoluyla</strong> yatırabilirsiniz.</p><p>Kapora sonrası kayıt kesinleşir. Bu aşamada koltuk ve seyahat sigortası işlemleri için; konaklamalı turlarda ise gerekli olması halinde her yolcunun <strong>ad, soyad, T.C. kimlik numarası ve doğum tarihi</strong> bilgileri WhatsApp üzerinden alınır.</p><p>Turdan yaklaşık <strong>1 gün önce oluşturulan WhatsApp grubu</strong> üzerinden son hatırlatmalar ve tavsiyeler paylaşılır.</p></div></details>
+<details class="faq-item"><summary><span class="faq-no">04</span><span class="faq-question">Belirtilen duraklar dışında biniş sağlayabilir miyim? Geç kalırsam ne olur?</span><span class="faq-plus">+</span></summary><div class="faq-answer"><p>Özel durumlar haricinde, karışıklık yaşanmaması adına <strong>önceden belirlenmiş duraklar dışında yolcu alımı yapılmamaktadır.</strong></p><p>Toplu taşıma, kişisel araç veya taksi ile belirlenen kalkış noktasına ulaşmanızı rica ederiz.</p><p>Geç kalacağınızı kalkış saatinden önce tur sorumlusuna bildirmeniz halinde belirli ölçüde bekleme yapılabilir. Ancak zamanında gelen misafirlerimizin hakkını korumak adına <strong>bekleme süresi minimum düzeyde tutulur.</strong></p></div></details>
+<details class="faq-item"><summary><span class="faq-no">05</span><span class="faq-question">Tura katılamıyorum. Ücret iadesi mümkün mü?</span><span class="faq-plus">+</span></summary><div class="faq-answer"><p><strong>Konaklamalı turlarda tur kalkışına 5 gün (120 saat), günübirlik turlarda ise 2 gün (48 saat) kalaya kadar</strong> herhangi bir sebep belirtmeden yatırılan ücretin tamamının iadesini talep edebilirsiniz.</p><p>Belirtilen sürelerin dışında yapılan iptallerde <strong>sağlık raporu veya 1. derece yakın vefat belgesi dışında ücret iadesi yapılmamaktadır.</strong></p></div></details>
+<details class="faq-item"><summary><span class="faq-no">06</span><span class="faq-question">Ödememi nasıl yapabilirim?</span><span class="faq-plus">+</span></summary><div class="faq-answer"><p>Ödemelerinizi <strong>ofisimizden</strong> veya şirket hesabımıza <strong>Havale, EFT ya da FAST</strong> ile gerçekleştirebilirsiniz.</p><p>Web sitesindeki rezervasyon adımında güncel ödeme tutarı ve şirket IBAN bilgileri gösterilir. Ödeme sonrasında dekontunuzu WhatsApp üzerinden iletebilirsiniz.</p><p>Güvenliğiniz için ödemelerin yalnızca <strong>Mersin Özbek Turizm Sanayi ve Ticaret Limited Şirketi</strong> adına kayıtlı hesaba yapılması gerekmektedir.</p></div></details>
+<details class="faq-item"><summary><span class="faq-no">07</span><span class="faq-question">İlk kez tura katılıyorum veya acentenizi ilk kez deneyeceğim. Güvenebilir miyim?</span><span class="faq-plus">+</span></summary><div class="faq-answer"><p><strong>Mersin Özbek Turizm – Gezi Platformu</strong> olarak uzun yıllara dayanan tecrübemizle hizmet veriyoruz.</p><p>Türkiye Seyahat Acentaları Birliği kayıt numaramız <strong>TÜRSAB A-8660</strong> olup resmi kanallardan sorgulanabilir.</p><p>Misafirlerimize kaliteli hizmet sunmak, memnuniyet odaklı ve ulaşılabilir fiyatlı geziler hazırlamak temel önceliklerimiz arasındadır.</p><p>Ayrıca havayolu şirketlerinin <strong>uçak bileti işlemleri</strong> de acentemiz bünyesinde gerçekleştirilebilmektedir.</p></div></details>
+<div class="faq-note">Aradığınız sorunun yanıtını bulamadıysanız WhatsApp üzerinden bize ulaşabilirsiniz. Ekibimiz rezervasyon öncesi ve sonrası süreçlerde yardımcı olacaktır.</div></div></section></main><footer class="site-footer">© <span id="year"></span> Gezi Platformu • Dört Mevsim Gezi</footer><a class="floating-whatsapp" href="https://wa.me/905374978441" target="_blank" rel="noopener" aria-label="WhatsApp’tan iletişime geç">WhatsApp</a><script src="/site-controls.js"></script><script>document.getElementById('year').textContent=new Date().getFullYear();</script></body></html>
