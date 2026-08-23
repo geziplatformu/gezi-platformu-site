@@ -9,4 +9,6 @@ const core=document.createElement('script');core.src='app-core.js?v=6';core.asyn
 
 (()=>{const el=document.querySelector('.welcome-script');const logo=document.getElementById('logoStage');if(!el)return;const setGreeting=()=>{const h=new Date().getHours();el.textContent=h>=6&&h<11?'Günaydın':h>=11&&h<18?'İyi günler':h>=18&&h<22?'İyi akşamlar':'İyi geceler';};const show=()=>{el.style.opacity='1';el.style.transform='none';el.style.transition='opacity .8s ease, transform .8s ease';};setGreeting();setInterval(setGreeting,60000);if(logo){if(logo.classList.contains('done')){setTimeout(show,350);}else{const observer=new MutationObserver(()=>{if(logo.classList.contains('done')){setTimeout(show,350);observer.disconnect();}});observer.observe(logo,{attributes:true,attributeFilter:['class']});setTimeout(show,2200);}}else{show();}})();
 
+(()=>{const departureCities=document.querySelector('.departure-cities');if(departureCities)departureCities.textContent='Mersin • Adana • Niğde';})();
+
 (()=>{const style=document.createElement('style');style.textContent='body{background:#fafaf8}.tours-section{background:#fafaf8}.tour-card{background:#fff}';document.head.appendChild(style);})();
