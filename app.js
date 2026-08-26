@@ -6,7 +6,7 @@ const originalCoverById={
   'nemrut-rumkale-gaziantep-turu':'https://upload.wikimedia.org/wikipedia/commons/7/73/Mount_Nemrut_National_Park_Statues_light.jpg',
   'baskonus-menzelet-ali-kayasi':'https://www.baskonusyaylasi.com/resim/upload/sb2906a.jpg'
 };
-window.TOURS.forEach(t=>{if(originalCoverById[t.id])t.image=originalCoverById[t.id];if(t.id==='buyuk-bati-karadeniz')t.dates='18–23 Ağustos • 25–30 Ağustos • 01–06 Eylül';});
+window.TOURS.forEach(t=>{if(originalCoverById[t.id])t.image=originalCoverById[t.id];if(t.id==='buyuk-bati-karadeniz')t.dates='18–23 Ağustos • 25–30 Ağustos • 01–06 Eylül';if(t.id==='dogu-ekspresi-erzurum-kars-agri-van')t.title='Doğu Ekspresi Erzurum Kars Ağrı Van Turu';});
 // Geçici olarak satış/listeme dışında tutulan turlar. Tur detay dosyaları ve verileri silinmez.
 const hiddenTourIds=new Set(['buyuk-bati-karadeniz']);
 window.TOURS=window.TOURS.filter(t=>!hiddenTourIds.has(t.id));
