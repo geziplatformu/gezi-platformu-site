@@ -15,3 +15,5 @@ const core=document.createElement('script');core.src='app-core.js?v=7';core.asyn
 (()=>{const style=document.createElement('style');style.textContent='body{background:#fafaf8}.tours-section{background:#fafaf8}.tour-card{background:#fff}';document.head.appendChild(style);})();
 // Global English/Turkish language and light/dark theme controls.
 (()=>{if(document.querySelector('script[data-gp-site-controls]'))return;const script=document.createElement('script');script.src='/site-controls.js?v=8';script.async=true;script.dataset.gpSiteControls='1';document.body.appendChild(script);})();
+// PWA-style home screen install control.
+(()=>{if(document.querySelector('script[data-gp-pwa-install]'))return;const script=document.createElement('script');script.src='/pwa-install.js?v=1';script.async=true;script.dataset.gpPwaInstall='1';document.body.appendChild(script);})();
