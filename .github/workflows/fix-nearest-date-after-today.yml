@@ -31,3 +31,4 @@ jobs:
           git add app-core.js
           git commit -m "Include today in nearest tour date" || exit 0
           git push
+# Triggered 2026-08-28 to keep today's active tour date visible.
