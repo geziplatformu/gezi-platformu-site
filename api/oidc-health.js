@@ -4,7 +4,7 @@ const PROJECT_NUMBER='332223419700';
 const POOL_ID='vercel-gezi-platformu';
 const PROVIDER_ID='vercel-gezi-platformu';
 const SERVICE_ACCOUNT='gezi-platformu-analytics@project-5028ec93-ee7e-422b-92f.iam.gserviceaccount.com';
-const AUDIENCE=`https://iam.googleapis.com/projects/${PROJECT_NUMBER}/locations/global/workloadIdentityPools/${POOL_ID}/providers/${PROVIDER_ID}`;
+const AUDIENCE=`//iam.googleapis.com/projects/${PROJECT_NUMBER}/locations/global/workloadIdentityPools/${POOL_ID}/providers/${PROVIDER_ID}`;
 
 export default async function handler(req,res){
   res.setHeader('Cache-Control','no-store');
