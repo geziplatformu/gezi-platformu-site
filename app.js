@@ -17,3 +17,5 @@ const core=document.createElement('script');core.src='app-core.js?v=7';core.asyn
 (()=>{if(document.querySelector('script[data-gp-site-controls]'))return;const script=document.createElement('script');script.src='/site-controls.js?v=8';script.async=true;script.dataset.gpSiteControls='1';document.body.appendChild(script);})();
 // PWA-style home screen install control.
 (()=>{if(document.querySelector('script[data-gp-pwa-install]'))return;const script=document.createElement('script');script.src='/pwa-install.js?v=1';script.async=true;script.dataset.gpPwaInstall='1';document.body.appendChild(script);})();
+// Sonbahar modu: ana sayfada biz kapatana kadar seyrek, doğal yaprak düşüşü.
+(()=>{if(document.querySelector('script[data-gp-autumn-effects]'))return;const script=document.createElement('script');script.src='/autumn-effects.js?v=1';script.async=true;script.dataset.gpAutumnEffects='1';document.body.appendChild(script);})();
