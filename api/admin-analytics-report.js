@@ -1,7 +1,43 @@
 import { hasValidSession } from '../lib/admin-auth.js';
+import { getVercelOidcToken } from '@vercel/oidc';
 
 function env(name,fallbackName){return process.env[name]||(fallbackName?process.env[fallbackName]:undefined)}
-async function getAccessToken(){const clientId=env('GOOGLE_CLIENT_ID'),clientSecret=env('GOOGLE_CLIENT_SECRET'),refreshToken=env('GOOGLE_REFRESH_TOKEN','GOOGLE_YENILEME_TOKENI');if(!clientId||!clientSecret||!refreshToken){const missing=[];if(!clientId)missing.push('GOOGLE_CLIENT_ID');if(!clientSecret)missing.push('GOOGLE_CLIENT_SECRET');if(!refreshToken)missing.push('GOOGLE_REFRESH_TOKEN / GOOGLE_YENILEME_TOKENI');throw new Error(`Eksik ortam değişkeni: ${missing.join(', ')}`)}const body=new URLSearchParams({client_id:clientId,client_secret:clientSecret,refresh_token:refreshToken,grant_type:'refresh_token'});const r=await fetch('https://oauth2.googleapis.com/token',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body});const data=await r.json();if(!r.ok||!data.access_token)throw new Error(`Google erişim belirteci alınamadı: ${data.error_description||data.error||r.status}`);return data.access_token}
+
+const GCP_PROJECT_NUMBER='332223419700';
+const GCP_POOL_ID='vercel-gezi-platformu';
+const GCP_PROVIDER_ID='vercel-gezi-platformu';
+const GCP_SERVICE_ACCOUNT_EMAIL='gezi-platformu-analytics@project-5028ec93-ee7e-422b-92f.iam.gserviceaccount.com';
+const GCP_AUDIENCE=`https://iam.googleapis.com/projects/${GCP_PROJECT_NUMBER}/locations/global/workloadIdentityPools/${GCP_POOL_ID}/providers/${GCP_PROVIDER_ID}`;
+
+async function getAccessToken(){
+  const subjectToken=await getVercelOidcToken({audience:GCP_AUDIENCE});
+  if(!subjectToken)throw new Error('Vercel OIDC belirteci alınamadı.');
+
+  const sts=await fetch('https://sts.googleapis.com/v1/token',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      audience:GCP_AUDIENCE,
+      grantType:'urn:ietf:params:oauth:grant-type:token-exchange',
+      requestedTokenType:'urn:ietf:params:oauth:token-type:access_token',
+      scope:'https://www.googleapis.com/auth/cloud-platform',
+      subjectTokenType:'urn:ietf:params:oauth:token-type:jwt',
+      subjectToken
+    })
+  });
+  const stsData=await sts.json();
+  if(!sts.ok||!stsData.access_token)throw new Error(`Google STS kimlik değişimi başarısız: ${stsData.error_description||stsData.error||sts.status}`);
+
+  const impersonation=await fetch(`https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/${encodeURIComponent(GCP_SERVICE_ACCOUNT_EMAIL)}:generateAccessToken`,{
+    method:'POST',
+    headers:{Authorization:`Bearer ${stsData.access_token}`,'Content-Type':'application/json'},
+    body:JSON.stringify({scope:['https://www.googleapis.com/auth/analytics.readonly'],lifetime:'3600s'})
+  });
+  const impersonationData=await impersonation.json();
+  if(!impersonation.ok||!impersonationData.accessToken)throw new Error(`Hizmet hesabı erişim belirteci alınamadı: ${impersonationData?.error?.message||impersonationData.error||impersonation.status}`);
+  return impersonationData.accessToken;
+}
+
 async function gaRequest(accessToken,propertyId,path,payload){const r=await fetch(`https://analyticsdata.googleapis.com/v1beta/properties/${propertyId}:${path}`,{method:'POST',headers:{Authorization:`Bearer ${accessToken}`,'Content-Type':'application/json'},body:JSON.stringify(payload)});const data=await r.json();if(!r.ok)throw new Error(data?.error?.message||`Google Analytics API hatası (${r.status})`);return data}
 const metric=(row,idx)=>Number(row?.metricValues?.[idx]?.value||0);const dim=(row,idx)=>row?.dimensionValues?.[idx]?.value||'(bilinmiyor)';
 function periodConfig(raw){const period=String(raw||'7');if(period==='today')return{key:period,label:'Bugün',startDate:'today',endDate:'today'};if(period==='yesterday')return{key:period,label:'Dün',startDate:'yesterday',endDate:'yesterday'};const days=[7,14,30].includes(Number(period))?Number(period):7;return{key:String(days),label:`Son ${days} gün`,startDate:`${days-1}daysAgo`,endDate:'today'}}
