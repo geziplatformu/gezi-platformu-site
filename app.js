@@ -22,5 +22,5 @@ const core=document.createElement('script');core.src='app-core.js?v=7';core.asyn
 (()=>{if(document.querySelector('script[data-gp-pwa-install]'))return;const script=document.createElement('script');script.src='/pwa-install.js?v=1';script.async=true;script.dataset.gpPwaInstall='1';document.body.appendChild(script);})();
 // Sonbahar modu: ana sayfada biz kapatana kadar seyrek, doğal yaprak düşüşü.
 (()=>{if(document.querySelector('script[data-gp-autumn-effects]'))return;const script=document.createElement('script');script.src='/autumn-effects.js?v=1';script.async=true;script.dataset.gpAutumnEffects='1';document.body.appendChild(script);})();
-// TÜRSAB doğrulama: boş arama formu yerine resmi TÜRSAB listesindeki 8660 kaydının bulunduğu sayfayı aç.
-(()=>{const button=document.querySelector('.tursab-membership-button');if(!button)return;button.href='https://www.tursab.org.tr/apps/Files/Content/a1856e15-ac60-4acb-8cae-faf29b61a46b.pdf#page=4';button.textContent='TÜRSAB Kaydımızı Görüntüle ↗';})();
+// TÜRSAB doğrulama: yalnızca acentamızın bilgilerini gösteren dahili doğrulama sayfasını aç.
+(()=>{const button=document.querySelector('.tursab-membership-button');if(!button)return;button.href='/tursab-dogrulama.html';button.removeAttribute('target');button.removeAttribute('rel');button.textContent='TÜRSAB Belgemizi Doğrula';})();
