@@ -7,7 +7,7 @@ const GCP_PROJECT_NUMBER='332223419700';
 const GCP_POOL_ID='vercel-gezi-platformu';
 const GCP_PROVIDER_ID='vercel-gezi-platformu';
 const GCP_SERVICE_ACCOUNT_EMAIL='gezi-platformu-analytics@project-5028ec93-ee7e-422b-92f.iam.gserviceaccount.com';
-const GCP_AUDIENCE=`https://iam.googleapis.com/projects/${GCP_PROJECT_NUMBER}/locations/global/workloadIdentityPools/${GCP_POOL_ID}/providers/${GCP_PROVIDER_ID}`;
+const GCP_AUDIENCE=`//iam.googleapis.com/projects/${GCP_PROJECT_NUMBER}/locations/global/workloadIdentityPools/${GCP_POOL_ID}/providers/${GCP_PROVIDER_ID}`;
 
 async function getAccessToken(){
   const subjectToken=await getVercelOidcToken({audience:GCP_AUDIENCE});
