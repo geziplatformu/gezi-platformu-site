@@ -1,0 +1,16 @@
+{
+  "id": "/admin/analytics/",
+  "name": "Gezi Analytics",
+  "short_name": "Gezi Analytics",
+  "description": "Gezi Platformu ziyaret ve performans yönetim paneli.",
+  "start_url": "/admin/analytics/",
+  "scope": "/admin/analytics/",
+  "display": "standalone",
+  "background_color": "#f4f6f8",
+  "theme_color": "#1f2937",
+  "lang": "tr",
+  "icons": [
+    {"src":"/favicon-192.png?v=20260821","sizes":"192x192","type":"image/png","purpose":"any maskable"},
+    {"src":"/assets/gezi-platformu-logo.webp","sizes":"any","type":"image/webp","purpose":"any maskable"}
+  ]
+}
