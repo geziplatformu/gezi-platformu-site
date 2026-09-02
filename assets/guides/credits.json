@@ -1,0 +1,233 @@
+[
+  {
+    "slug": "ishak-pasa-sarayi-dogubayazit",
+    "kind": "cover",
+    "title": "İshak Paşa Sarayı",
+    "page": "https://tr.wikipedia.org/wiki/%C4%B0shak_Pa%C5%9Fa_Saray%C4%B1",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/5/52/ISHAKPASA_SARAYI.jpg?utm_source=tr.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+  },
+  {
+    "slug": "erzurum-gezi-rehberi",
+    "kind": "food",
+    "title": "Cağ kebabı",
+    "page": "https://tr.wikipedia.org/wiki/Ca%C4%9F_kebab%C4%B1",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/6/62/Ca%C4%9Fkebab%C4%B15.jpg?utm_source=tr.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+  },
+  {
+    "slug": "van-gezi-rehberi",
+    "kind": "food",
+    "title": "Van mutfağı",
+    "page": "https://tr.wikipedia.org/wiki/Van_mutfa%C4%9F%C4%B1",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/6/66/Vankahvalti.jpg?utm_source=tr.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+  },
+  {
+    "slug": "ishak-pasa-sarayi-dogubayazit",
+    "kind": "food",
+    "title": "Abdigör köftesi",
+    "page": "https://tr.wikipedia.org/wiki/Abdig%C3%B6r_k%C3%B6ftesi",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/4/41/Abdig%C3%B6r.jpg?utm_source=tr.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+  },
+  {
+    "slug": "erzurum-gezi-rehberi",
+    "kind": "cover",
+    "title": "Erzurum",
+    "page": "https://tr.wikipedia.org/wiki/Erzurum",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/f/fd/Erzurum_Citadel_-_Erzurum_Kalesi_01.jpg?utm_source=tr.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+  },
+  {
+    "slug": "van-gezi-rehberi",
+    "kind": "cover",
+    "title": "Van",
+    "page": "https://tr.wikipedia.org/wiki/Van",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/9/9b/Ho%C5%9Fap_Kalesi_%28Van%2C_T%C3%BCrkiye%29.JPG?utm_source=tr.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+  },
+  {
+    "slug": "safranbolu-amasra-gezi-rehberi",
+    "kind": "food",
+    "title": "Lokum",
+    "page": "https://tr.wikipedia.org/wiki/Lokum",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d4/Turkish_delight_from_Istanbul.jpg/3840px-Turkish_delight_from_Istanbul.jpg?utm_source=tr.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  {
+    "slug": "bati-karadeniz-gezi-rehberi",
+    "kind": "cover",
+    "title": "Karadeniz Bölgesi",
+    "page": "https://tr.wikipedia.org/wiki/Karadeniz_B%C3%B6lgesi",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/c/c0/Karadeniz_Bolgesi_Yeryuzu_Sekilleri_Haritasi.jpg?utm_source=tr.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+  },
+  {
+    "slug": "safranbolu-amasra-gezi-rehberi",
+    "kind": "cover",
+    "title": "Safranbolu",
+    "page": "https://tr.wikipedia.org/wiki/Safranbolu",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/0/08/Safranbolu_traditional_houses.jpg?utm_source=tr.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+  },
+  {
+    "slug": "yedigoller-gezi-rehberi",
+    "kind": "food",
+    "title": "Türk mutfağı",
+    "page": "https://tr.wikipedia.org/wiki/T%C3%BCrk_mutfa%C4%9F%C4%B1",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/e/ec/Food_fromTurkey.jpg?utm_source=tr.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+  },
+  {
+    "slug": "yedigoller-gezi-rehberi",
+    "kind": "cover",
+    "title": "Yedigöller Millî Parkı",
+    "page": "https://tr.wikipedia.org/wiki/Yedig%C3%B6ller_Mill%C3%AE_Park%C4%B1",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/e/ed/Yedigoller_1398_nevit.jpg?utm_source=tr.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+  },
+  {
+    "slug": "bati-karadeniz-gezi-rehberi",
+    "kind": "food",
+    "title": "Türk mutfağı",
+    "page": "https://tr.wikipedia.org/wiki/T%C3%BCrk_mutfa%C4%9F%C4%B1",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/e/ec/Food_fromTurkey.jpg?utm_source=tr.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+  },
+  {
+    "slug": "mardin-midyat-gezi-rehberi",
+    "kind": "cover",
+    "title": "Mardin",
+    "page": "https://tr.wikipedia.org/wiki/Mardin",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/6/69/Mardin%2C_Mardin_Merkez-Mardin%2C_Turkey_-_panoramio_%281%29.jpg?utm_source=tr.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+  },
+  {
+    "slug": "mardin-midyat-gezi-rehberi",
+    "kind": "food",
+    "title": "Kaburga dolması",
+    "page": "https://tr.wikipedia.org/wiki/Kaburga_dolmas%C4%B1",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/d/db/French_School_-_Enjoying_Coffee_-_Google_Art_Project.jpg?utm_source=tr.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+  },
+  {
+    "slug": "diyarbakir-gezi-rehberi",
+    "kind": "food",
+    "title": "Ciğer kebabı",
+    "page": "https://tr.wikipedia.org/wiki/Ci%C4%9Fer_kebab%C4%B1",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/2/2b/Ci%C4%9Fer_Kebab%C4%B1%2C_Kozan_01.JPG?utm_source=tr.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+  },
+  {
+    "slug": "gaziantep-gezi-rehberi",
+    "kind": "food",
+    "title": "Baklava",
+    "page": "https://tr.wikipedia.org/wiki/Baklava",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/c/c7/Baklava%281%29.png?utm_source=tr.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+  },
+  {
+    "slug": "gaziantep-gezi-rehberi",
+    "kind": "cover",
+    "title": "Gaziantep",
+    "page": "https://tr.wikipedia.org/wiki/Gaziantep",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/95/Gaziantep_Archaeology_museum_Roman_Statues_Hall_4431.jpg/3840px-Gaziantep_Archaeology_museum_Roman_Statues_Hall_4431.jpg?utm_source=tr.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  {
+    "slug": "diyarbakir-gezi-rehberi",
+    "kind": "cover",
+    "title": "Diyarbakır",
+    "page": "https://tr.wikipedia.org/wiki/Diyarbak%C4%B1r",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b9/Diyarbak%C4%B1r_Surlar%C4%B1%2C_Diyarbak%C4%B1r_Turkey.jpg/3840px-Diyarbak%C4%B1r_Surlar%C4%B1%2C_Diyarbak%C4%B1r_Turkey.jpg?utm_source=tr.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  {
+    "slug": "halfeti-rumkale-gezi-rehberi",
+    "kind": "cover",
+    "title": "Halfeti",
+    "page": "https://tr.wikipedia.org/wiki/Halfeti",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f2/Halfeti_on_the_Euphrates.jpg/3840px-Halfeti_on_the_Euphrates.jpg?utm_source=tr.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  {
+    "slug": "halfeti-rumkale-gezi-rehberi",
+    "kind": "food",
+    "title": "Patlıcan kebabı",
+    "page": "https://tr.wikipedia.org/wiki/Patl%C4%B1can_kebab%C4%B1",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/a/ac/Patl%C4%B1can_kebap_and_company.jpg?utm_source=tr.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+  },
+  {
+    "slug": "hatay-gezi-rehberi",
+    "kind": "cover",
+    "title": "Hatay",
+    "page": "https://tr.wikipedia.org/wiki/Hatay",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/9/91/Antakya_-_2011-04-10.jpg?utm_source=tr.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+  },
+  {
+    "slug": "nemrut-dagi-gezi-rehberi",
+    "kind": "cover",
+    "title": "Nemrut Dağı",
+    "page": "https://tr.wikipedia.org/wiki/Nemrut_Da%C4%9F%C4%B1",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a3/Mount_Nemrut_-_East_Terrace_%284961323529%29.jpg/3840px-Mount_Nemrut_-_East_Terrace_%284961323529%29.jpg?utm_source=tr.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  {
+    "slug": "camliyayla-toroslar-gezi-rehberi",
+    "kind": "food",
+    "title": "Tantuni",
+    "page": "https://tr.wikipedia.org/wiki/Tantuni",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/b/bc/Tantuni_sokak_yeme%C4%9Fi.jpg?utm_source=tr.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+  },
+  {
+    "slug": "camliyayla-toroslar-gezi-rehberi",
+    "kind": "cover",
+    "title": "Çamlıyayla",
+    "page": "https://tr.wikipedia.org/wiki/%C3%87aml%C4%B1yayla",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/3/31/View_of_%C3%87aml%C4%B1yayla.jpg?utm_source=tr.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+  },
+  {
+    "slug": "horma-kanyonu-ilica-selalesi",
+    "kind": "cover",
+    "title": "Valla Kanyonu",
+    "page": "https://tr.wikipedia.org/wiki/Valla_Kanyonu",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2e/Valla_Canyon.jpg/3840px-Valla_Canyon.jpg?utm_source=tr.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  {
+    "slug": "aladaglar-varda-koprusu-rehberi",
+    "kind": "food",
+    "title": "Adana kebabı",
+    "page": "https://tr.wikipedia.org/wiki/Adana_kebab%C4%B1",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cf/Adana_Kebap.jpg/3840px-Adana_Kebap.jpg?utm_source=tr.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  {
+    "slug": "kahramanmaras-doga-gezi-rehberi",
+    "kind": "cover",
+    "title": "Kahramanmaraş (il)",
+    "page": "https://tr.wikipedia.org/wiki/Kahramanmara%C5%9F_(il)",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Latrans-Turkey_location_Kahramanmara%C5%9F.svg/langtr-1920px-Latrans-Turkey_location_Kahramanmara%C5%9F.svg.png?utm_source=tr.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  {
+    "slug": "kahramanmaras-doga-gezi-rehberi",
+    "kind": "food",
+    "title": "Maraş dövme dondurması",
+    "page": "https://tr.wikipedia.org/wiki/Mara%C5%9F_d%C3%B6vme_dondurmas%C4%B1",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/f/f5/Dondurma_%285065600007%29.jpg?utm_source=tr.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+  },
+  {
+    "slug": "hatay-gezi-rehberi",
+    "kind": "food",
+    "title": "Künefe",
+    "page": "https://tr.wikipedia.org/wiki/K%C3%BCnefe",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/K%C3%BCnefe_20230904.jpg/1920px-K%C3%BCnefe_20230904.jpg?utm_source=tr.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  {
+    "slug": "sivas-divrigi-gezi-rehberi",
+    "kind": "cover",
+    "title": "Divriği Ulu Camii ve Darüşşifası",
+    "page": "https://tr.wikipedia.org/wiki/Divri%C4%9Fi_Ulu_Camii_ve_Dar%C3%BC%C5%9F%C5%9Fifas%C4%B1",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/32/Divrigi_095.jpg/3840px-Divrigi_095.jpg?utm_source=tr.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  {
+    "slug": "kapuzbasi-sultan-sazligi-rehberi",
+    "kind": "food",
+    "title": "Mantı",
+    "page": "https://tr.wikipedia.org/wiki/Mant%C4%B1",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/c/ca/Kayseride_bir_restoranda_Kayseri_mant%C4%B1s%C4%B1_%28cropped%29.jpg?utm_source=tr.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+  },
+  {
+    "slug": "osmaniye-gezi-rehberi",
+    "kind": "cover",
+    "title": "Osmaniye",
+    "page": "https://tr.wikipedia.org/wiki/Osmaniye",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Osmaniyenin_genel_g%C3%B6r%C3%BCnt%C3%BCs%C3%BC.jpg?utm_source=tr.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+  },
+  {
+    "slug": "kapuzbasi-sultan-sazligi-rehberi",
+    "kind": "cover",
+    "title": "Kapuzbaşı Şelaleleri",
+    "page": "https://tr.wikipedia.org/wiki/Kapuzba%C5%9F%C4%B1_%C5%9Eelaleleri",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Elif_%C5%9Eelalesi.jpg/3840px-Elif_%C5%9Eelalesi.jpg?utm_source=tr.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  }
+]

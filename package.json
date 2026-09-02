@@ -2,6 +2,11 @@
   "name": "gezi-platformu-site",
   "private": true,
   "type": "module",
+  "scripts": {
+    "generate:guides": "node scripts/generate-guides.mjs",
+    "assets:guides": "node scripts/download-guide-assets.mjs",
+    "check": "node scripts/check-site.mjs"
+  },
   "dependencies": {
     "@vercel/oidc": "^3.8.5"
   }
