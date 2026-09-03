@@ -13,13 +13,13 @@
     { "source": "/blog", "destination": "/gezi-rehberi.html", "permanent": true },
     { "source": "/blog/", "destination": "/gezi-rehberi.html", "permanent": true },
 
-    { "source": "/product-page/doğu-karadeniz-turu", "destination": "/dogu-ekspresi.html", "permanent": true },
+    { "source": "/product-page/doğu-karadeniz-turu", "destination": "/", "permanent": true },
     { "source": "/product-page/büyük-bati-karadeniz-turu", "destination": "/buyuk-bati-karadeniz.html", "permanent": true },
     { "source": "/product-page/başkonuş-tabit-parki-yedikuyular-kayakmerkezi", "destination": "/baskonus-menzelet-ali-kayasi.html", "permanent": true },
     { "source": "/product-page/kadincik-baraji-kisecik-sakli-cennet-gülek-kalesi", "destination": "/camliyayla-doga-turu.html", "permanent": true },
     { "source": "/product-page/aladağ-başkanin-çardaği-kapikaya-kanyonu-varda-köprüsü-çakit-deresi-köprüba", "destination": "/aladaglar-doga-turu.html", "permanent": true },
 
     { "source": "/product-page/:path*", "destination": "/", "permanent": true },
-    { "source": "/post/:path*", "destination": "/", "permanent": true }
+    { "source": "/post/:path*", "destination": "/gezi-rehberi.html", "permanent": true }
   ]
 }
