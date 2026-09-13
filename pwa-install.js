@@ -12,3 +12,5 @@
   const mount=()=>{addHead();styles();if('serviceWorker' in navigator)navigator.serviceWorker.register('/sw.js?v=1').catch(()=>{});if(!addButton()){let n=0;const t=setInterval(()=>{if(addButton()||++n>30)clearInterval(t)},200)}};
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount,{once:true});else mount();
 })();
+// Homepage nearest-date correction: exclude today/past dates and expand recurring month ranges.
+(()=>{if(location.pathname!=='/'&&location.pathname!=='/index.html')return;if(document.querySelector('script[data-gp-nearest-date-fix]'))return;const s=document.createElement('script');s.src='/nearest-date-fix.js?v=1';s.defer=true;s.dataset.gpNearestDateFix='1';document.body.appendChild(s);})();
