@@ -33,10 +33,10 @@
     const words=n.split(/[^a-zçğıöşü]+/i).filter(Boolean);
     const weekdays=[...new Set(Object.entries(weekdayMap).filter(([name])=>words.includes(name)).map(([,idx])=>idx))];
     if(!months.length||!weekdays.length)return null;
-    for(let i=1;i<=370;i++){const d=new Date(today);d.setDate(today.getDate()+i);if(months.includes(d.getMonth())&&weekdays.includes(d.getDay()))return {date:d,label:new Intl.DateTimeFormat('tr-TR',{day:'2-digit',month:'long',weekday:'long'}).format(d)};}
+    for(let i=0;i<=370;i++){const d=new Date(today);d.setDate(today.getDate()+i);if(months.includes(d.getMonth())&&weekdays.includes(d.getDay()))return {date:d,label:new Intl.DateTimeFormat('tr-TR',{day:'2-digit',month:'long',weekday:'long'}).format(d)};}
     return null;
   }
-  function strictNearest(t){const today=trToday(),rec=nextRecurringDate(t.dates||'',today);if(rec)return rec;const items=String(t.dates||'').split('•').map(x=>x.trim()).filter(Boolean).map(x=>parseExplicitPiece(x,today)).filter(Boolean).filter(x=>x.date>today).sort((a,b)=>a.date-b.date);return items[0]||null;}
+  function strictNearest(t){const today=trToday(),rec=nextRecurringDate(t.dates||'',today);if(rec)return rec;const items=String(t.dates||'').split('•').map(x=>x.trim()).filter(Boolean).map(x=>parseExplicitPiece(x,today)).filter(Boolean).filter(x=>x.date>=today).sort((a,b)=>a.date-b.date);return items[0]||null;}
   function apply(){
     if(location.pathname!=='/'&&location.pathname!=='/index.html')return;
     const tours=window.TOURS||[];
