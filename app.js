@@ -7,7 +7,7 @@ window.TOURS=(window.TOURS||[]).map((tour,index)=>({tour,index})).sort((a,b)=>Nu
 const originalCoverById={
   'mardin-midyat-turu':'https://images.pexels.com/photos/29130338/pexels-photo-29130338.jpeg?auto=compress&cs=tinysrgb&w=1600',
   'nemrut-rumkale-gaziantep-turu':'https://upload.wikimedia.org/wikipedia/commons/7/73/Mount_Nemrut_National_Park_Statues_light.jpg',
-  'baskonus-menzelet-ali-kayasi':'https://www.baskonusyaylasi.com/resim/upload/sb2906a.jpg'
+  'baskonus-menzelet-ali-kayasi':'https://i.ibb.co/1GYNvJ1Q/file-00000000bbbc82108467b91fc6103f4a.png'
 };
 window.TOURS.forEach(t=>{if(originalCoverById[t.id])t.image=originalCoverById[t.id];if(t.id==='dogu-ekspresi-erzurum-kars-agri-van')t.title='Doğu Ekspresi Erzurum Kars Ağrı Van Turu';});
 // Geçici olarak satış/listeme dışında tutulan turlar. Tur detay dosyaları ve verileri silinmez.
