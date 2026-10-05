@@ -6,7 +6,7 @@ const overnightFirst=t=>overnightTourIds.has(t.id)||t.type==='Konaklamalı'||/Ge
 window.TOURS=(window.TOURS||[]).map((tour,index)=>({tour,index})).sort((a,b)=>Number(overnightFirst(b.tour))-Number(overnightFirst(a.tour))||a.index-b.index).map(({tour})=>tour);
 const originalCoverById={
   'mardin-midyat-turu':'https://images.pexels.com/photos/29130338/pexels-photo-29130338.jpeg?auto=compress&cs=tinysrgb&w=1600',
-  'nemrut-rumkale-gaziantep-turu':'https://upload.wikimedia.org/wikipedia/commons/7/73/Mount_Nemrut_National_Park_Statues_light.jpg',
+  'nemrut-rumkale-gaziantep-turu':'https://i.ibb.co/rfKh7d6Y/Screenshot-2026-08-18-21-00-55-241-com-instagram-android-edit.jpg',
   'baskonus-menzelet-ali-kayasi':'https://i.ibb.co/1GYNvJ1Q/file-00000000bbbc82108467b91fc6103f4a.png'
 };
 window.TOURS.forEach(t=>{if(originalCoverById[t.id])t.image=originalCoverById[t.id];if(t.id==='dogu-ekspresi-erzurum-kars-agri-van')t.title='Doğu Ekspresi Erzurum Kars Ağrı Van Turu';});
