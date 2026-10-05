@@ -70,7 +70,7 @@
     if(d<start)d=new Date(start);
     for(let i=0;i<70;i++,d.setDate(d.getDate()+1)){
       if(d>end)return null;
-      if(allowed.includes(d.getDay()))return new Date(d.getFullYear(),d.getMonth(),d.getDate(),6,0,0);
+      if(allowed.includes(d.getDay())){const t=new Date(d.getFullYear(),d.getMonth(),d.getDate(),6,0,0);if(t>now)return t;}
     }
     return null;
   }
