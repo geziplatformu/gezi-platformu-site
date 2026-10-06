@@ -26,8 +26,9 @@
   function daysUntil(date){
     if(!(date instanceof Date)||Number.isNaN(date.getTime()))return null;
     const today=trToday();
-    const target=new Date(date.getFullYear(),date.getMonth(),date.getDate());
-    return Math.max(0,Math.ceil((target-today)/86400000));
+    const targetDay=Date.UTC(date.getFullYear(),date.getMonth(),date.getDate());
+    const todayDay=Date.UTC(today.getFullYear(),today.getMonth(),today.getDate());
+    return Math.max(0,Math.round((targetDay-todayDay)/86400000));
   }
 
   function getTourForCard(card){
