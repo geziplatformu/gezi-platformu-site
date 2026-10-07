@@ -32,3 +32,11 @@ python -m http.server 8000
 ```
 
 Ardından tarayıcıda `http://localhost:8000` adresini açın.
+
+## Arama motoru ve yapay zekâ erişimi
+
+`npm run build`, `scripts/generate-seo.mjs` ile tur kartlarını ilk HTML yanıtına yazar; tüm açık sayfalar için metadata, canonical, yapılandırılmış veri, iç bağlantılar, sitemap.xml ve mevcut llms.txt dizinini günceller. `npm run check` bağlantı ve SEO tutarlılığını doğrular. Vercel aynı komutu her yayında çalıştırır. Yeni turda ayrıntı HTML’ini ve mevcut tur verisini birlikte güncelleyin; fiyat yapısal verisi ayrıntı sayfasındaki görünen ücretten alınır.
+
+Güncel tur adları tarayıcıdaki eski SEO koduyla değiştirilmez. Sepet, rezervasyon, hata sayfaları ve yönetim/API uçları indekslenmez. Geçmiş tarihli programlarda güncel teklif verisi üretilmez. Gezi yazılarının yayın/güncelleme tarihleri korunur. Genel robots.txt kuralı arama botlarının herkese açık içeriği taramasına izin verir. llms.txt yardımcı bir dizindir; Google veya yapay zekâ aramalarında çıkmayı garanti etmez.
+
+Google’daki gerçek indeksleme durumu ve sorgu performansı için Search Console’da URL Denetimi kullanılmalı, https://www.geziplatformuu.com/sitemap.xml gönderilmelidir. Hesaba erişim olmadan her URL’nin Google’da indekslendiği doğrulanamaz.

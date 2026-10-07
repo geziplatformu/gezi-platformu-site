@@ -1,22 +1,64 @@
 # Gezi Platformu
-Gezi Platformu, Özbek Turizm bünyesinde faaliyet gösteren TÜRSAB A-8660 belgeli Mersin merkezli seyahat acentasıdır.
 
-## Resmi sayfalar
-- Ana sayfa: https://www.geziplatformuu.com/
-- Mersin çıkışlı turlar: https://www.geziplatformuu.com/mersin-cikisli-turlar.html
-- Adana çıkışlı turlar: https://www.geziplatformuu.com/adana-cikisli-turlar.html
-- Niğde çıkışlı turlar: https://www.geziplatformuu.com/nigde-cikisli-turlar.html
-- Doğu Ekspresi: https://www.geziplatformuu.com/dogu-ekspresi.html
-- Büyük Batı Karadeniz: https://www.geziplatformuu.com/buyuk-bati-karadeniz.html
-- Sonbahar Batı Karadeniz: https://www.geziplatformuu.com/sonbahar-ozel-bati-karadeniz.html
-- Kadim Topraklar: https://www.geziplatformuu.com/kadim-topraklar-turu.html
-- Sivas Divriği: https://www.geziplatformuu.com/sivas-divrigi-turu.html
-- Hatay: https://www.geziplatformuu.com/hatay-turu.html
-- Mardin Midyat: https://www.geziplatformuu.com/mardin-midyat-turu.html
-- Çamlıyayla: https://www.geziplatformuu.com/camliyayla-doga-turu.html
-- Aladağlar: https://www.geziplatformuu.com/aladaglar-doga-turu.html
-- Osmaniye: https://www.geziplatformuu.com/osmaniye-doga-turu.html
-- Başkonuş Menzelet Ali Kayası: https://www.geziplatformuu.com/baskonus-menzelet-ali-kayasi.html
-- Kayseri: https://www.geziplatformuu.com/kayseri-doga-turu.html
+Mersin merkezli Gezi Platformu, Mersin Özbek Turizm Sanayi ve Ticaret Limited Şirketi bünyesinde TÜRSAB A-8660 belgeli seyahat acentasıdır.
+Telefon / WhatsApp: +90 537 497 84 41
+Adres: Camiişerif Mah. İstiklal Cad. No:45/D Akdeniz / Mersin
 
-Tur tarihleri, fiyatları ve kalkış noktaları değişebileceği için ilgili resmi tur detay sayfasındaki güncel bilgi esas alınmalıdır.
+Bilgi için resmi tur detay sayfaları esas alınmalıdır. Fiyat, tarih, kalkış noktası ve dahil olan hizmetler tur bazında değişir. Bu dizin indeksleme veya sıralama garantisi değildir.
+
+## Firma ve seyahat bilgileri
+- [Adana Çıkışlı Turlar 2026](https://www.geziplatformuu.com/adana-cikisli-turlar.html)
+- [Gezi Rehberi](https://www.geziplatformuu.com/gezi-rehberi.html)
+- [Gizlilik Politikası](https://www.geziplatformuu.com/gizlilik-politikasi.html)
+- [Gezi Platformu](https://www.geziplatformuu.com/hakkimizda.html)
+- [Gezi Platformu Mersin Ofisi](https://www.geziplatformuu.com/iletisim.html)
+- [Güncel Kültür, Tatil, Doğa ve Kış Turlarımız](https://www.geziplatformuu.com/)
+- [İptal, İade ve Değişiklik Koşulları](https://www.geziplatformuu.com/iptal-iade.html)
+- [KVKK Aydınlatma Metni](https://www.geziplatformuu.com/kvkk.html)
+- [Mersin Çıkışlı Turlar 2026](https://www.geziplatformuu.com/mersin-cikisli-turlar.html)
+- [Mesafeli Satış Sözleşmesi](https://www.geziplatformuu.com/mesafeli-satis-sozlesmesi.html)
+- [Niğde Çıkışlı Turlar 2026](https://www.geziplatformuu.com/nigde-cikisli-turlar.html)
+- [Ön Bilgilendirme Formu](https://www.geziplatformuu.com/on-bilgilendirme.html)
+- [Merak Ettikleriniz](https://www.geziplatformuu.com/sss.html)
+- [Teslimat ve İade Şartları](https://www.geziplatformuu.com/teslimat-iade.html)
+- [MERSİN ÖZBEK TURİZM](https://www.geziplatformuu.com/tursab-dogrulama.html)
+
+## Tur programları
+- [NEMRUT • GAZİANTEP • RUMKALE • HALFETİ](https://www.geziplatformuu.com/nemrut-rumkale-gaziantep-turu.html)
+- [Yirce Kayın Ormanları Doğa Turu](https://www.geziplatformuu.com/yirce-kayin-ormanlari-doga-turu.html)
+- [Doğu Ekspresi Erzurum Kars Ağrı Van Turu](https://www.geziplatformuu.com/dogu-ekspresi.html)
+- [Belemedik Tabiat Parkı Doğa Turu](https://www.geziplatformuu.com/camliyayla-doga-turu.html)
+- [Başkonuş Yaylası Doğa Turu](https://www.geziplatformuu.com/baskonus-menzelet-ali-kayasi.html)
+- [Ortaseki Ormanları Doğa Turu](https://www.geziplatformuu.com/aladaglar-doga-turu.html)
+- [Dumanlı Yaylası Doğa Turu](https://www.geziplatformuu.com/osmaniye-doga-turu.html)
+- [Büyük Batı Karadeniz](https://www.geziplatformuu.com/buyuk-bati-karadeniz.html)
+- [KADİM TOPRAKLAR (GAP) TURU](https://www.geziplatformuu.com/kadim-topraklar-turu.html)
+- [Kayseri Doğa Turu](https://www.geziplatformuu.com/kayseri-doga-turu.html)
+- [Sonbahar Özel Batı Karadeniz Turu](https://www.geziplatformuu.com/sonbahar-ozel-bati-karadeniz.html)
+- [Sivas ve Divriği Turu](https://www.geziplatformuu.com/sivas-divrigi-turu.html)
+- [HATAY TURU](https://www.geziplatformuu.com/hatay-turu.html)
+- [MARDİN & MİDYAT TURU](https://www.geziplatformuu.com/mardin-midyat-turu.html)
+
+## Gezi rehberleri
+- [Aladağlar, Küp Şelaleleri ve Varda Köprüsü Rehberi](https://www.geziplatformuu.com/gezi-rehberi/aladaglar-varda-koprusu-rehberi.html)
+- [Batı Karadeniz Gezi Rehberi: 4 Günlük Büyük Rota](https://www.geziplatformuu.com/gezi-rehberi/bati-karadeniz-gezi-rehberi.html)
+- [Çamlıyayla ve Toroslar Gezi Rehberi](https://www.geziplatformuu.com/gezi-rehberi/camliyayla-toroslar-gezi-rehberi.html)
+- [Diyarbakır Gezi Rehberi: Surlar ve Hevsel Bahçeleri](https://www.geziplatformuu.com/gezi-rehberi/diyarbakir-gezi-rehberi.html)
+- [Masalsı Bir Yolculuk: Doğu Ekspresi Rehberi](https://www.geziplatformuu.com/gezi-rehberi/dogu-ekspresi-rehberi.html)
+- [Erzurum Gezi Rehberi: Tarih, Palandöken ve Lezzet](https://www.geziplatformuu.com/gezi-rehberi/erzurum-gezi-rehberi.html)
+- [Gaziantep Gezi Rehberi: Müzeler ve Lezzet Rotası](https://www.geziplatformuu.com/gezi-rehberi/gaziantep-gezi-rehberi.html)
+- [Halfeti ve Rumkale Gezi Rehberi](https://www.geziplatformuu.com/gezi-rehberi/halfeti-rumkale-gezi-rehberi.html)
+- [Hatay Gezi Rehberi: Tarih ve Sofra Kültürü](https://www.geziplatformuu.com/gezi-rehberi/hatay-gezi-rehberi.html)
+- [Horma Kanyonu ve Ilıca Şelalesi Gezi Rehberi](https://www.geziplatformuu.com/gezi-rehberi/horma-kanyonu-ilica-selalesi.html)
+- [İshak Paşa Sarayı ve Doğubayazıt Gezi Rehberi](https://www.geziplatformuu.com/gezi-rehberi/ishak-pasa-sarayi-dogubayazit.html)
+- [Kahramanmaraş Doğa Rehberi: Başkonuş, Menzelet ve Ali Kayası](https://www.geziplatformuu.com/gezi-rehberi/kahramanmaras-doga-gezi-rehberi.html)
+- [Kapuzbaşı Şelaleleri ve Sultan Sazlığı Rehberi](https://www.geziplatformuu.com/gezi-rehberi/kapuzbasi-sultan-sazligi-rehberi.html)
+- [Kars Gezi Rehberi: Ani, Çıldır ve Taş Şehir](https://www.geziplatformuu.com/gezi-rehberi/kars-gezi-rehberi.html)
+- [Mardin ve Midyat Gezi Rehberi: Taşın Hafızası](https://www.geziplatformuu.com/gezi-rehberi/mardin-midyat-gezi-rehberi.html)
+- [Nemrut Dağı Gezi Rehberi: Gün Doğumu mu Gün Batımı mı?](https://www.geziplatformuu.com/gezi-rehberi/nemrut-dagi-gezi-rehberi.html)
+- [Osmaniye Gezi Rehberi: Şelale, Yayla ve Hitit Mirası](https://www.geziplatformuu.com/gezi-rehberi/osmaniye-gezi-rehberi.html)
+- [Safranbolu ve Amasra: 2 Günlük Gezi Rehberi](https://www.geziplatformuu.com/gezi-rehberi/safranbolu-amasra-gezi-rehberi.html)
+- [Sivas ve Divriği Gezi Rehberi](https://www.geziplatformuu.com/gezi-rehberi/sivas-divrigi-gezi-rehberi.html)
+- [Van Gezi Rehberi: Göl, Akdamar ve Kahvaltı](https://www.geziplatformuu.com/gezi-rehberi/van-gezi-rehberi.html)
+- [Yedigöller Gezi Rehberi: En Güzel Mevsim ve Rota](https://www.geziplatformuu.com/gezi-rehberi/yedigoller-gezi-rehberi.html)
+- [Yirce Kayın Ormanları: Sonbaharda Bir Gün](https://www.geziplatformuu.com/gezi-rehberi/yirce-kayin-ormanlari-gezi-rehberi.html)

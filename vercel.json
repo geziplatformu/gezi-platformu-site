@@ -1,25 +1,147 @@
 {
   "redirects": [
-    { "source": "/shop-1", "destination": "/", "permanent": true },
-    { "source": "/shop-1/", "destination": "/", "permanent": true },
-    { "source": "/ben-kimim", "destination": "/hakkimizda.html", "permanent": true },
-    { "source": "/ben-kimim/", "destination": "/hakkimizda.html", "permanent": true },
-    { "source": "/contact-3", "destination": "/iletisim.html", "permanent": true },
-    { "source": "/contact-3/", "destination": "/iletisim.html", "permanent": true },
-    { "source": "/galeri", "destination": "/", "permanent": true },
-    { "source": "/galeri/", "destination": "/", "permanent": true },
-    { "source": "/blog-1", "destination": "/gezi-rehberi.html", "permanent": true },
-    { "source": "/blog-1/", "destination": "/gezi-rehberi.html", "permanent": true },
-    { "source": "/blog", "destination": "/gezi-rehberi.html", "permanent": true },
-    { "source": "/blog/", "destination": "/gezi-rehberi.html", "permanent": true },
-
-    { "source": "/product-page/doğu-karadeniz-turu", "destination": "/", "permanent": true },
-    { "source": "/product-page/büyük-bati-karadeniz-turu", "destination": "/buyuk-bati-karadeniz.html", "permanent": true },
-    { "source": "/product-page/başkonuş-tabit-parki-yedikuyular-kayakmerkezi", "destination": "/baskonus-menzelet-ali-kayasi.html", "permanent": true },
-    { "source": "/product-page/kadincik-baraji-kisecik-sakli-cennet-gülek-kalesi", "destination": "/camliyayla-doga-turu.html", "permanent": true },
-    { "source": "/product-page/aladağ-başkanin-çardaği-kapikaya-kanyonu-varda-köprüsü-çakit-deresi-köprüba", "destination": "/aladaglar-doga-turu.html", "permanent": true },
-
-    { "source": "/product-page/:path*", "destination": "/", "permanent": true },
-    { "source": "/post/:path*", "destination": "/gezi-rehberi.html", "permanent": true }
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "geziplatformuu.com"
+        }
+      ],
+      "destination": "https://www.geziplatformuu.com/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/post/yi̇rce-kayin-ormani",
+      "destination": "/gezi-rehberi/yirce-kayin-ormanlari-gezi-rehberi.html",
+      "permanent": true
+    },
+    {
+      "source": "/post/yirce-kayin-ormani",
+      "destination": "/gezi-rehberi/yirce-kayin-ormanlari-gezi-rehberi.html",
+      "permanent": true
+    },
+    {
+      "source": "/shop-1",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/shop-1/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/ben-kimim",
+      "destination": "/hakkimizda.html",
+      "permanent": true
+    },
+    {
+      "source": "/ben-kimim/",
+      "destination": "/hakkimizda.html",
+      "permanent": true
+    },
+    {
+      "source": "/contact-3",
+      "destination": "/iletisim.html",
+      "permanent": true
+    },
+    {
+      "source": "/contact-3/",
+      "destination": "/iletisim.html",
+      "permanent": true
+    },
+    {
+      "source": "/galeri",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/galeri/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/blog-1",
+      "destination": "/gezi-rehberi.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog-1/",
+      "destination": "/gezi-rehberi.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog",
+      "destination": "/gezi-rehberi.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/",
+      "destination": "/gezi-rehberi.html",
+      "permanent": true
+    },
+    {
+      "source": "/product-page/doğu-karadeniz-turu",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/product-page/büyük-bati-karadeniz-turu",
+      "destination": "/buyuk-bati-karadeniz.html",
+      "permanent": true
+    },
+    {
+      "source": "/product-page/başkonuş-tabit-parki-yedikuyular-kayakmerkezi",
+      "destination": "/baskonus-menzelet-ali-kayasi.html",
+      "permanent": true
+    },
+    {
+      "source": "/product-page/kadincik-baraji-kisecik-sakli-cennet-gülek-kalesi",
+      "destination": "/camliyayla-doga-turu.html",
+      "permanent": true
+    },
+    {
+      "source": "/product-page/aladağ-başkanin-çardaği-kapikaya-kanyonu-varda-köprüsü-çakit-deresi-köprüba",
+      "destination": "/aladaglar-doga-turu.html",
+      "permanent": true
+    },
+    {
+      "source": "/product-page/:path*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/post/:path*",
+      "destination": "/gezi-rehberi.html",
+      "permanent": true
+    }
+  ],
+  "buildCommand": "npm run build",
+  "outputDirectory": ".",
+  "headers": [
+    {
+      "source": "/admin/:path*",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/api/:path*",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    }
   ]
 }
