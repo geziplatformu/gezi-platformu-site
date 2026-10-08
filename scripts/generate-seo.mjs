@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import vm from 'node:vm';
+import {renderTourTerms} from './tour-terms.mjs';
 const root=path.resolve(import.meta.dirname,'..');
 const origin='https://www.geziplatformuu.com';
 const read=f=>fs.readFileSync(path.join(root,f),'utf8');
@@ -72,11 +73,19 @@ const descriptions={
  'sss.html':'Gezi Platformu turları hakkında rezervasyon, kapora, ödeme, koltuk düzeni, biniş noktaları, iptal ve iade sorularının yanıtları.',
  'tursab-dogrulama.html':'Mersin Özbek Turizm – Gezi Platformu TÜRSAB A-8660 seyahat acentası belge bilgileri ve resmî doğrulama bağlantısı.'
 };
-function faq(doc){return all(doc,n=>n.tag==='details').map(d=>{const s=one(d,n=>n.tag==='summary');const q=one(s||d,n=>cls(n,'faq-question'));const answer=one(d,n=>cls(n,'faq-answer'));return {'@type':'Question',name:text(q||s),acceptedAnswer:{'@type':'Answer',text:answer?text(answer):d.children.filter(c=>c!==s).map(text).join(' ').trim()}}}).filter(q=>q.name&&q.acceptedAnswer.text&&!q.name.includes('Tur tarihleri'));}
+function faq(doc){return all(doc,n=>n.tag==='details'&&!cls(n,'tour-terms-details')).map(d=>{const s=one(d,n=>n.tag==='summary');const q=one(s||d,n=>cls(n,'faq-question'));const answer=one(d,n=>cls(n,'faq-answer'));return {'@type':'Question',name:text(q||s),acceptedAnswer:{'@type':'Answer',text:answer?text(answer):d.children.filter(c=>c!==s).map(text).join(' ').trim()}}}).filter(q=>q.name&&q.acceptedAnswer.text&&!q.name.includes('Tur tarihleri'));}
 for(const f of files){
  let html=read(f),doc=parse(html),url=canonical(f),info=pageInfo.get(f),title=titles[f]||text(one(doc,n=>n.tag==='title')),desc=descriptions[f]||info.desc||`${info.name}. Gezi Platformu – Mersin Özbek Turizm tur ve seyahat bilgileri.`;
  // Remove previously generated sections before deterministic regeneration.
  html=html.replace(/\n?<section\b[^>]*id="seo-[^"]+"[^>]*>[\s\S]*?<\/section>\n?/g,'').replace(/\n?<nav\b[^>]*id="seo-site-nav"[^>]*>[\s\S]*?<\/nav>\n?/g,'');
+ html=html.replace(/\n?<section\b[^>]*id="tour-terms"[^>]*>[\s\S]*?<\/section>\n?/g,'');
+ if(tourFiles.has(f)){
+  html=html.replace(/<link\b[^>]*href="\/?tour-terms\.css[^"\s]*"[^>]*>\n?/g,'');
+  html=html.replace('</head>','<link rel="stylesheet" href="/tour-terms.css?v=20261008">\n</head>');
+  const terms=renderTourTerms(f),reservation=/<(?:div|section) class="(?:reserve-box|contact-box)"/;
+  html=reservation.test(html)?html.replace(reservation,m=>terms+m):html.replace('</main>',terms+'</main>');
+  html=html.replace(/^[ \t]+$/gm,'');
+ }
  if(f==='index.html'){
   const renderer=vm.createContext({window:context.window,document:{getElementById:()=>null,querySelectorAll:()=>[]},Intl,Date});
   vm.runInContext(read('app-core.js').split("function renderTours")[0],renderer);vm.runInContext('nearestTourDate=()=>null',renderer);

@@ -1,0 +1,15 @@
+.tour-terms{width:min(1120px,100%);margin:24px auto;padding:clamp(18px,4vw,28px);border:1px solid var(--line,#e7e9ea);border-radius:20px;background:var(--soft,#f7f8f8);color:var(--ink,#152025);overflow-wrap:anywhere}
+.tour-terms h2{margin:0 0 10px;font-size:clamp(21px,4.5vw,26px);line-height:1.3}
+.tour-terms-deadline{margin:0 0 16px;line-height:1.7;font-size:16px}
+.tour-terms-details summary{padding:14px 0;cursor:pointer;font-size:16px;font-weight:700;line-height:1.5}
+.tour-terms-details summary::marker{color:var(--green,#08783f)}
+.tour-terms-details summary:focus-visible{outline:2px solid var(--green,#08783f);outline-offset:4px;border-radius:4px}
+.tour-terms-details[open] summary{border-bottom:1px solid var(--line,#e7e9ea);margin-bottom:20px}
+.tour-terms-content{font-size:16px;line-height:1.8}
+.tour-terms-content h3{margin:26px 0 8px;font-size:18px;line-height:1.5}
+.tour-terms-content h3:first-child{margin-top:0}
+.tour-terms-content p{margin:0 0 14px;color:inherit}
+.tour-terms a{text-decoration:underline;text-underline-offset:3px}
+.tour-terms-content .tour-terms-note{margin-top:24px;padding-top:18px;border-top:1px solid var(--line,#e7e9ea)}
+main>.tour-terms{width:min(1120px,calc(100% - 28px))}
+.detail-page>.tour-terms{width:100%}
