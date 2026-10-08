@@ -83,7 +83,6 @@ for(const f of files){
   const cards=activeTours.map(t=>{renderer.currentTour=t;return vm.runInContext('tourCard(currentTour)',renderer).replace('<div class="tour-actions">',`<details class="tour-static-dates"><summary>Tur tarihleri</summary><p>${esc(t.dates)}</p></details><div class="tour-actions">`)}).join('');
   html=html.replace(/(<div class="tour-grid" id="tourGrid"[^>]*>)[\s\S]*?(<\/div><\/div><\/section>)/,'$1'+cards+'$2');
   html=html.replace(/(<span class="stat-counter" data-target="(\d+)">)[^<]*/g,(_,open,n)=>open+new Intl.NumberFormat('tr-TR').format(Number(n)));
-  html=html.replace('</main>',block('seo-home-links','Çıkış şehrine göre turlar',['mersin','adana','nigde'].map(c=>link(c+'-cikisli-turlar.html')))+block('seo-company','Gezi Platformu Mersin Ofisi',[`<span>${esc(business.legalName)} · TÜRSAB A-8660<br>${esc(business.address.streetAddress)} Akdeniz / Mersin<br><a href="tel:+905374978441">0537 497 84 41</a></span>`,link('iletisim.html','İletişim ve firma bilgileri'),link('gezi-rehberi.html','Gezi rehberlerini inceleyin')])+'</main>');
  }
  if(f.endsWith('-cikisli-turlar.html')){
   const city={'mersin':'Mersin','adana':'Adana','nigde':'Niğde'}[f.split('-')[0]];
@@ -93,7 +92,7 @@ for(const f of files){
  const related=tourFiles.has(f)?(tourGuides[f]||[]).map(g=>'gezi-rehberi/'+g+'.html'):f.startsWith('gezi-rehberi/')?Object.entries(tourGuides).filter(([,gs])=>gs.includes(path.basename(f,'.html'))).map(([tour])=>tour):[];
  if(['buyuk-bati-karadeniz.html','kayseri-doga-turu.html','hatay-turu.html'].includes(f))html=html.replace('</main>', '<section class="seo-links" id="seo-archive"><h2>Tur programı ve güncel tarihler</h2><p>Bu sayfada önceki programın tarih ve ücretleri yer almaktadır. Güncel hareket tarihi ve fiyatı için <a href="/iletisim.html">acentemizle iletişime geçin</a> veya <a href="/">güncel turları inceleyin</a>.</p></section></main>');
  if(related.length)html=html.replace('</main>',block('seo-related',tourFiles.has(f)?'Bu rota için gezi rehberleri':'İlgili tur programları',related.map(x=>link(x)))+'</main>');
- if(!privateFiles.has(f))html=html.replace('</body>',`<nav class="seo-site-nav" id="seo-site-nav" aria-label="Firma ve seyahat bilgileri">${['hakkimizda.html','iletisim.html','tursab-dogrulama.html','gezi-rehberi.html','sss.html','iptal-iade.html','kvkk.html','gizlilik-politikasi.html','mesafeli-satis-sozlesmesi.html','on-bilgilendirme.html','teslimat-iade.html'].map(x=>link(x)).join('')}</nav>\n</body>`);
+ if(f!=='index.html'&&!privateFiles.has(f))html=html.replace('</body>',`<nav class="seo-site-nav" id="seo-site-nav" aria-label="Firma ve seyahat bilgileri">${['hakkimizda.html','iletisim.html','tursab-dogrulama.html','gezi-rehberi.html','sss.html','iptal-iade.html','kvkk.html','gizlilik-politikasi.html','mesafeli-satis-sozlesmesi.html','on-bilgilendirme.html','teslimat-iade.html'].map(x=>link(x)).join('')}</nav>\n</body>`);
  doc=parse(html);const main=one(doc,n=>n.tag==='main')||doc;
  if(tourFiles.has(f)){
   const badge=one(main,n=>cls(n,'detail-badges'));let departures=text(badge?.children.find(n=>n.tag==='span'&&/Mersin|Adana|Niğde/.test(text(n))))||text(one(main,n=>n.tag==='p'&&text(n).includes('Kalkışlı')));
