@@ -4,10 +4,13 @@ window.TOUR_POLICY={
   'buyuk-bati-karadeniz':{deposit:0,child:{mode:'fixedDiscount',discount:2500,label:'7–11 Yaş — 2.500 TL İndirimli'}},
   'sonbahar-ozel-bati-karadeniz':{deposit:2000,child:{mode:'fixedDiscount',discount:1000,label:'7–10 Yaş — 1.000 TL İndirimli'}},
   'kadim-topraklar-turu':{deposit:2000,child:{mode:'fixedDiscount',discount:1000,label:'7–10 Yaş — 1.000 TL İndirimli'}},
-  'camliyayla-doga-turu':{deposit:600,child:{mode:'adult'}},
-  'baskonus-menzelet-ali-kayasi':{deposit:750,child:{mode:'adult'}},
+  'camliyayla-doga-turu':{deposit:900,child:{mode:'adult'}},
+  'baskonus-menzelet-ali-kayasi':{deposit:1000,child:{mode:'adult'}},
   'nemrut-rumkale-gaziantep-turu':{deposit:1000,child:{mode:'adult'}},
   'sivas-divrigi-turu':{deposit:1000,child:{mode:'adult'}},
+  'yirce-kayin-ormanlari-doga-turu':{deposit:900,child:{mode:'adult'}},
+  'osmaniye-doga-turu':{deposit:900,child:{mode:'adult'}},
+  'aladaglar-doga-turu':{deposit:1000,child:{mode:'adult'}},
   'hatay-turu':{deposit:750,child:{mode:'adult'}}
 };
 window.getTourPolicy=id=>window.TOUR_POLICY[id]||window.TOUR_POLICY.default;

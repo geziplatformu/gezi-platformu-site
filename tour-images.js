@@ -1,5 +1,16 @@
+// One cover per tour for cards, details and social metadata.
 if(window.TOURS){
-  const camliyayla=window.TOURS.find(t=>t.id==='camliyayla-doga-turu');if(camliyayla)camliyayla.image='https://pbs.twimg.com/media/FA2jRWNWUAI23mO.jpg';
-  const doguEkspresi=window.TOURS.find(t=>t.id==='dogu-ekspresi-erzurum-kars-agri-van');if(doguEkspresi)doguEkspresi.image='https://i.ibb.co/zhPCbk8q/Smart-Select-20221017-134445-nstagram.jpg';
-  const nemrut=window.TOURS.find(t=>t.id==='nemrut-rumkale-gaziantep-turu');if(nemrut)nemrut.image='https://i.ibb.co/rfKh7d6Y/Screenshot-2026-08-18-21-00-55-241-com-instagram-android-edit.jpg';
+  const covers=window.TOUR_COVERS={
+  "dogu-ekspresi-erzurum-kars-agri-van": "/assets/tours/dogu-ekspresi-cover.avif",
+  "kadim-topraklar-turu": "/assets/tours/kadim-topraklar-turu-cover.png",
+  "sonbahar-ozel-bati-karadeniz": "/assets/tours/sonbahar-ozel-bati-karadeniz-cover.png",
+  "nemrut-rumkale-gaziantep-turu": "/assets/tours/nemrut-rumkale-gaziantep-turu-cover.jpg",
+  "yirce-kayin-ormanlari-doga-turu": "/assets/tours/yirce-kayin-ormanlari-doga-turu-cover.jpg",
+  "camliyayla-doga-turu": "/assets/tours/camliyayla-doga-turu-cover.jpg",
+  "baskonus-menzelet-ali-kayasi": "/assets/tours/baskonus-menzelet-ali-kayasi-cover.png",
+  "aladaglar-doga-turu": "/assets/ortaseki-ormanlari-cover.jfif",
+  "osmaniye-doga-turu": "/assets/tours/osmaniye-doga-turu-cover.png",
+  "sivas-divrigi-turu": "/assets/tours/sivas-divrigi-turu-cover.jpg"
+};
+  window.TOURS.forEach(t=>{if(covers[t.id])t.image=covers[t.id];});
 }

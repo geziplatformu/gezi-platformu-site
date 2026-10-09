@@ -5,8 +5,8 @@
   "scripts": {
     "generate:guides": "node scripts/generate-guides.mjs && node scripts/generate-seo.mjs",
     "assets:guides": "node scripts/download-guide-assets.mjs",
-    "check": "node scripts/check-site.mjs",
-    "build": "node scripts/generate-seo.mjs && node scripts/check-site.mjs",
+    "check": "node scripts/check-site.mjs && node scripts/check-tour-dates.mjs",
+    "build": "node scripts/generate-seo.mjs && npm run check",
     "generate:seo": "node scripts/generate-seo.mjs"
   },
   "dependencies": {

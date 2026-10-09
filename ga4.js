@@ -1,5 +1,6 @@
 // Gezi Platformu - Google Analytics 4
 (function () {
+  if(window.__gpAnalyticsLoaded)return;window.__gpAnalyticsLoaded=true;
   var measurementId = 'G-SL0GWRTHRR';
   window.dataLayer = window.dataLayer || [];
   window.gtag = window.gtag || function(){ window.dataLayer.push(arguments); };

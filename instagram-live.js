@@ -133,7 +133,7 @@
   async function refresh(){
     try{
       setStatus('Instagram verileri güncelleniyor…');
-      const response=await fetch(API,{headers:{Accept:'application/json'},cache:'no-store'});
+      const response=await fetch(API,{headers:{Accept:'application/json'},cache:'no-store',signal:AbortSignal.timeout(10000)});
       if(!response.ok)throw new Error('Instagram API');
       const data=await response.json();
       applyData(data);

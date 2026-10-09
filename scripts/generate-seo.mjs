@@ -111,6 +111,8 @@ for(const f of files){
   const lead=text(one(main,n=>cls(n,'tour-detail-lead')))||allTours.find(t=>t.detailUrl===f)?.summary||'';
   desc=`${departures} çıkışlı ${name}. ${lead.replace(/[🍁🍂💧🥰😌🍄‍🟫]/gu,'').trim()} Tarih, fiyat, rota ve dahil olan hizmetler.`.replace(/\s+/g,' ').slice(0,280);
  }
+ // Keep visitor measurement consistent on all public content pages.
+ if(!privateFiles.has(f)&&!/(?:googletagmanager\.com|src=["']\/?ga4\.js)/.test(html))html=html.replace('</head>','<script defer src="/ga4.js"></script>\n</head>');
  html=html.replace(/<title>[\s\S]*?<\/title>/i,`<title>${esc(title)}</title>`);
  html=html.replace(/<link\b[^>]*rel=["']canonical["'][^>]*>/gi,'').replace('</head>',`<link rel="canonical" href="${url}">\n</head>`);
  for(const [key,value,property] of [['description',desc],['robots',privateFiles.has(f)?'noindex,follow':'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1'],['og:title',title,true],['og:description',desc,true],['og:url',url,true],['og:site_name','Gezi Platformu',true],['og:locale','tr_TR',true],['og:type',f.startsWith('gezi-rehberi/')?'article':'website',true],['twitter:card','summary_large_image'],['twitter:title',title],['twitter:description',desc]])html=replaceMeta(html,key,value,property);

@@ -38,6 +38,7 @@ for(const file of files){
   if(!new RegExp(`<meta\\b[^>]*(?:name|property)="${key}"[^>]*content="[^"]+"`).test(html))seoErrors.push(`${rel}: ${key} missing`);
  }
  if(!html.includes(`rel="canonical" href="${url}"`))seoErrors.push(`${rel}: incorrect canonical`);
+ if(!nonIndexable.has(rel)&&!/(?:googletagmanager\.com|src=["']\/?ga4\.js)/.test(html))seoErrors.push(`${rel}: analytics missing`);
  if(nonIndexable.has(rel)){
   if(!html.includes('content="noindex,follow"')||sitemapUrls.includes(url))seoErrors.push(`${rel}: private page indexing policy`);
   continue;
