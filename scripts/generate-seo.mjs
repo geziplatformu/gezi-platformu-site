@@ -41,6 +41,31 @@ for(const f of ['tours.js','tours-extra.js','tour-images.js'])vm.runInContext(re
 const allTours=JSON.parse(JSON.stringify(context.window.TOURS));
 vm.runInContext(read('app.js').split('const core=')[0],context);
 const activeTours=JSON.parse(JSON.stringify(context.window.TOURS));
+const calendar=vm.createContext({window:{},document:{getElementById:()=>null,querySelectorAll:()=>[]},Intl,Date});
+vm.runInContext(read('app-core.js').split('function tourCard')[0],calendar);
+const archivedFiles=new Set(['buyuk-bati-karadeniz.html','kayseri-doga-turu.html','hatay-turu.html']);
+for(const t of activeTours){
+ calendar.currentTour=t;
+ if((t.scheduleYear||/20\d{2}/.test(t.dates||''))&&!vm.runInContext('nearestTourDate(currentTour)',calendar))archivedFiles.add(t.detailUrl);
+}
+const listedTours=activeTours.filter(t=>!archivedFiles.has(t.detailUrl));
+const unconfirmedYearFiles=new Set(['dogu-ekspresi.html']);
+const tourCopy={
+ 'dogu-ekspresi.html':'Doğu Ekspresi, Erzurum, Kars, Ağrı ve Van turu. Otelleri, tren yolculuğunu ve dönemlik fiyatları inceleyin; hareket tarihinin yılını acentemizden teyit edin.',
+ 'kadim-topraklar-turu.html':'Mersin, Adana ve Niğde çıkışlı GAP turu: Nemrut, Diyarbakır, Midyat ve Mardin. Konaklama, fiyat, tur programı ve rezervasyon bilgilerini inceleyin.',
+ 'sonbahar-ozel-bati-karadeniz.html':'Mersin, Adana ve Niğde çıkışlı sonbahar turu: Yedigöller, Gölcük, Safranbolu, Amasra ve Horma Kanyonu. Tarihleri, oteli ve fiyatı inceleyin.',
+ 'sivas-divrigi-turu.html':'Mersin, Adana ve Niğde çıkışlı Sivas ve Divriği turu. Divriği Ulu Camii, Kongre Merkezi ve medreseler; tarih, fiyat ve hareket saatleri.',
+ 'yirce-kayin-ormanlari-doga-turu.html':'Mersin ve Adana çıkışlı Yirce Kayın Ormanları turu. Dağılcak, Kozan Gölü ve Arıkan Konağı; yürüyüş gerektirmeyen sonbahar rotası, tarih ve fiyat.',
+ 'camliyayla-doga-turu.html':'Mersin ve Adana çıkışlı Belemedik Tabiat Parkı turu. Kisecik Saklı Cennet, Kadıncık Barajı, Gülek Kalesi ve Zevzek Cam Terası; tarih ve fiyat.',
+ 'baskonus-menzelet-ali-kayasi.html':'Mersin ve Adana çıkışlı Başkonuş Yaylası turu. Ali Kayası Cam Teras ve Menzelet Gölü tekne turu; program, tarih, fiyat ve dahil olan hizmetler.',
+ 'aladaglar-doga-turu.html':'Mersin ve Adana çıkışlı Ortaseki Ormanları turu. Tekir Göleti ve Erciyes teleferiğiyle sonbahar rotası; tarih, fiyat ve hareket saatleri.',
+ 'osmaniye-doga-turu.html':'Mersin ve Adana çıkışlı Dumanlı Yaylası turu. Karaçay Şelalesi, Zorkun Yaylası Cam Teras ve Harun Reşit Kalesi; tur tarihleri, program ve fiyat.',
+ 'nemrut-rumkale-gaziantep-turu.html':'Mersin, Adana ve Osmaniye çıkışlı Nemrut, Rumkale, Halfeti ve Gaziantep turu. Gün doğumu rotası, hareket saatleri, tarihler ve fiyat bilgileri.',
+ 'mardin-midyat-turu.html':'Mersin, Adana ve Osmaniye çıkışlı Mardin Midyat turu. Kasımiye Medresesi, Mor Gabriel ve taş sokaklar; program, tarihler ve rezervasyon bilgileri.',
+ 'buyuk-bati-karadeniz.html':'Büyük Batı Karadeniz turunun geçmiş programı: Yedigöller, Abant, Amasra, Safranbolu ve Sinop. Yeni tarih ve güncel ücret için acentemizle iletişime geçin.',
+ 'kayseri-doga-turu.html':'Kayseri Doğa Turu geçmiş programı: Kapuzbaşı Şelaleleri ve Sultan Sazlığı. Yeni hareket tarihi ve güncel fiyat için Gezi Platformu ile iletişime geçin.',
+ 'hatay-turu.html':'Hatay Turu geçmiş programı: Titus Tüneli, Beşikli Mağarası, Harbiye ve Uzun Çarşı. Yeni hareket tarihi ve güncel fiyat için acentemizle iletişime geçin.'
+};
 const tourFiles=new Set([...allTours,...activeTours].map(t=>t.detailUrl).concat(['hatay-turu.html','mardin-midyat-turu.html']));
 const privateFiles=new Set(['404.html','sepet.html','rezervasyon.html']);
 const tourGuides={
@@ -59,16 +84,19 @@ const tourGuides={
 delete tourGuides['aladaglar-doga-turu.html'];
 const files=[...fs.readdirSync(root).filter(f=>f.endsWith('.html')),...fs.readdirSync(path.join(root,'gezi-rehberi')).filter(f=>f.endsWith('.html')).map(f=>'gezi-rehberi/'+f)].sort();
 const pageInfo=new Map(files.map(f=>{const d=parse(read(f));return [f,{name:text(one(d,n=>n.tag==='h1')),desc:meta(d,'description')}]}));
+// Detail-only programs (for example Mardin) may be linked by city without adding a new home card.
+const navigationTours=listedTours.concat([...tourFiles].filter(f=>!archivedFiles.has(f)&&!allTours.some(t=>t.detailUrl===f)&&!listedTours.some(t=>t.detailUrl===f)).map(f=>{const doc=parse(read(f)),badges=one(doc,n=>cls(n,'detail-badges'));return {detailUrl:f,title:pageInfo.get(f).name,departure:text(badges?.children.find(n=>n.tag==='span'&&/Mersin|Adana|Niğde/.test(text(n))))};}));
 const link=(f,label)=>`<a href="/${f}">${esc(label||pageInfo.get(f)?.name||f)}</a>`;
 const block=(id,title,links)=>`\n<section class="seo-links" id="${id}" aria-label="${esc(title)}"><h2>${esc(title)}</h2><nav>${links.join('')}</nav></section>\n`;
 const titles={
- 'index.html':'Gezi Platformu | Mersin Adana Çıkışlı Turlar ve Gezi Rehberi',
+ 'index.html':'Gezi Platformu | Mersin, Adana ve Niğde Çıkışlı Turlar',
  'hakkimizda.html':'Gezi Platformu Hakkımızda | Özbek Turizm TÜRSAB A-8660',
  'iletisim.html':'Gezi Platformu İletişim | Mersin Ofisi, Telefon ve Adres',
  'sss.html':'Sık Sorulan Sorular | Tur, Ödeme, İptal ve İade | Gezi Platformu',
  'gezi-rehberi.html':'Gezi Rehberi | Türkiye’de Gezilecek Yerler | Gezi Platformu'
 };
 const descriptions={
+ 'index.html':'Mersin, Adana ve Niğde çıkışlı günübirlik ve konaklamalı turlar. Güncel tur programları, fiyatlar, kalkış noktaları ve rezervasyon bilgileri. Gezi Platformu.',
  'iletisim.html':'Gezi Platformu Mersin Özbek Turizm ofisi: Camiişerif Mah. İstiklal Cad. No:45/D Akdeniz/Mersin. Telefon ve WhatsApp: 0537 497 84 41. TÜRSAB A-8660.',
  'sss.html':'Gezi Platformu turları hakkında rezervasyon, kapora, ödeme, koltuk düzeni, biniş noktaları, iptal ve iade sorularının yanıtları.',
  'tursab-dogrulama.html':'Mersin Özbek Turizm – Gezi Platformu TÜRSAB A-8660 seyahat acentası belge bilgileri ve resmî doğrulama bağlantısı.'
@@ -77,6 +105,7 @@ function faq(doc){return all(doc,n=>n.tag==='details'&&!cls(n,'tour-terms-detail
 for(const f of files){
  let html=read(f),doc=parse(html),url=canonical(f),info=pageInfo.get(f),title=titles[f]||text(one(doc,n=>n.tag==='title')),desc=descriptions[f]||info.desc||`${info.name}. Gezi Platformu – Mersin Özbek Turizm tur ve seyahat bilgileri.`;
  // Remove previously generated sections before deterministic regeneration.
+ html=html.replace(/<aside\b[^>]*id="seo-schedule-notice"[^>]*>[\s\S]*?<\/aside>/g,'');
  html=html.replace(/\n?<section\b[^>]*id="seo-[^"]+"[^>]*>[\s\S]*?<\/section>\n?/g,'').replace(/\n?<nav\b[^>]*id="seo-site-nav"[^>]*>[\s\S]*?<\/nav>\n?/g,'');
  html=html.replace(/\n?<section\b[^>]*id="tour-terms"[^>]*>[\s\S]*?<\/section>\n?/g,'');
  if(tourFiles.has(f)){
@@ -87,19 +116,24 @@ for(const f of files){
   html=html.replace(/^[ \t]+$/gm,'');
  }
  if(f==='index.html'){
+  const cityBlock=block('seo-departure-cities','Çıkış Şehrine Göre Turlar',['mersin-cikisli-turlar.html','adana-cikisli-turlar.html','nigde-cikisli-turlar.html'].map(x=>link(x,{'mersin':'Mersin','adana':'Adana','nigde':'Niğde'}[x.split('-')[0]]+' Çıkışlı Turlar'))).replace('class="seo-links"','class="seo-links seo-city-links"');
+  html=html.replace('<div class="filter-row"',cityBlock+'<div class="filter-row"');
   const renderer=vm.createContext({window:context.window,document:{getElementById:()=>null,querySelectorAll:()=>[]},Intl,Date});
   vm.runInContext(read('app-core.js').split("function renderTours")[0],renderer);vm.runInContext('nearestTourDate=()=>null',renderer);
-  const cards=activeTours.map(t=>{renderer.currentTour=t;return vm.runInContext('tourCard(currentTour)',renderer).replace('<div class="tour-actions">',`<details class="tour-static-dates"><summary>Tur tarihleri</summary><p>${esc(t.dates)}</p></details><div class="tour-actions">`)}).join('');
+  const cards=listedTours.map(t=>{renderer.currentTour=t;return vm.runInContext('tourCard(currentTour)',renderer).replace('<div class="tour-actions">',`<details class="tour-static-dates"><summary>Tur tarihleri</summary><p>${esc(t.dates)}</p></details><div class="tour-actions">`)}).join('');
   html=html.replace(/(<div class="tour-grid" id="tourGrid"[^>]*>)[\s\S]*?(<\/div><\/div><\/section>)/,'$1'+cards+'$2');
   html=html.replace(/(<span class="stat-counter" data-target="(\d+)">)[^<]*/g,(_,open,n)=>open+new Intl.NumberFormat('tr-TR').format(Number(n)));
  }
  if(f.endsWith('-cikisli-turlar.html')){
   const city={'mersin':'Mersin','adana':'Adana','nigde':'Niğde'}[f.split('-')[0]];
-  const cityTours=activeTours.filter(t=>t.departure.includes(city));
-  html=html.replace('</main>',block('seo-city-tours',`${city} kalkışlı güncel tur programları`,cityTours.map(t=>link(t.detailUrl,t.title)))+'</main>');
+  const cityTours=navigationTours.filter(t=>t.departure.includes(city));
+  html=html.replace(/(<div class="tour-links">)[\s\S]*?<\/div>/,'$1'+cityTours.map(t=>link(t.detailUrl,t.title)).join('')+'</div>');
  }
  const related=tourFiles.has(f)?(tourGuides[f]||[]).map(g=>'gezi-rehberi/'+g+'.html'):f.startsWith('gezi-rehberi/')?Object.entries(tourGuides).filter(([,gs])=>gs.includes(path.basename(f,'.html'))).map(([tour])=>tour):[];
- if(['buyuk-bati-karadeniz.html','kayseri-doga-turu.html','hatay-turu.html'].includes(f))html=html.replace('</main>', '<section class="seo-links" id="seo-archive"><h2>Tur programı ve güncel tarihler</h2><p>Bu sayfada önceki programın tarih ve ücretleri yer almaktadır. Güncel hareket tarihi ve fiyatı için <a href="/iletisim.html">acentemizle iletişime geçin</a> veya <a href="/">güncel turları inceleyin</a>.</p></section></main>');
+ if(archivedFiles.has(f)||unconfirmedYearFiles.has(f)){
+  const notice=archivedFiles.has(f)?'<h2>Geçmiş tur programı</h2><p>Bu programdaki hareket tarihleri geçmiştir. Yeni tarih ve güncel ücret henüz doğrulanmamıştır.':'<h2>Hareket tarihinin yılını teyit edin</h2><p>Yayımlanan kış programında gün ve ay belirtilmiş, yıl belirtilmemiştir. Rezervasyon öncesinde hareket tarihinin yılını ve kontenjanı teyit edin.';
+  html=html.replace(/(<h1\b[^>]*>[\s\S]*?<\/h1>)/i,'$1'+`<aside class="seo-schedule-notice" id="seo-schedule-notice">${notice} <a href="/iletisim.html">Acentemizle iletişime geçin</a>.</p></aside>`);
+ }
  if(related.length)html=html.replace('</main>',block('seo-related',tourFiles.has(f)?'Bu rota için gezi rehberleri':'İlgili tur programları',related.map(x=>link(x)))+'</main>');
  if(f!=='index.html'&&!privateFiles.has(f))html=html.replace('</body>',`<nav class="seo-site-nav" id="seo-site-nav" aria-label="Firma ve seyahat bilgileri">${['hakkimizda.html','iletisim.html','tursab-dogrulama.html','gezi-rehberi.html','sss.html','iptal-iade.html','kvkk.html','gizlilik-politikasi.html','mesafeli-satis-sozlesmesi.html','on-bilgilendirme.html','teslimat-iade.html'].map(x=>link(x)).join('')}</nav>\n</body>`);
  doc=parse(html);const main=one(doc,n=>n.tag==='main')||doc;
@@ -107,16 +141,22 @@ for(const f of files){
   const badge=one(main,n=>cls(n,'detail-badges'));let departures=text(badge?.children.find(n=>n.tag==='span'&&/Mersin|Adana|Niğde/.test(text(n))))||text(one(main,n=>n.tag==='p'&&text(n).includes('Kalkışlı')));
   departures=departures.replace(/[📍]/gu,'').replace(/Kalkışlı/gi,'').trim().split(/\s*•\s*/).join(', ');
   const name=info.name.replace(/^HATAY TURU$/,'Hatay Turu').replace(/^MARDİN & MİDYAT TURU$/,'Mardin Midyat Turu').replace(/^NEMRUT • GAZİANTEP • RUMKALE • HALFETİ$/,'Nemrut Gaziantep Rumkale Halfeti Turu');
-  title=`${name} | ${departures.replace(/, /g,' ')} Çıkışlı | Gezi Platformu`;
+  const titleCities=departures.split(', ').filter(c=>['Mersin','Adana','Niğde','Osmaniye'].includes(c)).join(' ');
+  title=`${name} | ${titleCities} Çıkışlı | Gezi Platformu`;
+  const cityFiles=['Mersin','Adana','Niğde'].filter(c=>departures.split(', ').includes(c)).map(c=>({'Mersin':'mersin','Adana':'adana','Niğde':'nigde'}[c])+'-cikisli-turlar.html');
+  const peers=listedTours.filter(t=>t.detailUrl!==f&&t.departure.split(' • ').some(c=>departures.split(', ').includes(c))).slice(0,3);
+  html=html.replace('</main>',block('seo-tour-cities','Kalkış şehrinize göre diğer turlar',cityFiles.map(x=>link(x)))+block('seo-tour-peers','Diğer tur programları',peers.map(t=>link(t.detailUrl,t.title)))+'</main>');
   const lead=text(one(main,n=>cls(n,'tour-detail-lead')))||allTours.find(t=>t.detailUrl===f)?.summary||'';
-  desc=`${departures} çıkışlı ${name}. ${lead.replace(/[🍁🍂💧🥰😌🍄‍🟫]/gu,'').trim()} Tarih, fiyat, rota ve dahil olan hizmetler.`.replace(/\s+/g,' ').slice(0,280);
+  desc=tourCopy[f]||`${departures} çıkışlı ${name}. ${lead.replace(/[🍁🍂💧🥰😌🍄‍🟫]/gu,'').trim()} Tarih, fiyat, rota ve dahil olan hizmetler.`.replace(/\s+/g,' ').slice(0,280);
  }
  // Keep visitor measurement consistent on all public content pages.
  if(!privateFiles.has(f)&&!/(?:googletagmanager\.com|src=["']\/?ga4\.js)/.test(html))html=html.replace('</head>','<script defer src="/ga4.js"></script>\n</head>');
  html=html.replace(/<title>[\s\S]*?<\/title>/i,`<title>${esc(title)}</title>`);
  html=html.replace(/<link\b[^>]*rel=["']canonical["'][^>]*>/gi,'').replace('</head>',`<link rel="canonical" href="${url}">\n</head>`);
  for(const [key,value,property] of [['description',desc],['robots',privateFiles.has(f)?'noindex,follow':'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1'],['og:title',title,true],['og:description',desc,true],['og:url',url,true],['og:site_name','Gezi Platformu',true],['og:locale','tr_TR',true],['og:type',f.startsWith('gezi-rehberi/')?'article':'website',true],['twitter:card','summary_large_image'],['twitter:title',title],['twitter:description',desc]])html=replaceMeta(html,key,value,property);
- const image=one(main,n=>n.tag==='img'&&(/cover|hero/.test(n.attrs.class||'')||n.attrs.src))?.attrs.src||meta(doc,'og:image')||'/assets/gezi-platformu-logo.webp';
+ doc=parse(html);
+ const cover=one(main,n=>cls(n,'tour-detail-cover')||cls(n,'detail-hero')||cls(n,'guide-hero'));
+ const image=f.endsWith('-cikisli-turlar.html')?'/assets/tours/dogu-ekspresi-cover.avif':one(cover||main,n=>n.tag==='img'&&n.attrs.src)?.attrs.src||'/assets/gezi-platformu-logo.webp';
  html=replaceMeta(html,'og:image',absolute(image),true);html=replaceMeta(html,'twitter:image',absolute(image));
  const oldGraphs=all(doc,n=>n.tag==='script'&&n.attrs.type==='application/ld+json').flatMap(s=>{const j=JSON.parse(s.children[0]?.value||'{}');return j['@graph']||[j]});
  const graph=[];
@@ -129,8 +169,13 @@ for(const f of files){
  if(f.startsWith('gezi-rehberi/'))crumbs.push({'@type':'ListItem',position:2,name:'Gezi Rehberi',item:origin+'/gezi-rehberi.html'});
  if(f!=='index.html'){crumbs.push({'@type':'ListItem',position:crumbs.length+1,name:info.name,item:url});graph.push({'@type':'BreadcrumbList','@id':url+'#breadcrumb',itemListElement:crumbs});webpage.breadcrumb={'@id':url+'#breadcrumb'}}
  if(tourFiles.has(f)){
-  const trip={'@type':'TouristTrip','@id':url+'#tour',name:info.name,url,description:desc,image:absolute(image),provider:{'@type':'TravelAgency','@id':business['@id'],name:business.name,url:business.url,telephone:business.telephone},touristType:text(one(main,n=>cls(n,'eyebrow')))||'Tur'};
+  const trip={'@type':'TouristTrip','@id':url+'#tour',name:info.name,url,description:desc,image:absolute(image),provider:{'@type':'TravelAgency','@id':business['@id'],name:business.name,url:business.url,telephone:business.telephone},touristType:'Kültür ve doğa gezilerine katılan ziyaretçiler'};
   const fields=['Tur Tarihleri','Tarihler ve Fiyatlar','Ücrete Dahil Olanlar','Ücrete Dahil Olmayanlar','Dahil Olanlar','Dahil Olmayanlar','Hareket Saatleri','Çıkış Saatleri','Konaklama','Tur Rotası','Gezilecek Noktalar'];
+  trip.mainEntityOfPage={'@id':webpage['@id']};
+  const badge=one(main,n=>cls(n,'detail-badges'));
+  const departureText=text(badge?.children.find(n=>n.tag==='span'&&/Mersin|Adana|Niğde/.test(text(n))))||text(one(main,n=>n.tag==='p'&&text(n).includes('Kalkışlı')));
+  const cities=departureText.replace(/[📍]/gu,'').replace(/Kalkışlı/gi,'').trim().split(/\s*•\s*/).filter(Boolean);
+  trip.tripOrigin=cities.map(name=>({'@type':'Place',name}));
   trip.description=[desc,...fields.map(label=>text(section(main,label))).filter(Boolean)].join(' ');
   const route=section(main,'Tur Rotası')||section(main,'Gezilecek Noktalar')||section(main,'Tur Programı');
   const stops=route?all(route,n=>n.tag==='li').map(text):[];
@@ -138,7 +183,7 @@ for(const f of files){
   // Prices are taken from visible detail content, never the older JS policy/catalog.
   const priceBlocks=all(main,n=>cls(n,'price-block'));
   const prices=priceBlocks.length?priceBlocks.map(n=>({value:text(one(n,x=>x.tag==='strong')),description:text(n)})):[{value:text(one(main,n=>cls(n,'detail-price'))),description:'Kişi başı tur ücreti; ayrıntılar ve ek ücretler tur programındadır.'}];
-  const archive=['buyuk-bati-karadeniz.html','kayseri-doga-turu.html','hatay-turu.html'].includes(f);
+  const archive=archivedFiles.has(f);
   if(!archive)trip.offers=prices.flatMap(p=>{const m=p.value.match(/(\d[\d.]*)\s*(?:₺|TL)/);return m?[{'@type':'Offer',url,price:m[1].replaceAll('.',''),priceCurrency:'TRY',description:p.description,seller:{'@type':'TravelAgency','@id':business['@id'],name:business.name,url:business.url}}]:[]});
   webpage.mainEntity={'@id':trip['@id']};graph.push(trip);
  }
@@ -147,7 +192,8 @@ for(const f of files){
  }
  const questions=faq(main);if(questions.length)graph.push({'@type':'FAQPage','@id':url+'#faq',mainEntity:questions});
  if(pageType==='CollectionPage'){
-  const urls=[...new Set(all(main,n=>n.tag==='a'&&n.attrs.href).map(n=>n.attrs.href).filter(h=>h.endsWith('.html')&&(tourFiles.has(h.replace(/^\//,''))||h.startsWith('/gezi-rehberi/'))))];
+  const collectionMain=one(doc,n=>n.tag==='main')||doc;
+  const urls=[...new Set(all(collectionMain,n=>n.tag==='a'&&n.attrs.href).map(n=>n.attrs.href).filter(h=>h.endsWith('.html')&&(tourFiles.has(h.replace(/^\//,''))||h.startsWith('/gezi-rehberi/'))))];
   if(urls.length){const list={'@type':'ItemList','@id':url+'#list',itemListElement:urls.map((u,i)=>({'@type':'ListItem',position:i+1,name:pageInfo.get(u.replace(/^\//,''))?.name||u,url:absolute(u)}))};graph.push(list);webpage.mainEntity={'@id':list['@id']}}
  }
  html=html.replace(/<script\b[^>]*type=["']application\/ld\+json["'][^>]*>[\s\S]*?<\/script>/gi,'');
@@ -159,7 +205,7 @@ for(const f of files){
 const previousDates=new Map([...read('sitemap.xml').matchAll(/<url><loc>(.*?)<\/loc>(?:<lastmod>(.*?)<\/lastmod>)?/g)].map(m=>[m[1],m[2]]));
 const urls=files.filter(f=>!privateFiles.has(f)).map(f=>{const u=canonical(f);let date; // Preserve actual editorial dates; do not simulate daily freshness.
  const modified=all(parse(read(f)),n=>n.tag==='script'&&n.attrs.type==='application/ld+json').flatMap(s=>JSON.parse(s.children[0].value)['@graph']||[]).find(x=>x['@type']==='BlogPosting')?.dateModified;
- date=modified||previousDates.get(u);return `  <url><loc>${u}</loc>${date?`<lastmod>${date}</lastmod>`:''}</url>`;});
+ date=modified||previousDates.get(u);if(tourFiles.has(f)||f==='index.html'||f.endsWith('-cikisli-turlar.html'))date='2026-10-12';return `  <url><loc>${u}</loc>${date?`<lastmod>${date}</lastmod>`:''}</url>`;});
 write('sitemap.xml',`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>\n`);
 write('llms.txt',`# Gezi Platformu\n\nMersin merkezli Gezi Platformu, Mersin Özbek Turizm Sanayi ve Ticaret Limited Şirketi bünyesinde TÜRSAB A-8660 belgeli seyahat acentasıdır.\nTelefon / WhatsApp: +90 537 497 84 41\nAdres: Camiişerif Mah. İstiklal Cad. No:45/D Akdeniz / Mersin\n\nBilgi için resmi tur detay sayfaları esas alınmalıdır. Fiyat, tarih, kalkış noktası ve dahil olan hizmetler tur bazında değişir. Bu dizin indeksleme veya sıralama garantisi değildir.\n\n## Firma ve seyahat bilgileri\n${files.filter(f=>!tourFiles.has(f)&&!f.startsWith('gezi-rehberi/')&&!privateFiles.has(f)).map(f=>`- [${pageInfo.get(f).name}](${canonical(f)})`).join('\n')}\n\n## Tur programları\n${[...tourFiles].map(f=>`- [${pageInfo.get(f).name}](${canonical(f)})`).join('\n')}\n\n## Gezi rehberleri\n${files.filter(f=>f.startsWith('gezi-rehberi/')).map(f=>`- [${pageInfo.get(f).name}](${canonical(f)})`).join('\n')}\n`);
 console.log(`${files.length} HTML sayfası, ${tourFiles.size} tur, ${files.filter(f=>f.startsWith('gezi-rehberi/')).length} rehber optimize edildi; ${urls.length} URL site haritasında.`);

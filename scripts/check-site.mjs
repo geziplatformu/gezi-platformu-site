@@ -67,3 +67,37 @@ for(const url of sitemapUrls){const rel=url.replace(origin+'/','')||'index.html'
 if(fs.readFileSync(path.join(root,'site-controls.js'),'utf8').includes('loadTourSeo'))seoErrors.push('Obsolete runtime SEO override remains');
 if(seoErrors.length){console.error(seoErrors.join('\n'));process.exit(1)}
 console.log(`SEO: ${sitemapUrls.length} public URLs, ${trips} tours, metadata, schemas and internal links verified.`);
+
+// Regression checks for the October 2026 SEO release.
+const releaseErrors=[];
+const cityFiles=['mersin-cikisli-turlar.html','adana-cikisli-turlar.html','nigde-cikisli-turlar.html'];
+const homeCities=home.match(/<section[^>]*id="seo-departure-cities"[\s\S]*?<\/section>/)?.[0]||'';
+for(const city of cityFiles)if(!homeCities.includes(`href="/${city}"`))releaseErrors.push(`Home: missing static city link ${city}`);
+if((home.match(/id="seo-departure-cities"/g)||[]).length!==1)releaseErrors.push('Home: duplicate/missing city navigation');
+const archives=new Set(['buyuk-bati-karadeniz.html','kayseri-doga-turu.html','hatay-turu.html']);
+for(const file of files){
+ const rel=path.relative(root,file),html=fs.readFileSync(file,'utf8');
+ const raw=html.match(/id="gp-static-schema">(.*?)<\/script>/s)?.[1];if(!raw)continue;
+ const graph=JSON.parse(raw)['@graph'];const trip=graph.find(n=>n['@type']==='TouristTrip');if(!trip)continue;
+ const headings=[...html.matchAll(/<h1\b[^>]*>(.*?)<\/h1>/gs)];
+ if(headings.length!==1||headings[0][1]!==trip.name)releaseErrors.push(`${rel}: tour/H1 identity mismatch`);
+ if(!trip.tripOrigin?.length)releaseErrors.push(`${rel}: missing departure places`);
+ if(!html.includes('id="seo-tour-cities"')||!html.includes('id="seo-tour-peers"'))releaseErrors.push(`${rel}: missing tour navigation`);
+ if(archives.has(rel)&&(!html.includes('Geçmiş tur programı')||trip.offers?.length))releaseErrors.push(`${rel}: past tour advertised as current offer`);
+ if(rel==='dogu-ekspresi.html'){
+  if(!html.includes('Hareket tarihinin yılını teyit edin'))releaseErrors.push('Winter: year ambiguity undisclosed');
+  if(JSON.stringify(trip.offers.map(o=>o.price))!==JSON.stringify(['13499','13999','16500','13499','14999']))releaseErrors.push('Winter: published prices changed');
+ }
+}
+for(const city of cityFiles){const html=fs.readFileSync(path.join(root,city),'utf8');for(const archive of archives)if(html.includes(`href="/${archive}"`)||html.includes(`href="${archive}"`))releaseErrors.push(`${city}: archived tour in current listing`)}
+const config=JSON.parse(fs.readFileSync(path.join(root,'vercel.json'),'utf8'));
+const redirects=new Set();
+for(const rule of config.redirects){
+ if(redirects.has(rule.source))releaseErrors.push(`Duplicate redirect ${rule.source}`);redirects.add(rule.source);
+ if(['/post/:path*','/product-page/:path*'].includes(rule.source))releaseErrors.push('Unknown Wix URL redirects to unrelated content');
+ if(rule.destination.startsWith('/')&&!fs.existsSync(path.join(root,rule.destination.split('#')[0].slice(1)||'index.html')))releaseErrors.push(`Broken redirect ${rule.source}`);
+ if(rule.source===rule.destination)releaseErrors.push(`Redirect loop ${rule.source}`);
+}
+if(!fs.readFileSync(path.join(root,'robots.txt'),'utf8').includes(`Sitemap: ${origin}/sitemap.xml`))releaseErrors.push('robots sitemap mismatch');
+if(releaseErrors.length){console.error(releaseErrors.join('\n'));process.exit(1)}
+console.log('Release checks: static city links, tour H1/schema, preserved winter prices, archives and legacy redirects passed.');

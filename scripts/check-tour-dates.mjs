@@ -13,5 +13,12 @@ assert.equal(day(next('2026 yılı Ekim ve Kasım ayı boyunca her Cumartesi',20
 assert.equal(day(next('2026 yılı Haziran–Eylül ayı boyunca her Salı',2026,7,1)),'2026-07-07');
 assert.equal(day(next('2026 yılı Aralık–Şubat ayı boyunca her Cumartesi',2027,1,1)),'2027-01-02');
 assert.equal(day(next('2026 yılı Aralık–Şubat ayı boyunca her Cumartesi',2027,12,1)),undefined);
-assert.equal(day(next('Ekim–Kasım boyunca her Cumartesi',2027,10,1)),'2027-10-02');
+assert.equal(day(next('Ekim–Kasım boyunca her Cumartesi',2027,10,1)),undefined);
 console.log('Tour date checks: weekday, month ranges, fixed years and cross-year seasons passed.');
+
+const explicit=(text,y,m,d,scheduleYear)=>{context.caseText=text;context.caseToday=new Date(y,m-1,d);context.scheduleYear=scheduleYear;return vm.runInContext('parseExplicitPiece(caseText,caseToday,scheduleYear)',context)?.date;};
+assert.equal(day(explicit('15–20 Aralık',2026,10,12)),undefined);
+assert.equal(day(explicit('5–10 Ocak 2027',2026,10,12)),'2027-01-05');
+assert.equal(day(explicit('16–19 Ekim',2027,10,1,2026)),'2026-10-16');
+assert.equal(day(explicit('30 Ekim–02 Kasım',2026,10,12,2026)),'2026-10-30');
+console.log('Yearless dates are never assigned an invented year; dated schedules never roll forward.');
