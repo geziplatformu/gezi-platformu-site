@@ -156,8 +156,11 @@ for(const f of files){
  for(const [key,value,property] of [['description',desc],['robots',privateFiles.has(f)?'noindex,follow':'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1'],['og:title',title,true],['og:description',desc,true],['og:url',url,true],['og:site_name','Gezi Platformu',true],['og:locale','tr_TR',true],['og:type',f.startsWith('gezi-rehberi/')?'article':'website',true],['twitter:card','summary_large_image'],['twitter:title',title],['twitter:description',desc]])html=replaceMeta(html,key,value,property);
  doc=parse(html);
  const cover=one(main,n=>cls(n,'tour-detail-cover')||cls(n,'detail-hero')||cls(n,'guide-hero'));
- const image=f.endsWith('-cikisli-turlar.html')?'/assets/tours/dogu-ekspresi-cover.avif':one(cover||main,n=>n.tag==='img'&&n.attrs.src)?.attrs.src||'/assets/gezi-platformu-logo.webp';
+ const image=f==='index.html'?'/assets/gezi-platformu-paylasim-logo.jpg':f.endsWith('-cikisli-turlar.html')?'/assets/tours/dogu-ekspresi-cover.avif':one(cover||main,n=>n.tag==='img'&&n.attrs.src)?.attrs.src||'/assets/gezi-platformu-logo.webp';
  html=replaceMeta(html,'og:image',absolute(image),true);html=replaceMeta(html,'twitter:image',absolute(image));
+ if(f==='index.html'){
+  for(const [key,value,property] of [['og:image:secure_url',absolute(image),true],['og:image:type','image/jpeg',true],['og:image:width','640',true],['og:image:height','640',true],['og:image:alt','Gezi Platformu - Dört Mevsim Gezi logosu',true],['twitter:image:alt','Gezi Platformu - Dört Mevsim Gezi logosu']])html=replaceMeta(html,key,value,property);
+ }
  const oldGraphs=all(doc,n=>n.tag==='script'&&n.attrs.type==='application/ld+json').flatMap(s=>{const j=JSON.parse(s.children[0]?.value||'{}');return j['@graph']||[j]});
  const graph=[];
  const pageType=f==='hakkimizda.html'?'AboutPage':f==='iletisim.html'?'ContactPage':f==='gezi-rehberi.html'||f.endsWith('-cikisli-turlar.html')||f==='index.html'?'CollectionPage':'WebPage';
