@@ -116,8 +116,6 @@ for(const f of files){
   html=html.replace(/^[ \t]+$/gm,'');
  }
  if(f==='index.html'){
-  const cityBlock=block('seo-departure-cities','Çıkış Şehrine Göre Turlar',['mersin-cikisli-turlar.html','adana-cikisli-turlar.html','nigde-cikisli-turlar.html'].map(x=>link(x,{'mersin':'Mersin','adana':'Adana','nigde':'Niğde'}[x.split('-')[0]]+' Çıkışlı Turlar'))).replace('class="seo-links"','class="seo-links seo-city-links"');
-  html=html.replace('<div class="filter-row"',cityBlock+'<div class="filter-row"');
   const renderer=vm.createContext({window:context.window,document:{getElementById:()=>null,querySelectorAll:()=>[]},Intl,Date});
   vm.runInContext(read('app-core.js').split("function renderTours")[0],renderer);vm.runInContext('nearestTourDate=()=>null',renderer);
   const cards=listedTours.map(t=>{renderer.currentTour=t;return vm.runInContext('tourCard(currentTour)',renderer).replace('<div class="tour-actions">',`<details class="tour-static-dates"><summary>Tur tarihleri</summary><p>${esc(t.dates)}</p></details><div class="tour-actions">`)}).join('');

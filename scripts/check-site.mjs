@@ -71,9 +71,6 @@ console.log(`SEO: ${sitemapUrls.length} public URLs, ${trips} tours, metadata, s
 // Regression checks for the October 2026 SEO release.
 const releaseErrors=[];
 const cityFiles=['mersin-cikisli-turlar.html','adana-cikisli-turlar.html','nigde-cikisli-turlar.html'];
-const homeCities=home.match(/<section[^>]*id="seo-departure-cities"[\s\S]*?<\/section>/)?.[0]||'';
-for(const city of cityFiles)if(!homeCities.includes(`href="/${city}"`))releaseErrors.push(`Home: missing static city link ${city}`);
-if((home.match(/id="seo-departure-cities"/g)||[]).length!==1)releaseErrors.push('Home: duplicate/missing city navigation');
 const archives=new Set(['buyuk-bati-karadeniz.html','kayseri-doga-turu.html','hatay-turu.html']);
 for(const file of files){
  const rel=path.relative(root,file),html=fs.readFileSync(file,'utf8');
@@ -100,4 +97,4 @@ for(const rule of config.redirects){
 }
 if(!fs.readFileSync(path.join(root,'robots.txt'),'utf8').includes(`Sitemap: ${origin}/sitemap.xml`))releaseErrors.push('robots sitemap mismatch');
 if(releaseErrors.length){console.error(releaseErrors.join('\n'));process.exit(1)}
-console.log('Release checks: static city links, tour H1/schema, preserved winter prices, archives and legacy redirects passed.');
+console.log('Release checks: tour H1/schema, preserved winter prices, archives and legacy redirects passed.');
