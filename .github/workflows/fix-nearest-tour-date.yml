@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - '.github/workflows/fix-nearest-tour-date.yml'
+      - 'app-core.js'
 permissions:
   contents: write
 jobs:
@@ -17,7 +18,7 @@ jobs:
           p=Path('app-core.js')
           s=p.read_text(encoding='utf-8')
           old=s
-          s=s.replace("for(let i=1;i<370;i++){const d=new Date(today);d.setDate(today.getDate()+i);", "for(let i=0;i<370;i++){const d=new Date(today);d.setDate(today.getDate()+i);", 1)
+          s=s.replace("for(let i=1;i<370;i++){", "for(let i=0;i<370;i++){", 1)
           s=s.replace(".filter(Boolean).filter(x=>x.date>today).sort((a,b)=>a.date-b.date);", ".filter(Boolean).filter(x=>x.date>=today).sort((a,b)=>a.date-b.date);", 1)
           if s==old:
               print('Nearest-date logic already includes today; no code change needed')
