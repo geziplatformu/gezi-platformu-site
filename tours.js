@@ -8,7 +8,7 @@ window.TOURS = [
     price: "13.499₺'den",
     duration: '4 Gece',
     departure: 'Mersin • Tarsus • Adana • Niğde',
-    dates: '15–20 Aralık • 29 Aralık–3 Ocak • 5–10 Ocak • 12–17 Ocak • 24–29 Ocak • 26–31 Ocak • 1–6 Şubat • 16–21 Şubat • 5–10 Mart • 9–14 Mart • 10–15 Mart',
+    dates: '15–20 Aralık 2026 • 29 Aralık 2026–3 Ocak 2027 • 5–10 Ocak 2027 • 12–17 Ocak 2027 • 24–29 Ocak 2027 • 26–31 Ocak 2027 • 1–6 Şubat 2027 • 16–21 Şubat 2027 • 5–10 Mart 2027 • 9–14 Mart 2027 • 10–15 Mart 2027',
     summary: 'Karla kaplı Doğu Anadolu manzaraları, tarihî yapılar, yöresel lezzetler ve unutulmaz bir Doğu Ekspresi yolculuğu.',
     route: 'Kars, Erzurum, Ağrı ve Van. Ani Harabeleri, Çıldır Gölü, Palandöken, Sarıkamış, İshak Paşa Sarayı, Van Gölü, Muradiye Şelalesi ve daha fazlası.',
     included: 'Doğu Ekspresi pulman tren bileti, şehirler arası ve şehir içi ulaşımlar, 3 gece 4 yıldızlı otel, 3 sabah kahvaltısı, profesyonel rehberlik, araç içi sıcak ikramlar ve seyahat koltuk sigortası.',

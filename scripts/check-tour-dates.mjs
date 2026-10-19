@@ -22,3 +22,21 @@ assert.equal(day(explicit('5–10 Ocak 2027',2026,10,12)),'2027-01-05');
 assert.equal(day(explicit('16–19 Ekim',2027,10,1,2026)),'2026-10-16');
 assert.equal(day(explicit('30 Ekim–02 Kasım',2026,10,12,2026)),'2026-10-30');
 console.log('Yearless dates are never assigned an invented year; dated schedules never roll forward.');
+
+// Exercise the published winter record, especially its December/January boundary.
+vm.runInContext(fs.readFileSync(new URL('../tours.js',import.meta.url),'utf8'),context);
+context.winterTour=context.window.TOURS.find(t=>t.id==='dogu-ekspresi-erzurum-kars-agri-van');
+const winterDepartures=['2026-12-15','2026-12-29','2027-01-05','2027-01-12','2027-01-24','2027-01-26','2027-02-01','2027-02-16','2027-03-05','2027-03-09','2027-03-10'];
+assert.deepEqual(context.winterTour.dates.split('•').map(piece=>day(explicit(piece,2026,10,19))),winterDepartures);
+vm.runInContext('trToday=()=>caseToday',context);
+for(const [today,expected] of [
+ ['2026-10-19','2026-12-15'],['2026-12-15','2026-12-15'],
+ ['2026-12-16','2026-12-29'],['2026-12-29','2026-12-29'],
+ ['2026-12-30','2027-01-05'],['2027-01-01','2027-01-05'],
+ ['2027-03-10','2027-03-10'],['2027-03-11',undefined],
+ ['2027-10-19',undefined]
+]){
+ const [y,m,d]=today.split('-').map(Number);context.caseToday=new Date(y,m-1,d);
+ assert.equal(day(vm.runInContext('nearestTourDate(winterTour)',context)?.date),expected,`Winter nearest date on ${today}`);
+}
+console.log('Published winter dates: all 11 departures, today inclusion, new year and season expiry passed.');

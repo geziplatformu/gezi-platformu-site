@@ -82,7 +82,8 @@ for(const file of files){
  if(!html.includes('id="seo-tour-cities"')||!html.includes('id="seo-tour-peers"'))releaseErrors.push(`${rel}: missing tour navigation`);
  if(archives.has(rel)&&(!html.includes('Geçmiş tur programı')||trip.offers?.length))releaseErrors.push(`${rel}: past tour advertised as current offer`);
  if(rel==='dogu-ekspresi.html'){
-  if(!html.includes('Hareket tarihinin yılını teyit edin'))releaseErrors.push('Winter: year ambiguity undisclosed');
+  if(!html.includes('15–20 Aralık 2026')||!html.includes('29 Aralık 2026–3 Ocak 2027')||!html.includes('10–15 Mart 2027'))releaseErrors.push('Winter: 2026–2027 season years missing');
+  if(html.includes('Hareket tarihinin yılını teyit edin'))releaseErrors.push('Winter: obsolete year ambiguity notice');
   if(JSON.stringify(trip.offers.map(o=>o.price))!==JSON.stringify(['13499','13999','16500','13499','14999']))releaseErrors.push('Winter: published prices changed');
  }
 }

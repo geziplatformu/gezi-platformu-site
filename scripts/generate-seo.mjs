@@ -49,9 +49,9 @@ for(const t of activeTours){
  if((t.scheduleYear||/20\d{2}/.test(t.dates||''))&&!vm.runInContext('nearestTourDate(currentTour)',calendar))archivedFiles.add(t.detailUrl);
 }
 const listedTours=activeTours.filter(t=>!archivedFiles.has(t.detailUrl));
-const unconfirmedYearFiles=new Set(['dogu-ekspresi.html']);
+const unconfirmedYearFiles=new Set(activeTours.filter(t=>!t.scheduleYear&&!/20\d{2}/.test(t.dates||'')).map(t=>t.detailUrl));
 const tourCopy={
- 'dogu-ekspresi.html':'Doğu Ekspresi, Erzurum, Kars, Ağrı ve Van turu. Otelleri, tren yolculuğunu ve dönemlik fiyatları inceleyin; hareket tarihinin yılını acentemizden teyit edin.',
+ 'dogu-ekspresi.html':'Mersin, Adana ve Niğde çıkışlı Doğu Ekspresi, Erzurum, Kars, Ağrı ve Van turu. Aralık 2026–Mart 2027 kış sezonu tarihlerini, otelleri ve dönemlik fiyatları inceleyin.',
  'kadim-topraklar-turu.html':'Mersin, Adana ve Niğde çıkışlı GAP turu: Nemrut, Diyarbakır, Midyat ve Mardin. Konaklama, fiyat, tur programı ve rezervasyon bilgilerini inceleyin.',
  'sonbahar-ozel-bati-karadeniz.html':'Mersin, Adana ve Niğde çıkışlı sonbahar turu: Yedigöller, Gölcük, Safranbolu, Amasra ve Horma Kanyonu. Tarihleri, oteli ve fiyatı inceleyin.',
  'sivas-divrigi-turu.html':'Mersin, Adana ve Niğde çıkışlı Sivas ve Divriği turu. Divriği Ulu Camii, Kongre Merkezi ve medreseler; tarih, fiyat ve hareket saatleri.',
