@@ -10,6 +10,7 @@
     "generate:seo": "node scripts/generate-seo.mjs"
   },
   "dependencies": {
-    "@vercel/oidc": "^3.8.5"
+    "@vercel/oidc": "^3.8.5",
+    "@vercel/blob": "^2.0.0"
   }
 }
