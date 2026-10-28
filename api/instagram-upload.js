@@ -1,7 +1,7 @@
 import { put } from '@vercel/blob';
 import { timingSafeEqual, randomUUID } from 'node:crypto';
 
-export const config = { maxDuration: 30 };
+export const config = { maxDuration: 30, api: { bodyParser: false } };
 
 function authorized(req) {
   const expected = process.env.INSTAGRAM_UPLOAD_SECRET;
