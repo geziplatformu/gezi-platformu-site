@@ -26,7 +26,7 @@ console.log(`${files.length} HTML dosyası ve ${guides} rehber kontrol edildi.`)
 // Crawlability is checked against raw HTML, without running client-side scripts.
 const origin='https://www.geziplatformuu.com';
 const nonIndexable=new Set(['404.html','sepet.html','rezervasyon.html']);
-const hiddenFiles=new Set(['kadim-topraklar-turu.html','sonbahar-ozel-bati-karadeniz.html']);
+const hiddenFiles=new Set(['kadim-topraklar-turu.html','sonbahar-ozel-bati-karadeniz.html','sivas-divrigi-turu.html']);
 const seoErrors=[];
 const sitemap=fs.readFileSync(path.join(root,'sitemap.xml'),'utf8');
 const sitemapUrls=[...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(m=>m[1]);

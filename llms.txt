@@ -33,7 +33,6 @@ Bilgi için resmi tur detay sayfaları esas alınmalıdır. Fiyat, tarih, kalkı
 - [Dumanlı Yaylası Doğa Turu](https://www.geziplatformuu.com/osmaniye-doga-turu.html)
 - [Büyük Batı Karadeniz Turu](https://www.geziplatformuu.com/buyuk-bati-karadeniz.html)
 - [Kayseri Doğa Turu](https://www.geziplatformuu.com/kayseri-doga-turu.html)
-- [Sivas ve Divriği Turu](https://www.geziplatformuu.com/sivas-divrigi-turu.html)
 - [Hatay Turu](https://www.geziplatformuu.com/hatay-turu.html)
 - [Mardin Midyat Turu](https://www.geziplatformuu.com/mardin-midyat-turu.html)
 

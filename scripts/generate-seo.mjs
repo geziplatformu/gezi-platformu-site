@@ -41,7 +41,7 @@ for(const f of ['tours.js','tours-extra.js','tour-images.js'])vm.runInContext(re
 const allTours=JSON.parse(JSON.stringify(context.window.TOURS));
 vm.runInContext(read('app.js').split('const core=')[0],context);
 const activeTours=JSON.parse(JSON.stringify(context.window.TOURS));
-const hiddenFiles=new Set(['kadim-topraklar-turu.html','sonbahar-ozel-bati-karadeniz.html']);
+const hiddenFiles=new Set(['kadim-topraklar-turu.html','sonbahar-ozel-bati-karadeniz.html','sivas-divrigi-turu.html']);
 const calendar=vm.createContext({window:{},document:{getElementById:()=>null,querySelectorAll:()=>[]},Intl,Date});
 vm.runInContext(read('app-core.js').split('function tourCard')[0],calendar);
 const archivedFiles=new Set(['buyuk-bati-karadeniz.html','kayseri-doga-turu.html','hatay-turu.html']);
@@ -67,7 +67,7 @@ const tourCopy={
  'kayseri-doga-turu.html':'Kayseri Doğa Turu geçmiş programı: Kapuzbaşı Şelaleleri ve Sultan Sazlığı. Yeni hareket tarihi ve güncel fiyat için Gezi Platformu ile iletişime geçin.',
  'hatay-turu.html':'Hatay Turu geçmiş programı: Titus Tüneli, Beşikli Mağarası, Harbiye ve Uzun Çarşı. Yeni hareket tarihi ve güncel fiyat için acentemizle iletişime geçin.'
 };
-const tourFiles=new Set([...allTours,...activeTours].map(t=>t.detailUrl).concat(['hatay-turu.html','mardin-midyat-turu.html']));
+const tourFiles=new Set([...allTours,...activeTours].map(t=>t.detailUrl).concat(['hatay-turu.html','mardin-midyat-turu.html',...hiddenFiles]));
 const privateFiles=new Set(['404.html','sepet.html','rezervasyon.html']);
 const tourGuides={
  'dogu-ekspresi.html':['dogu-ekspresi-rehberi','kars-gezi-rehberi','erzurum-gezi-rehberi','van-gezi-rehberi'],
@@ -86,7 +86,7 @@ delete tourGuides['aladaglar-doga-turu.html'];
 const files=[...fs.readdirSync(root).filter(f=>f.endsWith('.html')),...fs.readdirSync(path.join(root,'gezi-rehberi')).filter(f=>f.endsWith('.html')).map(f=>'gezi-rehberi/'+f)].sort();
 const pageInfo=new Map(files.map(f=>{const d=parse(read(f));return [f,{name:text(one(d,n=>n.tag==='h1')),desc:meta(d,'description')}]}));
 // Detail-only programs (for example Mardin) may be linked by city without adding a new home card.
-const navigationTours=listedTours.concat([...tourFiles].filter(f=>!archivedFiles.has(f)&&!allTours.some(t=>t.detailUrl===f)&&!listedTours.some(t=>t.detailUrl===f)).map(f=>{const doc=parse(read(f)),badges=one(doc,n=>cls(n,'detail-badges'));return {detailUrl:f,title:pageInfo.get(f).name,departure:text(badges?.children.find(n=>n.tag==='span'&&/Mersin|Adana|Niğde/.test(text(n))))};}));
+const navigationTours=listedTours.concat([...tourFiles].filter(f=>!hiddenFiles.has(f)&&!archivedFiles.has(f)&&!allTours.some(t=>t.detailUrl===f)&&!listedTours.some(t=>t.detailUrl===f)).map(f=>{const doc=parse(read(f)),badges=one(doc,n=>cls(n,'detail-badges'));return {detailUrl:f,title:pageInfo.get(f).name,departure:text(badges?.children.find(n=>n.tag==='span'&&/Mersin|Adana|Niğde/.test(text(n))))};}));
 const link=(f,label)=>`<a href="/${f}">${esc(label||pageInfo.get(f)?.name||f)}</a>`;
 const block=(id,title,links)=>`\n<section class="seo-links" id="${id}" aria-label="${esc(title)}"><h2>${esc(title)}</h2><nav>${links.join('')}</nav></section>\n`;
 const titles={

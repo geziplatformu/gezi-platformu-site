@@ -11,7 +11,7 @@ const originalCoverById={
 };
 window.TOURS.forEach(t=>{if(originalCoverById[t.id])t.image=originalCoverById[t.id];if(t.id==='dogu-ekspresi-erzurum-kars-agri-van')t.title='Doğu Ekspresi Erzurum Kars Ağrı Van Turu';});
 // Geçici olarak satış/listeme dışında tutulan turlar. Tur detay dosyaları ve verileri silinmez.
-const hiddenTourIds=new Set(['buyuk-bati-karadeniz','kayseri-doga-turu','sonbahar-ozel-bati-karadeniz','kadim-topraklar-turu']);
+const hiddenTourIds=new Set(['buyuk-bati-karadeniz','kayseri-doga-turu','sonbahar-ozel-bati-karadeniz','kadim-topraklar-turu','sivas-divrigi-turu']);
 window.TOURS=window.TOURS.filter(t=>!hiddenTourIds.has(t.id));
 window.TOURS.forEach(t=>{if(window.TOUR_COVERS?.[t.id])t.image=window.TOUR_COVERS[t.id];});
 // These yearless autumn dates belong to the program published in October 2026.
