@@ -41,6 +41,7 @@ for(const f of ['tours.js','tours-extra.js','tour-images.js'])vm.runInContext(re
 const allTours=JSON.parse(JSON.stringify(context.window.TOURS));
 vm.runInContext(read('app.js').split('const core=')[0],context);
 const activeTours=JSON.parse(JSON.stringify(context.window.TOURS));
+const hiddenFiles=new Set(['kadim-topraklar-turu.html','sonbahar-ozel-bati-karadeniz.html']);
 const calendar=vm.createContext({window:{},document:{getElementById:()=>null,querySelectorAll:()=>[]},Intl,Date});
 vm.runInContext(read('app-core.js').split('function tourCard')[0],calendar);
 const archivedFiles=new Set(['buyuk-bati-karadeniz.html','kayseri-doga-turu.html','hatay-turu.html']);
@@ -56,7 +57,7 @@ const tourCopy={
  'sonbahar-ozel-bati-karadeniz.html':'Mersin, Adana ve Niğde çıkışlı sonbahar turu: Yedigöller, Gölcük, Safranbolu, Amasra ve Horma Kanyonu. Tarihleri, oteli ve fiyatı inceleyin.',
  'sivas-divrigi-turu.html':'Mersin, Adana ve Niğde çıkışlı Sivas ve Divriği turu. Divriği Ulu Camii, Kongre Merkezi ve medreseler; tarih, fiyat ve hareket saatleri.',
  'yirce-kayin-ormanlari-doga-turu.html':'Mersin ve Adana çıkışlı Yirce Kayın Ormanları turu. Dağılcak, Kozan Gölü ve Arıkan Konağı; yürüyüş gerektirmeyen sonbahar rotası, tarih ve fiyat.',
- 'camliyayla-doga-turu.html':'Mersin ve Adana çıkışlı Belemedik Tabiat Parkı turu. Kisecik Saklı Cennet, Kadıncık Barajı, Gülek Kalesi ve Zevzek Cam Terası; tarih ve fiyat.',
+ 'camliyayla-doga-turu.html':'Mersin ve Adana çıkışlı Belemedik Tabiat Parkı turu. Varda Köprüsü, Gülek Kalesi, Şekerpınarı ve Yerköprü; Kasım 2026 tarihleri ve hafta içi/sonu fiyatları.',
  'baskonus-menzelet-ali-kayasi.html':'Mersin ve Adana çıkışlı Başkonuş Yaylası turu. Ali Kayası Cam Teras ve Menzelet Gölü tekne turu; program, tarih, fiyat ve dahil olan hizmetler.',
  'aladaglar-doga-turu.html':'Mersin ve Adana çıkışlı Ortaseki Ormanları turu. Tekir Göleti ve Erciyes teleferiğiyle sonbahar rotası; tarih, fiyat ve hareket saatleri.',
  'osmaniye-doga-turu.html':'Mersin ve Adana çıkışlı Dumanlı Yaylası turu. Karaçay Şelalesi, Zorkun Yaylası Cam Teras ve Harun Reşit Kalesi; tur tarihleri, program ve fiyat.',
@@ -127,7 +128,7 @@ for(const f of files){
   const cityTours=navigationTours.filter(t=>t.departure.includes(city));
   html=html.replace(/(<div class="tour-links">)[\s\S]*?<\/div>/,'$1'+cityTours.map(t=>link(t.detailUrl,t.title)).join('')+'</div>');
  }
- const related=tourFiles.has(f)?(tourGuides[f]||[]).map(g=>'gezi-rehberi/'+g+'.html'):f.startsWith('gezi-rehberi/')?Object.entries(tourGuides).filter(([,gs])=>gs.includes(path.basename(f,'.html'))).map(([tour])=>tour):[];
+ const related=(tourFiles.has(f)?(tourGuides[f]||[]).map(g=>'gezi-rehberi/'+g+'.html'):f.startsWith('gezi-rehberi/')?Object.entries(tourGuides).filter(([,gs])=>gs.includes(path.basename(f,'.html'))).map(([tour])=>tour):[]).filter(f=>!hiddenFiles.has(f));
  if(archivedFiles.has(f)||unconfirmedYearFiles.has(f)){
   const notice=archivedFiles.has(f)?'<h2>Geçmiş tur programı</h2><p>Bu programdaki hareket tarihleri geçmiştir. Yeni tarih ve güncel ücret henüz doğrulanmamıştır.':'<h2>Hareket tarihinin yılını teyit edin</h2><p>Yayımlanan kış programında gün ve ay belirtilmiş, yıl belirtilmemiştir. Rezervasyon öncesinde hareket tarihinin yılını ve kontenjanı teyit edin.';
   html=html.replace(/(<h1\b[^>]*>[\s\S]*?<\/h1>)/i,'$1'+`<aside class="seo-schedule-notice" id="seo-schedule-notice">${notice} <a href="/iletisim.html">Acentemizle iletişime geçin</a>.</p></aside>`);
@@ -151,7 +152,7 @@ for(const f of files){
  if(!privateFiles.has(f)&&!/(?:googletagmanager\.com|src=["']\/?ga4\.js)/.test(html))html=html.replace('</head>','<script defer src="/ga4.js"></script>\n</head>');
  html=html.replace(/<title>[\s\S]*?<\/title>/i,`<title>${esc(title)}</title>`);
  html=html.replace(/<link\b[^>]*rel=["']canonical["'][^>]*>/gi,'').replace('</head>',`<link rel="canonical" href="${url}">\n</head>`);
- for(const [key,value,property] of [['description',desc],['robots',privateFiles.has(f)?'noindex,follow':'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1'],['og:title',title,true],['og:description',desc,true],['og:url',url,true],['og:site_name','Gezi Platformu',true],['og:locale','tr_TR',true],['og:type',f.startsWith('gezi-rehberi/')?'article':'website',true],['twitter:card','summary_large_image'],['twitter:title',title],['twitter:description',desc]])html=replaceMeta(html,key,value,property);
+ for(const [key,value,property] of [['description',desc],['robots',(privateFiles.has(f)||hiddenFiles.has(f))?'noindex,follow':'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1'],['og:title',title,true],['og:description',desc,true],['og:url',url,true],['og:site_name','Gezi Platformu',true],['og:locale','tr_TR',true],['og:type',f.startsWith('gezi-rehberi/')?'article':'website',true],['twitter:card','summary_large_image'],['twitter:title',title],['twitter:description',desc]])html=replaceMeta(html,key,value,property);
  doc=parse(html);
  const cover=one(main,n=>cls(n,'tour-detail-cover')||cls(n,'detail-hero')||cls(n,'guide-hero'));
  const image=f==='index.html'?'/assets/gezi-platformu-paylasim-logo.jpg':f.endsWith('-cikisli-turlar.html')?'/assets/tours/dogu-ekspresi-cover.avif':one(cover||main,n=>n.tag==='img'&&n.attrs.src)?.attrs.src||'/assets/gezi-platformu-logo.webp';
@@ -184,7 +185,7 @@ for(const f of files){
   // Prices are taken from visible detail content, never the older JS policy/catalog.
   const priceBlocks=all(main,n=>cls(n,'price-block'));
   const prices=priceBlocks.length?priceBlocks.map(n=>({value:text(one(n,x=>x.tag==='strong')),description:text(n)})):[{value:text(one(main,n=>cls(n,'detail-price'))),description:'Kişi başı tur ücreti; ayrıntılar ve ek ücretler tur programındadır.'}];
-  const archive=archivedFiles.has(f);
+  const archive=archivedFiles.has(f)||hiddenFiles.has(f);
   if(!archive)trip.offers=prices.flatMap(p=>{const m=p.value.match(/(\d[\d.]*)\s*(?:₺|TL)/);return m?[{'@type':'Offer',url,price:m[1].replaceAll('.',''),priceCurrency:'TRY',description:p.description,seller:{'@type':'TravelAgency','@id':business['@id'],name:business.name,url:business.url}}]:[]});
   webpage.mainEntity={'@id':trip['@id']};graph.push(trip);
  }
@@ -204,9 +205,9 @@ for(const f of files){
 }
 // Sitemap covers every public content page; transactional and administration pages stay out.
 const previousDates=new Map([...read('sitemap.xml').matchAll(/<url><loc>(.*?)<\/loc>(?:<lastmod>(.*?)<\/lastmod>)?/g)].map(m=>[m[1],m[2]]));
-const urls=files.filter(f=>!privateFiles.has(f)).map(f=>{const u=canonical(f);let date; // Preserve actual editorial dates; do not simulate daily freshness.
+const urls=files.filter(f=>!privateFiles.has(f)&&!hiddenFiles.has(f)).map(f=>{const u=canonical(f);let date; // Preserve actual editorial dates; do not simulate daily freshness.
  const modified=all(parse(read(f)),n=>n.tag==='script'&&n.attrs.type==='application/ld+json').flatMap(s=>JSON.parse(s.children[0].value)['@graph']||[]).find(x=>x['@type']==='BlogPosting')?.dateModified;
  date=modified||previousDates.get(u);if(tourFiles.has(f)||f==='index.html'||f.endsWith('-cikisli-turlar.html'))date='2026-10-12';return `  <url><loc>${u}</loc>${date?`<lastmod>${date}</lastmod>`:''}</url>`;});
 write('sitemap.xml',`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>\n`);
-write('llms.txt',`# Gezi Platformu\n\nMersin merkezli Gezi Platformu, Mersin Özbek Turizm Sanayi ve Ticaret Limited Şirketi bünyesinde TÜRSAB A-8660 belgeli seyahat acentasıdır.\nTelefon / WhatsApp: +90 537 497 84 41\nAdres: Camiişerif Mah. İstiklal Cad. No:45/D Akdeniz / Mersin\n\nBilgi için resmi tur detay sayfaları esas alınmalıdır. Fiyat, tarih, kalkış noktası ve dahil olan hizmetler tur bazında değişir. Bu dizin indeksleme veya sıralama garantisi değildir.\n\n## Firma ve seyahat bilgileri\n${files.filter(f=>!tourFiles.has(f)&&!f.startsWith('gezi-rehberi/')&&!privateFiles.has(f)).map(f=>`- [${pageInfo.get(f).name}](${canonical(f)})`).join('\n')}\n\n## Tur programları\n${[...tourFiles].map(f=>`- [${pageInfo.get(f).name}](${canonical(f)})`).join('\n')}\n\n## Gezi rehberleri\n${files.filter(f=>f.startsWith('gezi-rehberi/')).map(f=>`- [${pageInfo.get(f).name}](${canonical(f)})`).join('\n')}\n`);
+write('llms.txt',`# Gezi Platformu\n\nMersin merkezli Gezi Platformu, Mersin Özbek Turizm Sanayi ve Ticaret Limited Şirketi bünyesinde TÜRSAB A-8660 belgeli seyahat acentasıdır.\nTelefon / WhatsApp: +90 537 497 84 41\nAdres: Camiişerif Mah. İstiklal Cad. No:45/D Akdeniz / Mersin\n\nBilgi için resmi tur detay sayfaları esas alınmalıdır. Fiyat, tarih, kalkış noktası ve dahil olan hizmetler tur bazında değişir. Bu dizin indeksleme veya sıralama garantisi değildir.\n\n## Firma ve seyahat bilgileri\n${files.filter(f=>!tourFiles.has(f)&&!f.startsWith('gezi-rehberi/')&&!privateFiles.has(f)).map(f=>`- [${pageInfo.get(f).name}](${canonical(f)})`).join('\n')}\n\n## Tur programları\n${[...tourFiles].filter(f=>!hiddenFiles.has(f)).map(f=>`- [${pageInfo.get(f).name}](${canonical(f)})`).join('\n')}\n\n## Gezi rehberleri\n${files.filter(f=>f.startsWith('gezi-rehberi/')).map(f=>`- [${pageInfo.get(f).name}](${canonical(f)})`).join('\n')}\n`);
 console.log(`${files.length} HTML sayfası, ${tourFiles.size} tur, ${files.filter(f=>f.startsWith('gezi-rehberi/')).length} rehber optimize edildi; ${urls.length} URL site haritasında.`);

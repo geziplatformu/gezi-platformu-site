@@ -26,6 +26,7 @@ console.log(`${files.length} HTML dosyası ve ${guides} rehber kontrol edildi.`)
 // Crawlability is checked against raw HTML, without running client-side scripts.
 const origin='https://www.geziplatformuu.com';
 const nonIndexable=new Set(['404.html','sepet.html','rezervasyon.html']);
+const hiddenFiles=new Set(['kadim-topraklar-turu.html','sonbahar-ozel-bati-karadeniz.html']);
 const seoErrors=[];
 const sitemap=fs.readFileSync(path.join(root,'sitemap.xml'),'utf8');
 const sitemapUrls=[...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(m=>m[1]);
@@ -43,7 +44,8 @@ for(const file of files){
   if(!html.includes('content="noindex,follow"')||sitemapUrls.includes(url))seoErrors.push(`${rel}: private page indexing policy`);
   continue;
  }
- if(!sitemapUrls.includes(url))seoErrors.push(`${rel}: absent from sitemap`);
+ if(hiddenFiles.has(rel)&&(!html.includes('content="noindex,follow"')||sitemapUrls.includes(url)))seoErrors.push(`${rel}: hidden tour indexing policy`);
+ if(!hiddenFiles.has(rel)&&!sitemapUrls.includes(url))seoErrors.push(`${rel}: absent from sitemap`);
  const schemas=[...html.matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>(.*?)<\/script>/gs)];
  if(schemas.length!==1)seoErrors.push(`${rel}: expected one consolidated schema`);
  for(const [,raw] of schemas){
@@ -60,7 +62,8 @@ for(const file of files){
  }
 }
 const home=fs.readFileSync(path.join(root,'index.html'),'utf8');
-if((home.match(/<article class="tour-card"/g)||[]).length<10)seoErrors.push('Home tour cards are not in raw HTML');
+for(const file of ['dogu-ekspresi.html','osmaniye-doga-turu.html','yirce-kayin-ormanlari-doga-turu.html','baskonus-menzelet-ali-kayasi.html','camliyayla-doga-turu.html'])if(!home.includes(`href="${file}"`))seoErrors.push(`${file}: home tour card missing from raw HTML`);
+for(const file of files){const html=fs.readFileSync(file,'utf8');for(const hidden of hiddenFiles)if(new RegExp(`href=["']/?${hidden.replaceAll('.', '\\.')}["']`).test(html))seoErrors.push(`${path.relative(root,file)}: hidden tour linked`);}
 if(trips!==14)seoErrors.push(`Expected 14 structured tours, found ${trips}`);
 if(new Set(sitemapUrls).size!==sitemapUrls.length)seoErrors.push('Duplicate sitemap URLs');
 for(const url of sitemapUrls){const rel=url.replace(origin+'/','')||'index.html';if(!files.includes(path.join(root,rel)))seoErrors.push(`Sitemap target missing: ${url}`)}
