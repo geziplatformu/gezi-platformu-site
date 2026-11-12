@@ -41,7 +41,7 @@ for(const f of ['tours.js','tours-extra.js','tour-images.js'])vm.runInContext(re
 const allTours=JSON.parse(JSON.stringify(context.window.TOURS));
 vm.runInContext(read('app.js').split('const core=')[0],context);
 const activeTours=JSON.parse(JSON.stringify(context.window.TOURS));
-const hiddenFiles=new Set(['kadim-topraklar-turu.html','sonbahar-ozel-bati-karadeniz.html','sivas-divrigi-turu.html']);
+const hiddenFiles=new Set(['kadim-topraklar-turu.html','sonbahar-ozel-bati-karadeniz.html','sivas-divrigi-turu.html','aladaglar-doga-turu.html']);
 const calendar=vm.createContext({window:{},document:{getElementById:()=>null,querySelectorAll:()=>[]},Intl,Date});
 vm.runInContext(read('app-core.js').split('function tourCard')[0],calendar);
 const archivedFiles=new Set(['buyuk-bati-karadeniz.html','kayseri-doga-turu.html','hatay-turu.html']);

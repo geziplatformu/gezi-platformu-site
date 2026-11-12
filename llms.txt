@@ -29,7 +29,6 @@ Bilgi için resmi tur detay sayfaları esas alınmalıdır. Fiyat, tarih, kalkı
 - [Doğu Ekspresi Erzurum Kars Ağrı Van Turu](https://www.geziplatformuu.com/dogu-ekspresi.html)
 - [Belemedik Tabiat Parkı Doğa Turu](https://www.geziplatformuu.com/camliyayla-doga-turu.html)
 - [Başkonuş Yaylası Doğa Turu](https://www.geziplatformuu.com/baskonus-menzelet-ali-kayasi.html)
-- [Ortaseki Ormanları Doğa Turu](https://www.geziplatformuu.com/aladaglar-doga-turu.html)
 - [Dumanlı Yaylası Doğa Turu](https://www.geziplatformuu.com/osmaniye-doga-turu.html)
 - [Büyük Batı Karadeniz Turu](https://www.geziplatformuu.com/buyuk-bati-karadeniz.html)
 - [Kayseri Doğa Turu](https://www.geziplatformuu.com/kayseri-doga-turu.html)
