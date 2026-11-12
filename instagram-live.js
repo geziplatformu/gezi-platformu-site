@@ -39,7 +39,10 @@
     if(verified)verified.hidden=true;
     if(avatar)avatar.src=LOGO;
     for(const count of [postCount,followerCount,followingCount])if(count)count.textContent='—';
-    if(feed)feed.innerHTML='<div class="instagram-profile-preview"><span class="instagram-preview-icon" aria-hidden="true">📸</span><strong>Gezilerimizden daha fazlası Instagram’da</strong><p>Tur fotoğraflarımız, videolarımız ve güncel paylaşımlarımız için profilimize göz atın.</p><a class="instagram-preview-link" href="'+PROFILE+'" target="_blank" rel="noopener">Instagram profilini aç ↗</a></div>';
+    if(username)username.textContent='@geziplatformuu';
+    if(name)name.textContent='GEZİ PLATFORMU';
+    if(bio)bio.textContent='Mersin • Adana • Niğde kalkışlı kültür, tatil, doğa ve kış turları';
+    if(feed)feed.innerHTML='<div class="instagram-profile-preview"><span class="instagram-preview-icon" aria-hidden="true">📸</span><div><strong>Bir sonraki gezimize birlikte çıkalım</strong><p>Gezilerden fotoğraflar, videolar ve duyurular için Instagram profilimize göz atın.</p></div></div>';
     setStatus('Güncel paylaşımlarımızı Instagram’da keşfedin.');
   }
 
@@ -87,7 +90,7 @@
 
   function applyData(data){
     if(!data||typeof data!=='object'||!renderPosts(data.posts))return false;
-    if(username)username.textContent=data.username||'geziplatformuu';
+    if(username)username.textContent='@'+String(data.username||'geziplatformuu').replace(/^@/,'');
     if(name)name.textContent=data.name||'GEZİ PLATFORMU';
     if(bio&&data.biography)bio.textContent=data.biography;
     if(avatar)avatar.src=imageUrl(data.profile_picture_url)||LOGO;
@@ -130,7 +133,9 @@
 
   if(avatar)avatar.addEventListener('error',()=>{avatar.src=LOGO;},{once:true});
   try{localStorage.removeItem('gp_instagram_last_good_v1');}catch{}
-  renderProfileFallback();
+  const initialCache=loadCached();
+  if(initialCache&&applyData(initialCache.data))setStatus('Son alınan Instagram paylaşımları');
+  else renderProfileFallback();
   refresh();
   setInterval(refresh,300000);
 })();
