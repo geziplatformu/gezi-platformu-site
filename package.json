@@ -5,9 +5,10 @@
   "scripts": {
     "generate:guides": "node scripts/generate-guides.mjs && node scripts/generate-seo.mjs",
     "assets:guides": "node scripts/download-guide-assets.mjs",
-    "check": "node scripts/check-site.mjs && node scripts/check-tour-dates.mjs",
+    "check": "node scripts/check-site.mjs && node scripts/check-tour-dates.mjs && node scripts/check-discovery.mjs",
     "build": "node scripts/generate-seo.mjs && npm run check",
-    "generate:seo": "node scripts/generate-seo.mjs"
+    "generate:seo": "node scripts/generate-seo.mjs",
+    "indexnow": "node scripts/submit-indexnow.mjs"
   },
   "dependencies": {
     "@vercel/oidc": "^3.8.5",

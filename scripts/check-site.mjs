@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import vm from 'node:vm';
 const root=path.resolve(import.meta.dirname,'..');
 const files=[...fs.readdirSync(root).filter(x=>x.endsWith('.html')).map(x=>path.join(root,x)),...fs.readdirSync(path.join(root,'gezi-rehberi')).filter(x=>x.endsWith('.html')).map(x=>path.join(root,'gezi-rehberi',x))];
 const errors=[];
@@ -62,7 +63,15 @@ for(const file of files){
  }
 }
 const home=fs.readFileSync(path.join(root,'index.html'),'utf8');
-for(const file of ['dogu-ekspresi.html','osmaniye-doga-turu.html','yirce-kayin-ormanlari-doga-turu.html','baskonus-menzelet-ali-kayasi.html','camliyayla-doga-turu.html'])if(!home.includes(`href="${file}"`))seoErrors.push(`${file}: home tour card missing from raw HTML`);
+const catalogue=vm.createContext({window:{},document:{getElementById:()=>null,querySelectorAll:()=>[]},Date,Intl});
+for(const f of ['tours.js','tours-extra.js','tour-images.js'])vm.runInContext(fs.readFileSync(path.join(root,f),'utf8'),catalogue);
+vm.runInContext(fs.readFileSync(path.join(root,'app.js'),'utf8').split('const core=')[0],catalogue);
+vm.runInContext(fs.readFileSync(path.join(root,'app-core.js'),'utf8').split('function tourCard')[0],catalogue);
+for(const tour of catalogue.window.TOURS){
+ catalogue.tour=tour;
+ if((tour.scheduleYear||/20\d{2}/.test(tour.dates||''))&&!vm.runInContext('nearestTourDate(tour)',catalogue))continue;
+ if(!home.includes(`href="${tour.detailUrl}"`))seoErrors.push(`${tour.detailUrl}: home tour card missing from raw HTML`);
+}
 for(const file of files){const html=fs.readFileSync(file,'utf8');for(const hidden of hiddenFiles)if(new RegExp(`href=["']/?${hidden.replaceAll('.', '\\.')}["']`).test(html))seoErrors.push(`${path.relative(root,file)}: hidden tour linked`);}
 if(trips!==14)seoErrors.push(`Expected 14 structured tours, found ${trips}`);
 if(new Set(sitemapUrls).size!==sitemapUrls.length)seoErrors.push('Duplicate sitemap URLs');
@@ -87,7 +96,10 @@ for(const file of files){
  if(rel==='dogu-ekspresi.html'){
   if(!html.includes('15–20 Aralık 2026')||!html.includes('29 Aralık 2026–3 Ocak 2027')||!html.includes('10–15 Mart 2027'))releaseErrors.push('Winter: 2026–2027 season years missing');
   if(html.includes('Hareket tarihinin yılını teyit edin'))releaseErrors.push('Winter: obsolete year ambiguity notice');
-  if(JSON.stringify(trip.offers.map(o=>o.price))!==JSON.stringify(['13499','13999','16500','13499','14999']))releaseErrors.push('Winter: published prices changed');
+  catalogue.tour=catalogue.window.TOURS.find(t=>t.detailUrl==='dogu-ekspresi.html');
+  const winterCurrent=vm.runInContext('nearestTourDate(tour)',catalogue);
+  if(winterCurrent&&JSON.stringify(trip.offers?.map(o=>o.price))!==JSON.stringify(['13499','13999','16500','13499','14999']))releaseErrors.push('Winter: published prices changed');
+  if(!winterCurrent&&trip.offers?.length)releaseErrors.push('Winter: expired season has current offers');
  }
 }
 for(const city of cityFiles){const html=fs.readFileSync(path.join(root,city),'utf8');for(const archive of archives)if(html.includes(`href="/${archive}"`)||html.includes(`href="${archive}"`))releaseErrors.push(`${city}: archived tour in current listing`)}

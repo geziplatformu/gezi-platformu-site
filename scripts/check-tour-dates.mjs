@@ -40,3 +40,14 @@ for(const [today,expected] of [
  assert.equal(day(vm.runInContext('nearestTourDate(winterTour)',context)?.date),expected,`Winter nearest date on ${today}`);
 }
 console.log('Published winter dates: all 11 departures, today inclusion, new year and season expiry passed.');
+
+// The browser must not reinsert an expired tour after replacing the static HTML.
+const appCore=fs.readFileSync(new URL('../app-core.js',import.meta.url),'utf8');
+vm.runInContext(appCore.slice(appCore.indexOf('function hasUpcomingDeparture'),appCore.indexOf('filterButtons.forEach')),context);
+context.caseToday=new Date(2026,10,15);
+assert.equal(vm.runInContext('hasUpcomingDeparture(winterTour)',context),true);
+context.caseToday=new Date(2027,3,1);
+assert.equal(vm.runInContext('hasUpcomingDeparture(winterTour)',context),false);
+context.yearlessTour={dates:'15–20 Aralık'};
+assert.equal(vm.runInContext('hasUpcomingDeparture(yearlessTour)',context),false);
+console.log('Browser listing: current, expired and unconfirmed-year tour visibility passed.');
