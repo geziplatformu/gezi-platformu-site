@@ -24,7 +24,6 @@ Bilgi için resmi tur detay sayfaları esas alınmalıdır. Fiyat, tarih, kalkı
 - [MERSİN ÖZBEK TURİZM](https://www.geziplatformuu.com/tursab-dogrulama.html)
 
 ## Tur programları
-- [Nemrut Rumkale Gaziantep Turu](https://www.geziplatformuu.com/nemrut-rumkale-gaziantep-turu.html)
 - [Yirce Kayın Ormanları Doğa Turu](https://www.geziplatformuu.com/yirce-kayin-ormanlari-doga-turu.html)
 - [Doğu Ekspresi Erzurum Kars Ağrı Van Turu](https://www.geziplatformuu.com/dogu-ekspresi.html)
 - [Belemedik Tabiat Parkı Doğa Turu](https://www.geziplatformuu.com/camliyayla-doga-turu.html)
