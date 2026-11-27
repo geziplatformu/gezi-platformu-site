@@ -24,5 +24,5 @@ window.TOURS.push({
   "route": "Ormanya Doğal Yaşam Parkı, Hobbit Evleri, Sapanca Gölü, Sapanca Gölü Sahili, Maşukiye, Maşukiye Deresi ve Doğal Yaşam Alanları, Bolu’da konaklama, Gölcük Tabiat Parkı, Gölcük Gölü ve Meşhur Göl Evi, Abant Gölü Millî Parkı, Tarihi Safranbolu Evleri, Safranbolu Eski Çarşı, Cinci Hanı, Cinci Hamamı, Köprülü Mehmet Paşa Camii, Tarihi Güneş Saati, Yemeniciler Arastası, Safranbolu’da konaklama, Amasra Kalesi, Kemere Köprüsü, Boztepe, Ağlayan Ağaç, Tavşan Adası manzarası, Amasra Çekiciler Çarşısı, Amasra Büyük Liman, Küre Dağları Millî Parkı, Horma Kanyonu, Ilıca Şelalesi, Kastamonu’da konaklama, Hamsilos Koyu, Hamsilos Tabiat Parkı, Tarihi Sinop Cezaevi, Sinop Kalesi, Sinop Limanı, Sinop Tarihi Çarşısı, Tarihi Bakırcılar Çarşısı",
   "included": "Gidiş-dönüş ulaşım, 3 gece konaklama, 3 akşam yemeği, 3 sabah kahvaltısı, Abant Gölü giriş ücreti, Gölcük Gölü giriş ücreti, Kişiye özel 1618 No.lu sigorta, Profesyonel tur rehberi, Araç içi sıcak ikram",
   "image": "/assets/tours/somestr-ozel-buyuk-bati-karadeniz-turu-cover.webp",
-  "detailUrl": "/somestr-ozel-buyuk-bati-karadeniz-turu.html"
+  "detailUrl": "somestr-ozel-buyuk-bati-karadeniz-turu.html"
 });
