@@ -73,7 +73,7 @@ for(const tour of catalogue.window.TOURS){
  if(!home.includes(`href="${tour.detailUrl}"`))seoErrors.push(`${tour.detailUrl}: home tour card missing from raw HTML`);
 }
 for(const file of files){const html=fs.readFileSync(file,'utf8');for(const hidden of hiddenFiles)if(new RegExp(`href=["']/?${hidden.replaceAll('.', '\\.')}["']`).test(html))seoErrors.push(`${path.relative(root,file)}: hidden tour linked`);}
-if(trips!==14)seoErrors.push(`Expected 14 structured tours, found ${trips}`);
+if(trips!==15)seoErrors.push(`Expected 15 structured tours, found ${trips}`);
 if(new Set(sitemapUrls).size!==sitemapUrls.length)seoErrors.push('Duplicate sitemap URLs');
 for(const url of sitemapUrls){const rel=url.replace(origin+'/','')||'index.html';if(!files.includes(path.join(root,rel)))seoErrors.push(`Sitemap target missing: ${url}`)}
 if(fs.readFileSync(path.join(root,'site-controls.js'),'utf8').includes('loadTourSeo'))seoErrors.push('Obsolete runtime SEO override remains');
